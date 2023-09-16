@@ -16,11 +16,13 @@ export default function Content() {
           src="/images/Home_3/FrontCardDesign.svg"
           width={500}
           height={50}
+          alt="Front Card Design"
         />
         <Image
           src="/images/Home_3/FrontCardDesignWhite.svg"
           width={500}
           height={50}
+          alt="Front Card Design White"
         />
       </div>
     </div>

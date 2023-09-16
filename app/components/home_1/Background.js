@@ -6,7 +6,7 @@ export default function Background() {
       <div className="w-[50%] h-full bg-white"></div>
       <div className="w-[50%] h-full bg-[#1C1D22]"></div>
       <Image
-        src="/images/Home_1/Divider.svg"
+        src="/images/Home_1/divider.svg"
         alt="divider"
         width={1200}
         height={1200}

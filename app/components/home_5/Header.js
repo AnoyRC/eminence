@@ -7,7 +7,12 @@ export default function Header() {
       <h1 className="-mt-10">Future of Finance</h1>
       <div className="flex -mt-10">
         <h1>Unlock</h1>
-        <Image src="/images/Home_1/Navbar/Logo.png" width={240} height={50} />
+        <Image
+          src="/images/Home_1/Navbar/Logo.png"
+          width={240}
+          height={50}
+          alt="Logo"
+        />
         <h1>Today</h1>
       </div>
     </div>

@@ -16,6 +16,7 @@ export default function Header_1() {
         src="/images/Home_1/Scrolldown.svg"
         width={50}
         height={50}
+        alt="scroll down"
         className="mt-28"
       />
     </div>
