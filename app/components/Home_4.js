@@ -3,7 +3,6 @@ import ScrollSection from "./home_4/scrollSection";
 export default function Home_4() {
   return (
     <div className="mx-auto">
-      <Background />
       <div className="relative mt-8">
         <h1 className="font-[Satoshi-Bold] text-[64px] text-black text-center">
           Empower<span className="text-white">ed by You,</span>
