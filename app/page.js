@@ -1,10 +1,6 @@
 import Image from "next/image";
-import Home_1 from "./components/Home_1";
+import Home_4 from "./components/Home_4";
 
 export default function Home() {
-  return (
-    <main className="">
-      <Home_1 />
-    </main>
-  );
+  return <Home_4 />;
 }
