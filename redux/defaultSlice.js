@@ -8,13 +8,13 @@ export const defaultSlice = createSlice({
   name: "default",
   initialState,
   reducers: {
-    increment: (state) => {
+    next: (state) => {
       state.currentStep += 1;
     },
-    decrement: (state) => {
+    previous: (state) => {
       state.currentStep -= 1;
     },
   },
 });
 
-export const { increment, decrement } = defaultSlice.actions;
+export const { next, previous } = defaultSlice.actions;

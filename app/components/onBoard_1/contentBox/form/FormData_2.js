@@ -1,9 +1,11 @@
+import useOnboard from "@/app/hooks/useOnboard";
 import FormButton from "./formData/FormButton";
 
 const phrase =
   "brand layer neglect rapid real quit milk ribbon large chat diesel carbon";
 
 export default function FormData_2() {
+  const { step2 } = useOnboard();
   return (
     <div className="flex flex-col items-center">
       <h1 className="text-[24px] font-[Satoshi-Bold] text-center text-black">
@@ -24,7 +26,11 @@ export default function FormData_2() {
           </div>
         ))}
       </div>
-      <FormButton className="mt-[40px]" text="Continue" />
+      <FormButton
+        className="mt-[40px]"
+        text="Continue"
+        onClick={step2.Continue}
+      />
     </div>
   );
 }

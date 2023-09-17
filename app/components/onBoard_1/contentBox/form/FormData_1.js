@@ -1,6 +1,9 @@
+"use client";
+import useOnboard from "@/app/hooks/useOnboard";
 import FormButton from "./formData/FormButton";
 
 export default function FormData_1() {
+  const { step1 } = useOnboard();
   return (
     <div className="flex flex-col items-center">
       <h1 className="text-[24px] font-[Satoshi-Bold] text-center text-black">
@@ -10,8 +13,16 @@ export default function FormData_1() {
         Begin your journey by setting up your wallet, whether <br /> it's
         creating a new one or importing an existing wallet.
       </p>
-      <FormButton className="mt-[60px]" text="Create New Wallet" />
-      <FormButton className="mt-[20px]" text="Import your Wallet" />
+      <FormButton
+        className="mt-[60px]"
+        text="Create New Wallet"
+        onClick={step1.CreateWallet}
+      />
+      <FormButton
+        className="mt-[20px]"
+        text="Import your Wallet"
+        onClick={step1.importWallet}
+      />
     </div>
   );
 }
