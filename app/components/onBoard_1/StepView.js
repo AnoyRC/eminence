@@ -14,7 +14,7 @@ const steps = [
   {
     id: 3,
     line1: "Verify Your",
-    line2: "SecretS hield",
+    line2: "Secret Shield",
   },
   {
     id: 4,
