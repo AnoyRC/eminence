@@ -1,5 +1,8 @@
 import FormData_1 from "./form/FormData_1";
 import Image from "next/image";
+import FormData_2 from "./form/FormData_2";
+import FormData_3 from "./form/FormData_3";
+import FormData_4 from "./form/FormData_4";
 
 export default function Form() {
   return (
@@ -9,7 +12,7 @@ export default function Form() {
         width={165}
         height={165}
         alt="Circle"
-        className="absolute -right-[24%] top-2"
+        className="absolute -right-32 top-2"
       />
 
       <div
@@ -19,11 +22,11 @@ export default function Form() {
           boxShadow: "0px 4px 36px 36px rgba(0, 0, 0, 0.25)",
         }}
       >
-        <div className="w-[425px] h-[425px] rounded-[425px] bg-[#6FFF8F] absolute -top-[35%] -right-[35%] z-0"></div>
+        <div className="w-[425px] h-[425px] rounded-[425px] bg-[#6FFF8F] absolute -top-36 -right-36 z-0"></div>
 
         <div className="absolute top-0 left-0 w-full h-full bg-[#ffffff66] backdrop-blur-[100px]"></div>
 
-        <div className="w-[542px] h-[542px] rounded-[542px] bg-[#CEFFF9] absolute -bottom-[70%] -right-[85%] z-10"></div>
+        <div className="w-[542px] h-[542px] rounded-[542px] bg-[#CEFFF9] absolute -bottom-72 -right-[440px] z-10"></div>
 
         <div className="py-[40px] px-[60px] relative z-10">
           <FormData_1 />
@@ -35,7 +38,7 @@ export default function Form() {
         width={165}
         height={165}
         alt="Asterisk"
-        className="absolute -left-[21%] -bottom-12"
+        className="absolute -left-24 -bottom-12"
       />
     </div>
   );
