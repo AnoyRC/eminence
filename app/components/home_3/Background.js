@@ -10,7 +10,7 @@ export default function Background() {
         alt="divider"
         width={1200}
         height={1200}
-        className="absolute left-1/2 -translate-x-1/2 h-[100%]"
+        className="absolute left-1/2 -translate-x-1/2 h-[100%] rotate-180"
       />
     </div>
   );
