@@ -9,7 +9,7 @@ export default function Form() {
         width={165}
         height={165}
         alt="Circle"
-        className="absolute -right-[24%] top-5"
+        className="absolute -right-[24%] top-2"
       />
 
       <div
@@ -21,13 +21,13 @@ export default function Form() {
       >
         <div className="w-[425px] h-[425px] rounded-[425px] bg-[#6FFF8F] absolute -top-[35%] -right-[35%] z-0"></div>
 
-        <div className="py-[60px] px-[80px] relative z-10">
-          <FormData_1 />
-        </div>
-
         <div className="absolute top-0 left-0 w-full h-full bg-[#ffffff66] backdrop-blur-[100px]"></div>
 
         <div className="w-[542px] h-[542px] rounded-[542px] bg-[#CEFFF9] absolute -bottom-[70%] -right-[85%] z-10"></div>
+
+        <div className="py-[40px] px-[60px] relative z-10">
+          <FormData_1 />
+        </div>
       </div>
 
       <Image
