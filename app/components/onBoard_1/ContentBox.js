@@ -4,7 +4,7 @@ import Form from "./contentBox/Form";
 
 export default function ContentBox() {
   return (
-    <div className="flex flex-col items-center mt-[60px] relative">
+    <div className="flex flex-col items-center mt-[40px] relative">
       <Image
         src="/images/OnBoard_1/ContentBox/ConcurrentCircles.svg"
         width={600}
