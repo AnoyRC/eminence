@@ -1,14 +1,7 @@
-"use client";
-import FormData_1 from "./form/FormData_1";
 import Image from "next/image";
-import FormData_2 from "./form/FormData_2";
-import FormData_3 from "./form/FormData_3";
-import FormData_4 from "./form/FormData_4";
-import FormData_5 from "./form/FormData_5";
-import { useSelector } from "react-redux";
+import FormData_1 from "./form/FormData_1";
 
 export default function Form() {
-  const currentStep = useSelector((state) => state.default.currentStep);
   return (
     <div className="mt-[48px] relative">
       <Image
@@ -33,11 +26,7 @@ export default function Form() {
         <div className="w-[542px] h-[542px] rounded-[542px] bg-[#CEFFF9] absolute -bottom-72 -right-[440px] z-10"></div>
 
         <div className="py-[40px] px-[60px] relative z-10">
-          {currentStep === 1 && <FormData_1 />}
-          {currentStep === 2 && <FormData_2 />}
-          {currentStep === 3 && <FormData_3 />}
-          {currentStep === 4 && <FormData_4 />}
-          {currentStep === 5 && <FormData_5 />}
+          {<FormData_1 />}
         </div>
       </div>
 

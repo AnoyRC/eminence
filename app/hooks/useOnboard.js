@@ -1,9 +1,11 @@
 "use client";
 import { next, previous } from "@/redux/defaultSlice";
 import { useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
 
 export default function useOnboard() {
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const step1 = {
     CreateWallet: () => {
@@ -33,10 +35,17 @@ export default function useOnboard() {
     },
   };
 
+  const step5 = {
+    Continue: () => {
+      router.push("/publicProfile");
+    },
+  };
+
   return {
     step1,
     step2,
     step3,
     step4,
+    step5,
   };
 }

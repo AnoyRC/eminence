@@ -8,6 +8,7 @@ export default function DynamicHeader() {
     "Unleash Fort Knox",
     "Guardian of Your Future",
     "Forge a Key to Unlock your Digital Vault",
+    "Decode Your Queries: Unveiling Eminence’s Answers",
   ];
 
   return (
