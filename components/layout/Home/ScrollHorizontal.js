@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useRef, useLayoutEffect } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { useRef, useLayoutEffect } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
-import Slider from "./slider";
+import Slider from '@/components/layout/Home/Slider';
 
-function ScrollSection() {
+const ScrollHorizontal = () => {
   const sectionRef = useRef(null);
   const triggerRef = useRef(null);
 
@@ -19,13 +19,13 @@ function ScrollSection() {
         translateX: 0,
       },
       {
-        translateX: "-400vw",
-        ease: "none",
+        translateX: '-400vw',
+        ease: 'none',
         duration: 1,
         scrollTrigger: {
           trigger: triggerRef.current,
-          start: "top top",
-          end: "2500 top",
+          start: 'top top',
+          end: '2500 top',
           scrub: 0.6,
           pin: true,
           snap: {
@@ -52,6 +52,5 @@ function ScrollSection() {
       </div>
     </section>
   );
-}
-
-export default ScrollSection;
+};
+export default ScrollHorizontal;

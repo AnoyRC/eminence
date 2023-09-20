@@ -1,18 +1,20 @@
-import Image from "next/image";
-import Home_1 from "./components/Home_1";
-import Home_2 from "./components/Home_2";
-import Home_3 from "./components/Home_3";
-import Home_4 from "./components/Home_4";
-import Home_5 from "./components/Home_5";
+import Header from '@/components/layout/Home/Header';
+import Background from '@/components/layout/Home/Background';
+import SolanaBox from '@/components/layout/Home/SolanaBox';
+import Card from '@/components/layout/Home/Card';
+import Features from '@/components/layout/Home/Features';
+import Experience from '@/components/layout/Home/Experience';
 
 export default function Home() {
   return (
-    <main className="overflow-x-hidden">
-      <Home_1 />
-      <Home_2 />
-      <Home_3 />
-      <Home_4 />
-      <Home_5 />
+    <main className="">
+      <Background />
+
+      <Header />
+      <SolanaBox />
+      <Card />
+      <Features />
+      <Experience />
     </main>
   );
 }
