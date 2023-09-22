@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Avatar, { genConfig } from "react-nice-avatar";
 import { ArrowPathIcon } from "@heroicons/react/24/solid";
-import AvatarList from "../Form/formData/avatarList";
+import AvatarList from "../form/formData/avatarList";
 import Link from "next/link";
 
 function generateRandomString(length) {
