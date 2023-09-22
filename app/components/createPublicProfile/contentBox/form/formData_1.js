@@ -62,12 +62,12 @@ export default function FormData_1() {
         </div>
       </div>
       <input
-        type="password"
+        type="text"
         className="mt-[40px] w-[100%] h-[60px] rounded-lg px-[20px] py-[10px] bg-primary-white/60 text-primary-black font-normal text-[16px] placeholder-primary-black placeholder-opacity-100"
         placeholder="First Name"
       ></input>
       <input
-        type="password"
+        type="text"
         className="mt-[40px] w-[100%] h-[60px] rounded-lg px-[20px] py-[10px] bg-primary-white/60 text-primary-black font-normal text-[16px] placeholder-primary-black placeholder-opacity-100"
         placeholder="Last Name"
       ></input>

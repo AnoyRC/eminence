@@ -13,14 +13,14 @@ export default function FormData_1() {
       </p>
       <Link
         className="mt-[40px] bg-primary-black py-[12px] px-[60px] text-primary-white text-center text-[16px] font-bold rounded-lg w-[320px]"
-        href="/createPublicProfile"
+        href="/create"
       >
         Be an Eminent
       </Link>
 
       <h1 className="font-medium text-primary-black text-[12px] mt-[6px]">
         Don’t want a public profile?{" "}
-        <Link className="underline underline-offset-4" href="">
+        <Link className="underline underline-offset-4" href="/dashboard">
           Skip for Now
         </Link>
       </h1>

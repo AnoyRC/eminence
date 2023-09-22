@@ -12,7 +12,7 @@ export default function FormData_2() {
       </p>
       <Link
         className="mt-[40px] bg-[#1C1D22] py-[12px] px-[60px]  text-bold text-primary-white text-center text-[16px] rounded-lg w-[320px]"
-        href="/importWallet"
+        href="/import"
       >
         Continue
       </Link>

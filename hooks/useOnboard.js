@@ -1,17 +1,23 @@
 "use client";
 import { next, previous } from "@/redux/defaultSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import useCreateWallet from "./useCreateWallet";
 import { useRouter } from "next/navigation";
 
 export default function useOnboard() {
   const dispatch = useDispatch();
   const router = useRouter();
+  const { createWallet, saveToLocalStorage } = useCreateWallet();
+  const mnemonic = useSelector((state) => state.wallet.mnemonics);
 
   const step1 = {
     CreateWallet: () => {
+      createWallet();
       dispatch(next());
     },
-    importWallet: () => {},
+    importWallet: () => {
+      router.push("/import");
+    },
   };
 
   const step2 = {
@@ -21,23 +27,27 @@ export default function useOnboard() {
   };
 
   const step3 = {
-    ConfirmPhrase: () => {
-      dispatch(next());
+    ConfirmPhrase: (inputMnemonic) => {
+      if (inputMnemonic === mnemonic) {
+        dispatch(next());
+      }
     },
     Regenerate: () => {
+      createWallet();
       dispatch(previous());
     },
   };
 
   const step4 = {
-    ConfirmPassword: () => {
+    ConfirmPassword: (password) => {
+      saveToLocalStorage(password);
       dispatch(next());
     },
   };
 
   const step5 = {
     Continue: () => {
-      router.push("/publicProfile");
+      router.push("/welcome");
     },
   };
 

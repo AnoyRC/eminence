@@ -1,5 +1,5 @@
 "use client";
-import useOnboard from "@/app/hooks/useOnboard";
+import useOnboard from "@/hooks/useOnboard";
 import FormButton from "./formData/FormButton";
 
 export default function FormData_1() {

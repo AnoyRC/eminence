@@ -1,11 +1,11 @@
-import useOnboard from "@/app/hooks/useOnboard";
+"use client";
+import useOnboard from "@/hooks/useOnboard";
 import FormButton from "./formData/FormButton";
-
-const phrase =
-  "brand layer neglect rapid real quit milk ribbon large chat diesel carbon";
+import { useSelector } from "react-redux";
 
 export default function FormData_2() {
   const { step2 } = useOnboard();
+  const mnemonic = useSelector((state) => state.wallet.mnemonics);
   return (
     <div className="flex flex-col items-center">
       <h1 className="text-[24px] font-bold text-center text-primary-black">
@@ -17,7 +17,7 @@ export default function FormData_2() {
         your assets.
       </p>
       <div className="mt-[40px] grid grid-cols-3 grid-rows-4 gap-[20px]">
-        {phrase.split(" ").map((word, index) => (
+        {mnemonic.split(" ").map((word, index) => (
           <div
             key={index}
             className="flex flex-start font-medium text-primary-black text-[16px] px-[12px] py-[10px] bg-[#f0f0f099] rounded-lg"

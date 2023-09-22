@@ -19,10 +19,20 @@ export default function Step(props) {
           alt="step"
         />
       </div>
-      <h1 className="font-bold text-primary-white/60 mt-[8px] text-[14px] ">
+      <h1
+        className="font-bold text-primary-white mt-[8px] text-[14px] "
+        style={{
+          opacity: currentStep === props.id ? 1 : 0.6,
+        }}
+      >
         Step {props.id}
       </h1>
-      <h1 className="font-medium text-primary-white/60 mt-[2px] text-[14px] text-center ">
+      <h1
+        className="font-medium text-primary-white mt-[2px] text-[14px] text-center "
+        style={{
+          opacity: currentStep === props.id ? 1 : 0.6,
+        }}
+      >
         {props.line1} <br />
         {props.line2}
       </h1>

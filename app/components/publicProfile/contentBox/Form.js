@@ -30,7 +30,7 @@ export default function Form() {
         <div className="w-[542px] h-[542px] rounded-[542px] bg-[#CEFFF9] absolute -bottom-72 -right-[440px] z-10"></div>
 
         <div className="py-[40px] px-[60px] relative z-10">
-          {currentStep === 1 && <FormData_1 />}
+          <FormData_1 />
         </div>
       </div>
 

@@ -1,6 +1,6 @@
 "use client";
 import FormButton from "./formData/FormButton";
-import useOnboard from "@/app/hooks/useOnboard";
+import useOnboard from "@/hooks/useOnboard";
 import React, { useState } from "react";
 import {
   Accordion,
@@ -43,7 +43,11 @@ export default function FormData_5() {
         Find answers to common questions and concerns <br /> about Eminence
         Wallet's security and functionality in <br /> this section.
       </p>
-      <Accordion open={open === 1} icon={<Icon id={1} open={open} />}>
+      <Accordion
+        className="flex flex-col items-center"
+        open={open === 1}
+        icon={<Icon id={1} open={open} />}
+      >
         <AccordionHeader
           onClick={() => handleOpen(1)}
           className="text-primary-black text-[16px] max-w-[320px]"
@@ -57,7 +61,11 @@ export default function FormData_5() {
           dreams.
         </AccordionBody>
       </Accordion>
-      <Accordion open={open === 2} icon={<Icon id={2} open={open} />}>
+      <Accordion
+        className="flex flex-col items-center"
+        open={open === 2}
+        icon={<Icon id={2} open={open} />}
+      >
         <AccordionHeader
           onClick={() => handleOpen(2)}
           className="text-primary-black text-[16px] max-w-[320px]"
