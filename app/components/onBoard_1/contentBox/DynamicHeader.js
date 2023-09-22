@@ -12,7 +12,7 @@ export default function DynamicHeader() {
   ];
 
   return (
-    <h1 className="text-center font-[Satoshi-Bold] text-[48px]">
+    <h1 className="text-center text-primary-white font-bold text-[48px]">
       {headers[currentStep - 1]}
     </h1>
   );

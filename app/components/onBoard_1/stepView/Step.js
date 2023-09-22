@@ -19,10 +19,10 @@ export default function Step(props) {
           alt="step"
         />
       </div>
-      <h1 className="font-[Satoshi-Bold] mt-[8px] text-[14px] ">
+      <h1 className="font-bold text-primary-white/60 mt-[8px] text-[14px] ">
         Step {props.id}
       </h1>
-      <h1 className="font-[Satoshi-Regular] mt-[2px] text-[14px] text-center ">
+      <h1 className="font-medium text-primary-white/60 mt-[2px] text-[14px] text-center ">
         {props.line1} <br />
         {props.line2}
       </h1>

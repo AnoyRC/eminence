@@ -36,17 +36,17 @@ export default function FormData_5() {
   const { step5 } = useOnboard();
   return (
     <div className="flex flex-col items-center">
-      <h1 className="text-[24px] font-[Satoshi-Bold] text-center text-black">
+      <h1 className="text-[24px] font-bold text-center text-primary-black">
         Frequently Asked Questions
       </h1>
-      <p className="text-[16px] font-[Satoshi-Regular] text-center text-[#1C1D22] mt-[18px]">
+      <p className="text-[16px] font-medium text-center text-primary-black mt-[18px]">
         Find answers to common questions and concerns <br /> about Eminence
         Wallet's security and functionality in <br /> this section.
       </p>
       <Accordion open={open === 1} icon={<Icon id={1} open={open} />}>
         <AccordionHeader
           onClick={() => handleOpen(1)}
-          className="text-black text-[16px] max-w-[320px]"
+          className="text-primary-black text-[16px] max-w-[320px]"
         >
           What if I loose my security phrase / password?
         </AccordionHeader>
@@ -60,7 +60,7 @@ export default function FormData_5() {
       <Accordion open={open === 2} icon={<Icon id={2} open={open} />}>
         <AccordionHeader
           onClick={() => handleOpen(2)}
-          className="text-black text-[16px] max-w-[320px]"
+          className="text-primary-black text-[16px] max-w-[320px]"
         >
           If an agent asks you about your security phrase?
         </AccordionHeader>

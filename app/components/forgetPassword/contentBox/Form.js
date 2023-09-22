@@ -1,5 +1,5 @@
 import Image from "next/image";
-import FormData_1 from "./form/FormData_1";
+import FormData_1 from "./form/formData_1";
 
 export default function Form() {
   return (

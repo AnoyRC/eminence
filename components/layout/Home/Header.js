@@ -1,6 +1,6 @@
-import Image from 'next/image';
-import NavBar from './NavBar';
-import Heading from './Heading';
+import Image from "next/image";
+import NavBar from "./NavBar";
+import Heading from "./Heading";
 
 const Header = () => {
   return (
@@ -12,11 +12,9 @@ const Header = () => {
         fill
         objectFit="contain"
         alt="launch app"
-        className="absolute w-full h-full prevent-select"
+        className="absolute w-full h-full prevent-select inset-0"
       />
-
       <Heading />
-
       <Image
         src="/images/home/scroll-down.svg"
         width={50}

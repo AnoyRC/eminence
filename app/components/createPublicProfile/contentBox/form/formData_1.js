@@ -28,10 +28,10 @@ export default function FormData_1() {
 
   return (
     <div className="flex flex-col items-center">
-      <h1 className="text-[24px] font-[Satoshi-Bold] text-center text-black">
+      <h1 className="text-[24px] font-bold text-center text-primary-black">
         Craft Your Public Profile
       </h1>
-      <p className="text-[16px] font-[Satoshi-Regular] text-center text-[#1C1D22] mt-[18px]">
+      <p className="text-[16px] font-medium text-center text-primary-black mt-[18px]">
         Personalize your wallet to become an{" "}
         <span className="text-black">'Eminent'</span> by <br /> setting up your
         public profile with an avatar and your <br /> first and last name.
@@ -51,21 +51,21 @@ export default function FormData_1() {
           className="absolute bottom-0 right-0 w-12 h-12 rounded-full bg-[#CDFFF9] border-black border-[1px] flex justify-center items-center -mr-19 mb-15 cursor-pointer on"
           onClick={generateNewAvatar}
         >
-          <ArrowPathIcon className="text-black h-6 w-6" />
+          <ArrowPathIcon className="text-primary-black h-6 w-6" />
         </div>
       </div>
       <input
         type="password"
-        className="mt-[40px] w-[100%] h-[60px] rounded-lg px-[20px] py-[10px] bg-[#f0f0f099] text-black font-[Satoshi-Regular] text-[16px]"
+        className="mt-[40px] w-[100%] h-[60px] rounded-lg px-[20px] py-[10px] bg-primary-white/60 text-primary-black font-normal text-[16px] placeholder-primary-black placeholder-opacity-100"
         placeholder="First Name"
       ></input>
       <input
         type="password"
-        className="mt-[20px] w-[100%] h-[60px] rounded-lg px-[20px] py-[10px] bg-[#f0f0f099] text-black font-[Satoshi-Regular] text-[16px]"
+        className="mt-[40px] w-[100%] h-[60px] rounded-lg px-[20px] py-[10px] bg-primary-white/60 text-primary-black font-normal text-[16px] placeholder-primary-black placeholder-opacity-100"
         placeholder="Last Name"
       ></input>
       <Link
-        className="mt-[40px] bg-[#1C1D22] py-[12px] px-[60px]  text-[Satoshi-Bold] text-white text-center text-[16px] rounded-lg w-[320px]"
+        className="mt-[40px] bg-primary-black py-[12px] px-[60px]   text-primary-white text-center text-[16px] font-bold rounded-lg w-[320px]"
         href=""
       >
         Complete
