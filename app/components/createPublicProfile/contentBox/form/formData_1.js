@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Avatar, { genConfig } from "react-nice-avatar";
 import { ArrowPathIcon } from "@heroicons/react/24/solid";
 import AvatarList from "../form/formData/avatarList";
@@ -19,12 +19,17 @@ function generateRandomString(length) {
 export default function FormData_1() {
   const [randomString, setRandomString] = useState(generateRandomString(10));
   const [selectedAvatarConfig, setSelectedAvatarConfig] = useState(null);
+  const [client, setClient] = useState(false);
 
   const generateNewAvatar = () => {
     setSelectedAvatarConfig(null);
     const newRandomString = generateRandomString(10);
     setRandomString(newRandomString);
   };
+
+  useEffect(() => {
+    setClient(true);
+  }, []);
 
   return (
     <div className="flex flex-col items-center">
@@ -38,13 +43,15 @@ export default function FormData_1() {
       </p>
       <div className="relative">
         {/* Avatar */}
-        <Avatar
-          style={{ width: "15rem", height: "15rem" }}
-          {...genConfig(
-            selectedAvatarConfig ? selectedAvatarConfig : randomString
-          )}
-          className="mt-[40px] border-black border-2"
-        />
+        {client && (
+          <Avatar
+            style={{ width: "15rem", height: "15rem" }}
+            {...genConfig(
+              selectedAvatarConfig ? selectedAvatarConfig : randomString
+            )}
+            className="mt-[40px] border-black border-2"
+          />
+        )}
 
         {/* Refresh button (circle) */}
         <div
@@ -70,10 +77,12 @@ export default function FormData_1() {
       >
         Complete
       </Link>
-      <AvatarList
-        setSelectedAvatarConfig={setSelectedAvatarConfig}
-        className="mt-[40px]"
-      />
+      {client && (
+        <AvatarList
+          setSelectedAvatarConfig={setSelectedAvatarConfig}
+          className="mt-[40px]"
+        />
+      )}
     </div>
   );
 }

@@ -1,7 +1,7 @@
+import localFont from "next/font/local";
 import "../globals.css";
-import { Inter } from "next/font/google";
 
-const inter = Inter({ subsets: ["latin"] });
+const myFont = localFont({ src: "../../public/fonts/Satoshi-Variable.woff2" });
 
 export const metadata = {
   title: "Eminence : Create Public profile",
@@ -9,9 +9,5 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
-  );
+  return <>{children}</>;
 }
