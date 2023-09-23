@@ -6,7 +6,7 @@ const initialState = {
 };
 
 export const walletSlice = createSlice({
-  name: "default",
+  name: "wallet",
   initialState,
   reducers: {
     setPubKey: (state, action) => {
