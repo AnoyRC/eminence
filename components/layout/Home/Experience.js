@@ -1,20 +1,20 @@
-"use client";
-import Button from "@/components/ui/Button";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
+'use client';
+import Button from '@/components/ui/Button';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 const Experience = () => {
   const router = useRouter();
 
   const check = () => {
-    const secretPair = localStorage.getItem("secretPair");
-    if (secretPair) router.push("/login");
-    else router.push("/onboard");
+    const secretPair = localStorage.getItem('secretPair');
+    if (secretPair) router.push('/login');
+    else router.push('/onboard');
   };
 
   return (
     <div className="w-full h-screen relative bg-primary-white flex items-center justify-center flex-col">
-      <div className="font-bold  text-4xl sm:text-5xl md:text-6xl flex flex-col lg:text-8xl leading-normal text-center text-primary-black mb-6">
+      <div className="font-bold text-4xl sm:text-5xl md:text-6xl flex flex-col lg:text-8xl leading-normal text-center text-primary-black mb-6">
         <h1> Experience the </h1>
         <h1 className="mt-9">Future of Finance</h1>
         <h1>
