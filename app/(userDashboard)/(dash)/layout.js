@@ -1,8 +1,8 @@
-import AsideContainer from '@/components/layout/dashboard/home/AsideContainer';
+import AsideContainer from "@/components/layout/dashboard/home/AsideContainer";
 
 export default function DashLayout({ children }) {
   return (
-    <main>
+    <main className="flex justify-between w-full flex-grow">
       {children}
       <AsideContainer />
     </main>
