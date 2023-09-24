@@ -1,5 +1,6 @@
 "use client";
 import Balance from "@/components/ui/Balance";
+import GradientButton from "@/components/ui/GradientButton";
 import {
   Select,
   Option,
@@ -34,7 +35,7 @@ const Transfer = () => {
       </div>
 
       <div className="flex flex-col w-full gap-[10px]">
-        <div className="flex items-center">
+        <div className="flex items-center -ml-2">
           <Checkbox color="teal" className="" />
           <h1 className="text-white text-[16px] ml-1 mr-2">
             Pay Anonymously with{" "}
@@ -46,17 +47,7 @@ const Transfer = () => {
             alt="Elusiv"
           />
         </div>
-        <div
-          className="rounded-full bg-transparent bg-gradient-to-r h-[45px] p-0.5 from-[#4AFF93] to-[#26FFFF] w-full 
-        "
-        >
-          <button
-            className="bg-[#1C1D22] rounded-full w-full h-full text-white text-[16px] font-bold"
-            style={{}}
-          >
-            Transfer
-          </button>
-        </div>
+        <GradientButton label={"Transfer"} />
       </div>
     </div>
   );

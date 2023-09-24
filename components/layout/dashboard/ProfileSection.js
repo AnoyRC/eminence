@@ -1,9 +1,11 @@
 "use client";
+import useToast from "@/hooks/useToast";
 import { DocumentDuplicateIcon } from "@heroicons/react/24/solid";
 import Avatar, { genConfig } from "react-nice-avatar";
 
 export default function ProfileSection() {
   const pubKey = "FdK7Kuaa6Qao1PQH9mMPYgvEKeC2jAViM67skuAcV1iM";
+  const { Info } = useToast();
   return (
     <div className="w-full flex flex-col items-center gap-[20px]">
       <hr className="w-[80%] border-[#f0f0f0] border-opacity-50" />
@@ -23,7 +25,7 @@ export default function ProfileSection() {
             className="text-[#f0f0f099] flex flex-start items-center text-[12px] hover:cursor-pointer"
             onClick={() => {
               navigator.clipboard.writeText(pubKey);
-              alert("Public Key Copied to clipboard");
+              Info("Copied to clipboard");
             }}
           >
             {pubKey.substring(0, 4) +

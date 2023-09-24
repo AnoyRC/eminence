@@ -3,7 +3,15 @@ import Image from "next/image";
 
 const myFont = localFont({ src: "../../public/fonts/Satoshi-Variable.woff2" });
 
-export default function Balance({ symbol, balance, amount, type }) {
+export default function Balance({
+  symbol,
+  balance,
+  amount,
+  type,
+  value,
+  onChange,
+  editable = false,
+}) {
   return (
     <div
       className={
@@ -31,13 +39,24 @@ export default function Balance({ symbol, balance, amount, type }) {
         </div>
       </div>
 
-      <h1 className="font-bold text-black text-[48px]">
-        {Math.trunc(amount)}
-        {amount % Math.trunc(amount) !== 0 && "."}
-        <span className="text-[24px]">
-          {Math.trunc(amount) !== 0 && amount.toString().split(".")[1]}
-        </span>
-      </h1>
+      {!editable && (
+        <h1 className="font-bold text-black text-[48px]">
+          {Math.trunc(amount)}
+          {amount % Math.trunc(amount) !== 0 && "."}
+          <span className="text-[24px]">
+            {Math.trunc(amount) !== 0 && amount.toString().split(".")[1]}
+          </span>
+        </h1>
+      )}
+
+      {editable && (
+        <input
+          type={"text"}
+          className="font-bold text-black text-[48px] bg-transparent focus-visible:outline-none"
+          value={value}
+          onChange={(e) => onChange(e)}
+        ></input>
+      )}
 
       <div className="flex flex-col w-full gap-[8px]">
         <hr className="border-dotted border-[1px] border-black"></hr>
