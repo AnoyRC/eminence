@@ -1,8 +1,12 @@
 'use client';
+
 import { useSelector } from 'react-redux';
 
-export default function DynamicHeader() {
+import Heading from '../Heading';
+
+const DynamicHeading = () => {
   const currentStep = useSelector((state) => state.default.currentStep);
+
   const headers = [
     'Embark on Your Crypto Journey',
     'Unleash Fort Knox',
@@ -11,9 +15,7 @@ export default function DynamicHeader() {
     'Decode Your Queries',
   ];
 
-  return (
-    <h1 className="text-center text-primary-white font-bold text-[48px]">
-      {headers[currentStep - 1]}
-    </h1>
-  );
-}
+  return <Heading text={headers[currentStep - 1]} />;
+};
+
+export default DynamicHeading;

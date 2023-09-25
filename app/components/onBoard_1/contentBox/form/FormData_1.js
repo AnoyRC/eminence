@@ -1,6 +1,6 @@
-"use client";
-import useOnboard from "@/hooks/useOnboard";
-import FormButton from "./formData/FormButton";
+'use client';
+import useOnboard from '@/hooks/useOnboard';
+import FormButton from './formData/FormButton';
 
 export default function FormData_1() {
   const { step1 } = useOnboard();
