@@ -1,14 +1,16 @@
-"use client";
-import { next, previous } from "@/redux/defaultSlice";
-import { useDispatch, useSelector } from "react-redux";
-import useCreateWallet from "./useCreateWallet";
-import { useRouter } from "next/navigation";
+'use client';
+import { next, previous } from '@/redux/defaultSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import useCreateWallet from './useCreateWallet';
+import { useRouter } from 'next/navigation';
+import useToast from './useToast';
 
 export default function useOnboard() {
   const dispatch = useDispatch();
   const router = useRouter();
   const { createWallet, saveToLocalStorage } = useCreateWallet();
   const mnemonic = useSelector((state) => state.wallet.mnemonics);
+  const { Success, Error } = useToast();
 
   const step1 = {
     CreateWallet: () => {
@@ -16,7 +18,7 @@ export default function useOnboard() {
       dispatch(next());
     },
     importWallet: () => {
-      router.push("/import");
+      router.push('/import');
     },
   };
 
@@ -29,8 +31,11 @@ export default function useOnboard() {
   const step3 = {
     ConfirmPhrase: (inputMnemonic) => {
       if (inputMnemonic === mnemonic) {
+        Success('Security Phrase Confirmed');
         dispatch(next());
       }
+
+      Error('Security Phrase Not Match');
     },
     Regenerate: () => {
       createWallet();
@@ -47,7 +52,7 @@ export default function useOnboard() {
 
   const step5 = {
     Continue: () => {
-      router.push("/welcome");
+      router.push('/welcome');
     },
   };
 

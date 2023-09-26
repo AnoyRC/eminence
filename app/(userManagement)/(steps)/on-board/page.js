@@ -1,3 +1,9 @@
+import DynamicForm from '@/components/layout/userManagement/onboard/DynamicForm';
+
 export default function OnBoard() {
-  return <div>Hi</div>;
+  return (
+    <>
+      <DynamicForm />
+    </>
+  );
 }
