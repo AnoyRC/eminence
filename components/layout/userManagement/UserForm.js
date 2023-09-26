@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 export default function Form({ children }) {
   return (
-    <div className="relative mt-12">
+    <div className="relative mt-12 mb-16">
       <Image
         src="/images/userManagement/hollow-circle.svg"
         width={165}
@@ -16,7 +16,7 @@ export default function Form({ children }) {
 
         <div className="absolute top-0 left-0 w-full h-full bg-primary-white/40 backdrop-blur-3xl"></div>
 
-        <div className="p-10 relative z-10 min-w-[400px] max-w-[400px]">
+        <div className="p-10 relative z-10 min-w-[480px] max-w-[480px]">
           {children}
         </div>
 
