@@ -41,10 +41,15 @@ export default function useLiveGraph() {
         const data = result.map((item) => {
           return {
             ticker: Number(item[1]).toFixed(2),
+            date:
+              new Date(item[0]).getDate() +
+              "/" +
+              new Date(item[0]).getMonth() +
+              "/" +
+              new Date(item[0]).getFullYear(),
+            time: new Date(item[0]).toLocaleTimeString(),
           };
         });
-
-        console.log(data);
         dispatch(setHistory(data));
       }
 
