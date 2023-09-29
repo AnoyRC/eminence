@@ -1,8 +1,8 @@
-"use client";
-import { setHistory } from "@/redux/graphSlice";
-import fetch from "cross-fetch";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+'use client';
+import { setHistory } from '@/redux/graphSlice';
+import fetch from 'cross-fetch';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 export default function useLiveGraph() {
   const [wsHistoryClient, setWsHistoryClient] = useState(null);
@@ -10,23 +10,23 @@ export default function useLiveGraph() {
 
   const FetchHistory = async (interval) => {
     const price = await (
-      await fetch("https://api.binance.com/api/v3/ticker/price?symbol=SOLUSDT")
+      await fetch('https://api.binance.com/api/v3/ticker/price?symbol=SOLUSDT')
     ).json();
 
     console.log(price);
 
     if (wsHistoryClient) wsHistoryClient.close();
 
-    const client = new WebSocket("wss://ws-api.binance.com:443/ws-api/v3");
+    const client = new WebSocket('wss://ws-api.binance.com:443/ws-api/v3');
 
     client.onopen = function () {
-      console.log("WebSocket Client Connected");
+      console.log('WebSocket Client Connected');
       client.send(
         JSON.stringify({
-          id: "1dbbeb56-8eea-466a-8f6e-86bdcfa2fc0b",
-          method: "klines",
+          id: '1dbbeb56-8eea-466a-8f6e-86bdcfa2fc0b',
+          method: 'klines',
           params: {
-            symbol: "SOLUSDT",
+            symbol: 'SOLUSDT',
             interval: interval.toString(),
             limit: 25,
           },
@@ -35,7 +35,7 @@ export default function useLiveGraph() {
     };
 
     client.onmessage = function (e) {
-      if (typeof e.data === "string") {
+      if (typeof e.data === 'string') {
         const result = JSON.parse(e.data).result;
 
         const data = result.map((item) => {
@@ -51,10 +51,10 @@ export default function useLiveGraph() {
       setTimeout(function timeout() {
         client.send(
           JSON.stringify({
-            id: "1dbbeb56-8eea-466a-8f6e-86bdcfa2fc0b",
-            method: "klines",
+            id: '1dbbeb56-8eea-466a-8f6e-86bdcfa2fc0b',
+            method: 'klines',
             params: {
-              symbol: "SOLUSDT",
+              symbol: 'SOLUSDT',
               interval: interval.toString(),
               limit: 25,
             },
@@ -64,7 +64,7 @@ export default function useLiveGraph() {
     };
 
     client.onclose = function () {
-      console.log("WebSocket Client Closed");
+      console.log('WebSocket Client Closed');
     };
 
     setWsHistoryClient(client);

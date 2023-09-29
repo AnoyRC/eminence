@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { ConfirmSecurityBtn } from './FormBtn';
 
-const SecurityInput = () => {
+const SecurityInput = ({ importWallet }) => {
   const phrase =
     'Secret1 Secret2 Secret3 Secret4 Secret5 Secret6 Secret7 Secret8 Secret9 Secret10 Secret11 Secret12';
 
@@ -36,7 +36,7 @@ const SecurityInput = () => {
         ))}
       </section>
 
-      <ConfirmSecurityBtn inputMnemonic={inputMnemonic} />
+      {importWallet ? null : <ConfirmSecurityBtn />}
     </>
   );
 };

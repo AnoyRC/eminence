@@ -1,9 +1,5 @@
-import PublicProfile from "../components/PublicProfile";
+import Login from '@/components/layout/userManagement/routes/Login';
 
-export default function OnBoard() {
-  return (
-    <div className="overflow-x-hidden bg-[#1C1D22] w-screen h-screen">
-      <PublicProfile />
-    </div>
-  );
+export default function WelcomePage() {
+  return <Login />;
 }

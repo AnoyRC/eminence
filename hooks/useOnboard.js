@@ -18,7 +18,7 @@ export default function useOnboard() {
       dispatch(next());
     },
     importWallet: () => {
-      router.push('/import');
+      router.push('/importWallet');
     },
   };
 
