@@ -7,8 +7,8 @@ const LaunchApp = () => {
   const router = useRouter();
 
   const check = () => {
-    const secretPair = localStorage.getItem("secretPair");
-    if (secretPair) router.push("/login");
+    const secretPair = localStorage.getItem("secret");
+    if (secretPair) router.push("/welcome");
     else router.push("/onboard");
   };
 

@@ -1,17 +1,20 @@
-import Form from '../Form';
-import { WelcomeBtn } from './FormBtn';
-import { WelcomeInput } from './FormInput';
+"use client";
+import { useState } from "react";
+import Form from "../Form";
+import { WelcomeBtn } from "./FormBtn";
+import { WelcomeInput } from "./FormInput";
 
 const Login = () => {
+  const [password, setPassword] = useState("");
   return (
     <Form
-      heading={'Eminence Welcomes You!'}
+      heading={"Eminence Welcomes You!"}
       paragraph={
-        'Please enter your password to unlock and access Eminence securely.'
+        "Please enter your password to unlock and access Eminence securely."
       }
     >
-      <WelcomeInput />
-      <WelcomeBtn />
+      <WelcomeInput password={password} setPassword={setPassword} />
+      <WelcomeBtn password={password} />
     </Form>
   );
 };

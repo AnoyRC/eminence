@@ -1,14 +1,16 @@
-'use client';
+"use client";
 
-import { Keypair } from '@solana/web3.js';
-import * as bip39 from 'bip39';
-import { useDispatch, useSelector } from 'react-redux';
-import { setMnemonics, setPubKey } from '@/redux/walletSlice';
-import forge, { random, pki } from 'node-forge';
+import { Keypair } from "@solana/web3.js";
+import * as bip39 from "bip39";
+import { useDispatch, useSelector } from "react-redux";
+import { setMnemonics, setPubKey } from "@/redux/walletSlice";
+import forge, { random, pki } from "node-forge";
+import useToast from "./useToast";
 
 export default function useCreateWallet() {
   const dispatch = useDispatch();
   const mnemonic = useSelector((state) => state.wallet.mnemonics);
+  const { Error, Success } = useToast();
 
   const createWallet = () => {
     const mnemonic = bip39.generateMnemonic();
@@ -26,54 +28,55 @@ export default function useCreateWallet() {
   };
 
   const saveToLocalStorage = (password) => {
-    const prng = random.createInstance();
-    const md = forge.md.sha256.create();
-    md.update(password);
+    forge.pkcs5.pbkdf2(
+      password,
+      "Eminence",
+      20000,
+      24,
+      function (err, derivedKey) {
+        let iv = forge.random.getBytesSync(16);
 
-    //Deterministic Key from Password
-    prng.seedFileSync = () => md.digest().toHex();
-    const { privateKey, publicKey } = pki.rsa.generateKeyPair({
-      bits: 512,
-      prng,
-      workers: -1,
-    });
+        const message = mnemonic;
+        let cipher = forge.cipher.createCipher("AES-CBC", derivedKey);
+        cipher.start({ iv: iv });
+        cipher.update(forge.util.createBuffer(message));
+        cipher.finish();
+        const encrypted = cipher.output;
 
-    //Chunk 1 of Mnemonic
-    const chunk1 = mnemonic.slice(0, 35);
-    const encrypted1 = publicKey.encrypt(chunk1);
-
-    //Chunk 2 of Mnemonic
-    const chunk2 = mnemonic.slice(35, mnemonic.length);
-    const encrypted2 = publicKey.encrypt(chunk2);
-
-    //Store Encrypted Mnemonic in localStorage
-    localStorage.setItem('secretPair', `${encrypted1}---${encrypted2}`);
+        //Store Encrypted Mnemonic in localStorage
+        localStorage.setItem(
+          "secret",
+          forge.util.createBuffer(iv).toHex() + encrypted.toHex()
+        );
+      }
+    );
   };
 
   const retrieveFromLocalStorage = (password) => {
     //Create RSA Key from Password
-    const prng = random.createInstance();
-    const md = forge.md.sha256.create();
-    md.update(password);
+    const encrypted = localStorage.getItem("secret");
+    const iv = forge.util.createBuffer(
+      Buffer.from(encrypted.slice(0, 32), "hex")
+    );
+    const message = forge.util.createBuffer(
+      Buffer.from(encrypted.slice(32), "hex")
+    );
 
-    prng.seedFileSync = () => md.digest().toHex();
-    const { privateKey } = pki.rsa.generateKeyPair({
-      bits: 512,
-      prng,
-    });
-
-    //Get Encrypted Mnemonic from localStorage
-    const secretPair = localStorage.getItem('secretPair');
-
-    //Decrypt Encrypted Mnemonic with RSA Private Key
-    const encrypted1 = secretPair.split('---')[0];
-    const encrypted2 = secretPair.split('---')[1];
-    const decrypted1 = privateKey.decrypt(encrypted1);
-    const decrypted2 = privateKey.decrypt(encrypted2);
-    const mnemonic = decrypted1 + decrypted2;
-
-    //Import Wallet
-    importWallet(mnemonic);
+    forge.pkcs5.pbkdf2(
+      password,
+      "Eminence",
+      20000,
+      24,
+      function (err, derivedKey) {
+        let decipher = forge.cipher.createDecipher("AES-CBC", derivedKey);
+        decipher.start({ iv: iv });
+        decipher.update(message);
+        decipher.finish();
+        //Import Wallet
+        importWallet(decipher.output.toString());
+        Success("Welcome to Eminence");
+      }
+    );
   };
 
   return {

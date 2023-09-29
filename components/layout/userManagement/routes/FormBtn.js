@@ -1,17 +1,19 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-import useOnboard from '@/hooks/useOnboard';
+import useOnboard from "@/hooks/useOnboard";
 
-import Button from '@/components/ui/Button';
+import Button from "@/components/ui/Button";
+import useCreateWallet from "@/hooks/useCreateWallet";
+import useToast from "@/hooks/useToast";
 
 const PublicProfileBtn = () => {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push('/createEminent');
+    router.push("/createEminent");
   };
 
   return (
@@ -25,10 +27,10 @@ const PublicProfileBtn = () => {
       />
 
       <p className="text-primary-black text-sm font-medium text-center">
-        Don&apos;t want a public profile?{' '}
+        Don&apos;t want a public profile?{" "}
         <Link
           className="underline underline-offset-4 font-bold transition-transform hover:scale-105"
-          href={'/dashboard'}
+          href={"/dashboard"}
         >
           Skip for Now
         </Link>
@@ -41,7 +43,7 @@ const EminentBtn = () => {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push('/dashboard');
+    router.push("/dashboard");
   };
 
   return (
@@ -60,12 +62,12 @@ const ForgotBtn = () => {
   const { step1 } = useOnboard();
 
   const handleContinueClick = () => {
-    router.push('/importWallet');
+    router.push("/importWallet");
   };
 
   const handleNewAccountClick = () => {
     step1.CreateWallet;
-    router.push('/onboard');
+    router.push("/onboard");
   };
 
   return (
@@ -87,10 +89,10 @@ const ForgotBtn = () => {
       />
 
       <p className="text-primary-black text-sm font-medium text-center">
-        Remember Password?{' '}
+        Remember Password?{" "}
         <Link
           className="underline underline-offset-4 font-bold transition-transform hover:scale-105"
-          href={'/welcome'}
+          href={"/welcome"}
         >
           Go back
         </Link>
@@ -99,11 +101,18 @@ const ForgotBtn = () => {
   );
 };
 
-const WelcomeBtn = () => {
+const WelcomeBtn = ({ password }) => {
   const router = useRouter();
+  const { retrieveFromLocalStorage } = useCreateWallet();
+  const { Error } = useToast();
 
   const handleClick = () => {
-    router.push('/dashboard');
+    if (password.length === 0) {
+      Error("Please enter a password");
+      return;
+    }
+    retrieveFromLocalStorage(password);
+    router.push("/dashboard");
   };
 
   return (
@@ -117,10 +126,10 @@ const WelcomeBtn = () => {
       />
 
       <p className="text-primary-black text-sm font-medium text-center">
-        Forgot Password?{' '}
+        Forgot Password?{" "}
         <Link
           className="underline underline-offset-4 font-bold transition-transform hover:scale-105"
-          href={'/forgotPassword'}
+          href={"/forgotPassword"}
         >
           Generate New
         </Link>
@@ -133,7 +142,7 @@ const NewPasswordBtn = () => {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push('/dashboard');
+    router.push("/dashboard");
   };
 
   return (
@@ -151,7 +160,7 @@ const ImportWalletBtn = () => {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push('/newPassword');
+    router.push("/newPassword");
   };
 
   return (

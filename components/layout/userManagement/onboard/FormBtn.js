@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import useOnboard from '@/hooks/useOnboard';
+import useOnboard from "@/hooks/useOnboard";
 
-import Button from '@/components/ui/Button';
-import useToast from '@/hooks/useToast';
+import Button from "@/components/ui/Button";
+import useToast from "@/hooks/useToast";
 
 const GetStartedBtn = () => {
   const { step1 } = useOnboard();
@@ -52,12 +52,12 @@ const ConfirmSecurityBtn = ({ inputMnemonic }) => {
     e.preventDefault();
 
     for (let i = 0; i < inputMnemonic.length; i++) {
-      if (inputMnemonic[i] === '') {
+      if (inputMnemonic[i] === "") {
         return;
       }
     }
 
-    step3.ConfirmPhrase(inputMnemonic.join(' '));
+    step3.ConfirmPhrase(inputMnemonic.join(" "));
   };
 
   return (
@@ -71,7 +71,7 @@ const ConfirmSecurityBtn = ({ inputMnemonic }) => {
       />
 
       <p className="text-primary-black text-sm font-medium text-center">
-        Forgot Security Phase?{' '}
+        Forgot Security Phase?{" "}
         <button
           className="underline underline-offset-4 font-bold transition-transform hover:scale-105"
           type="button"
@@ -91,11 +91,11 @@ const ConfirmPasswordBtn = ({ password, confirmPassword }) => {
   const handleClick = (e) => {
     e.preventDefault();
 
-    if (password === confirmPassword) {
-      step4.ConfirmPassword(password);
+    if (password.current.value === confirmPassword.current.value) {
+      step4.ConfirmPassword(password.current.value);
+      return;
     }
-
-    Error('Password not match');
+    Error("Password not match");
   };
 
   return (

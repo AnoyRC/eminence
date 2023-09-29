@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 
-import Input from '@/components/ui/Input';
+import Input from "@/components/ui/Input";
 
 const EminentInput = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
 
   return (
     <div className="max-w-xs space-y-3 mb-8">
@@ -26,9 +26,7 @@ const EminentInput = () => {
   );
 };
 
-const WelcomeInput = () => {
-  const [password, setPassword] = useState('');
-
+const WelcomeInput = ({ password, setPassword }) => {
   return (
     <div className="max-w-xs w-80 space-y-3 mb-8">
       <Input
@@ -42,8 +40,8 @@ const WelcomeInput = () => {
 };
 
 const NewPasswordInput = () => {
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   return (
     <div className="max-w-xs w-80 space-y-3 mb-8">
