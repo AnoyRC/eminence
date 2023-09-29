@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { Keypair } from "@solana/web3.js";
-import * as bip39 from "bip39";
-import { useDispatch, useSelector } from "react-redux";
-import { setMnemonics, setPubKey } from "@/redux/walletSlice";
-import forge, { random, pki } from "node-forge";
+import { Keypair } from '@solana/web3.js';
+import * as bip39 from 'bip39';
+import { useDispatch, useSelector } from 'react-redux';
+import { setMnemonics, setPubKey } from '@/redux/walletSlice';
+import forge, { random, pki } from 'node-forge';
 
 export default function useCreateWallet() {
   const dispatch = useDispatch();
@@ -47,7 +47,7 @@ export default function useCreateWallet() {
     const encrypted2 = publicKey.encrypt(chunk2);
 
     //Store Encrypted Mnemonic in localStorage
-    localStorage.setItem("secretPair", `${encrypted1}---${encrypted2}`);
+    localStorage.setItem('secretPair', `${encrypted1}---${encrypted2}`);
   };
 
   const retrieveFromLocalStorage = (password) => {
@@ -63,11 +63,11 @@ export default function useCreateWallet() {
     });
 
     //Get Encrypted Mnemonic from localStorage
-    const secretPair = localStorage.getItem("secretPair");
+    const secretPair = localStorage.getItem('secretPair');
 
     //Decrypt Encrypted Mnemonic with RSA Private Key
-    const encrypted1 = secretPair.split("---")[0];
-    const encrypted2 = secretPair.split("---")[1];
+    const encrypted1 = secretPair.split('---')[0];
+    const encrypted2 = secretPair.split('---')[1];
     const decrypted1 = privateKey.decrypt(encrypted1);
     const decrypted2 = privateKey.decrypt(encrypted2);
     const mnemonic = decrypted1 + decrypted2;

@@ -74,6 +74,7 @@ const ConfirmSecurityBtn = ({ inputMnemonic }) => {
         Forgot Security Phase?{' '}
         <button
           className="underline underline-offset-4 font-bold transition-transform hover:scale-105"
+          type="button"
           onClick={step3.Regenerate}
         >
           Generate New
