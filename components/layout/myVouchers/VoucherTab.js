@@ -23,7 +23,7 @@ export default function VoucherTab({ voucherId, amount }) {
           <div className="flex flex-col justify-center ">
             <h1 className="text-white text-[14px]">{voucherId}</h1>
             <h1 className=" font-bold text-transparent text-[12px] bg-clip-text bg-gradient-to-r from-[#4AFF93] to-[#26FFFF]">
-              {amount}
+              {amount} Sol
             </h1>
           </div>
         </div>
