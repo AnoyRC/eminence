@@ -14,7 +14,7 @@ const sampleData = [
     private: "true",
   },
   {
-    name: "Gautam",
+    name: "Sourabh",
     date: "Aug 24, 2023 09:30 PM",
     id: "2EHbc...KjLKn",
     amount: "0.312",
@@ -23,8 +23,35 @@ const sampleData = [
     private: "true",
   },
   {
-    name: "Gautam",
+    name: "Anoy",
     date: "Aug 22, 2023 09:30 PM",
+    id: "2EHbc...KjLKn",
+    amount: "0.315",
+    type: "credited",
+    moneyType: "Sol",
+    private: "false",
+  },
+  {
+    name: "Pratik",
+    date: "Aug 22, 2023 09:30 PM",
+    id: "2EHbc...KjLKn",
+    amount: "0.315",
+    type: "credited",
+    moneyType: "Sol",
+    private: "false",
+  },
+  {
+    name: "Oishee",
+    date: "Aug 22, 2023 09:30 PM",
+    id: "2EHbc...KjLKn",
+    amount: "0.315",
+    type: "credited",
+    moneyType: "Sol",
+    private: "false",
+  },
+  {
+    name: "Gautam",
+    date: "Aug 25, 2023 09:30 PM",
     id: "2EHbc...KjLKn",
     amount: "0.315",
     type: "credited",
@@ -48,17 +75,22 @@ const sortData = (data, columnIndex, isAscending) => {
     return 0;
   });
 };
-const Transactions = () => {
+const Transactions = ({ numItemsToShow }) => {
   const [data, setData] = useState([]);
   const [sortedColumn, setSortedColumn] = useState(null);
   const [isAscending, setIsAscending] = useState(false);
 
   useEffect(() => {
-    const sortedData = [...sampleData].sort(
+    let sortedData = [...sampleData].sort(
       (a, b) => new Date(b.date) - new Date(a.date)
     );
+
+    if (numItemsToShow) {
+      sortedData = sortedData.slice(0, numItemsToShow);
+    }
+
     setData(sortedData);
-  }, []);
+  }, [numItemsToShow]);
 
   const handleSort = (columnIndex) => {
     if (columnIndex === 0 || columnIndex === 4 || columnIndex === 2) {

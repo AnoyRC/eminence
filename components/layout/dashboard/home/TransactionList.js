@@ -89,7 +89,7 @@ const TransactionList = ({ data }) => {
         ))
       ) : (
         <div className="col-span-5 text-white py-4 text-center">
-          No data available.
+          No Transactions to Show
         </div>
       )}
     </div>
