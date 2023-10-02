@@ -2,76 +2,115 @@
 import { Button } from "@material-tailwind/react";
 import { useState } from "react";
 import { ArrowUpRightIcon } from "@heroicons/react/24/solid";
+import {
+  Tabs,
+  TabsHeader,
+  TabsBody,
+  Tab,
+  TabPanel,
+} from "@material-tailwind/react";
+import localFont from "next/font/local";
+
+const myFont = localFont({
+  src: "../../../../public/fonts/Satoshi-Variable.woff2",
+});
 
 const MyWallet = () => {
-  const [active, setActive] = useState(false);
-  const solValue = "71.27";
-  const usdcValue = "36.50";
-  const changeValue = "+08.14";
+  const [activeTab, setActiveTab] = useState("Sol");
 
-  const handleClick = () => {
-    setActive(!active);
-  };
-  const displayValue = active ? usdcValue : solValue;
-  const [integerPart, decimalPart] = displayValue.split(".");
-  const [changeValueIntegerPart, changeValueDecimalPart] =
-    changeValue.split(".");
+  const data = [
+    {
+      label: "Sol",
+      value: "Sol",
+      amount: 71.27,
+      changeValue: "+08.14",
+    },
+    {
+      label: "USDC",
+      value: "USDC",
+      amount: 36.5,
+      changeValue: "+27.14",
+    },
+  ];
 
   return (
-    <div className="flex  flex-col w-[310px]  bg-gradient-to-r from-[#4AFF93] to-[#26FFFF]  rounded-lg">
-      <div className="flex justify-evenly m-[20px]">
-        <h1 className="font-bold text-[14px] mr-[34px] mt-[5px]">My Wallet</h1>
-        <div className="flex items-center w-[168px] h-[32px] bg-primary-black rounded-full">
-          <div
-            className={`flex justify-center w-[80px] h-[24px] ${
-              active
-                ? "bg-primary-black"
-                : "bg-gradient-to-r from-[#4AFF93] to-[#26FFFF]"
-            } rounded-full ml-2`}
-            onClick={handleClick}
+    <Tabs
+      value={activeTab}
+      className="flex  flex-col w-[310px] h-[230px] bg-gradient-to-r from-[#4AFF93] to-[#26FFFF]  rounded-lg px-[20px] pt-[20px] gap-[24px]"
+    >
+      <div className="flex justify-between items-center">
+        <h1 className="font-bold text-[14px]">My Wallet</h1>
+        <div className=" w-[168px] rounded-full">
+          <TabsHeader
+            className="rounded-full bg-[#1C1D22] text-white w-full h-[32px] bg-opacity-100"
+            indicatorProps={{
+              className:
+                "rounded-full bg-gradient-to-r from-[#4AFF93] to-[#26FFFF]",
+            }}
           >
-            <h1
-              className={`font-bold text-[12px] flex items-center ${
-                active ? "text-white" : "text-black"
-              }`}
-            >
-              Sol
-            </h1>
-          </div>
-          <div
-            className={`flex justify-center w-[80px] h-[24px] ${
-              !active
-                ? "bg-black"
-                : "bg-gradient-to-r from-[#4AFF93] to-[#26FFFF]"
-            } rounded-full mr-2`}
-            onClick={handleClick}
-          >
-            <h1
-              className={`font-bold text-[12px] flex items-center ${
-                !active ? "text-white" : "text-black"
-              }`}
-            >
-              USDC
-            </h1>
-          </div>
+            {data.map(({ label, value }) => (
+              <Tab
+                key={value}
+                value={value}
+                onClick={() => setActiveTab(value)}
+                className={
+                  activeTab === value
+                    ? "text-black transition-colors duration-300 flex justify-center items-center"
+                    : "text-white transition-colors duration-300 flex justify-center items-center"
+                }
+              >
+                {label}
+              </Tab>
+            ))}
+          </TabsHeader>
         </div>
       </div>
-      <div className="flex flex-col items-center ">
-        <h1 className="text-[48px] font-bold text-primary-black">
-          <span className="text-[48px] font-bold">{integerPart}</span>
-          <span className="text-[32px] font-bold">{`.${decimalPart}`}</span>
-          <span>{active ? " USDC" : " SOL"}</span>
-        </h1>
-        <p className="text-[14px] font-bold">
-          <span>{`${changeValueIntegerPart}`}</span>
-          <span className="text-[10px]">{`.${changeValueDecimalPart}`}</span>
+      <div className="flex flex-col items-center gap-[24px]">
+        <TabsBody className="">
+          {data.map(({ amount, changeValue, value }) => (
+            <TabPanel
+              key={amount}
+              value={value}
+              className={
+                "p-1 h-full flex flex-col items-center justify-center " +
+                myFont.className
+              }
+            >
+              <div className="text-[48px] font-bold text-primary-black relative leading-10">
+                <span className="text-[48px] font-bold">
+                  {Math.trunc(amount)}.
+                </span>
+                <span className="text-[32px] font-bold">
+                  {Math.trunc(amount) !== 0 && amount.toString().split(".")[1]}
+                </span>
+                <span> {value}</span>
+              </div>
+              <p className="text-[14px] font-bold">
+                <span>
+                  {changeValue[0]}
+                  {Math.trunc(changeValue)}.
+                </span>
+                <span className="text-[10px]">
+                  {Math.trunc(changeValue) !== 0 &&
+                    changeValue.toString().split(".")[1]}
+                  %
+                </span>
 
-          <span className="tex-[12px] font-medium ml-[4px]">Last Week</span>
-        </p>
-        <div className="mb-[20px]">
+                <span className="tex-[12px] font-medium ml-[4px]">
+                  {" "}
+                  Last Week
+                </span>
+              </p>
+            </TabPanel>
+          ))}
+        </TabsBody>
+        <div className="flex items-center justify-center w-full">
           <Button
-            className="mt-[40px] bg-primary-black py-[8px] px-[112px] flex flex-row  text-primary-white text-center text-[14px] font-bold rounded-full "
+            className=" bg-primary-black  w-full flex flex-row  text-primary-white items-center justify-center text-[14px] font-bold rounded-full"
             href=""
+            style={{
+              textTransform: "none",
+            }}
           >
             Buy
             <span>
@@ -80,7 +119,7 @@ const MyWallet = () => {
           </Button>
         </div>
       </div>
-    </div>
+    </Tabs>
   );
 };
 
