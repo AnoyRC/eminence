@@ -90,7 +90,7 @@ export default function ChatBox() {
             placeholder="Type your message here..."
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            className="bg-transparent flex-1 pl-[16px] text-whit"
+            className="bg-transparent flex-1 pl-[16px] text-white focus:outline-none"
           />
           <div
             onClick={handleSendMessage}
