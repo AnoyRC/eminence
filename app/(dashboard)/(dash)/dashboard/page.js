@@ -5,15 +5,13 @@ import Graph from "@/components/layout/dashboard/home/Graph";
 
 export default function Home() {
   return (
-    <section className=" w-full h-full flex flex-col gap-5 pb-5">
-      <div className="flex justify-between w-full">
+    <section className="w-full h-full flex flex-col gap-5  ">
+      <div className="flex justify-between">
         <MyWallet />
         <Contacts />
       </div>
+      <Graph />
       <Transactions numItemsToShow={5} />
-      <div className="h-[270px] ">
-        <Graph />
-      </div>
     </section>
   );
 }
