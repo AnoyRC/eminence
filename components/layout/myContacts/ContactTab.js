@@ -18,7 +18,9 @@ export default function ContactTab({ name, status }) {
             />
             <div
               className={`absolute bottom-0 right-0 w-[6.5px] h-[6.5px] rounded-full ${
-                status === "online" ? "bg-primary" : "bg-red-500"
+                status === "online"
+                  ? "bg-gradient-to-r from-[#4AFF93] to-[#26FFFF]"
+                  : "bg-[#DF0000]"
               } mb-8 `}
             ></div>
           </div>
