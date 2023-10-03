@@ -33,7 +33,7 @@ const Graph = () => {
     if (active && payload && payload.length) {
       return (
         <div
-          className="bg-[#1C1D22] px-5 py-5 h-[270px] rounded-xl text-[16px] flex flex-col gap-[20px]"
+          className="bg-[#1C1D22] px-5 py-5 rounded-xl text-[16px] flex flex-col gap-[20px]"
           style={{
             boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
           }}

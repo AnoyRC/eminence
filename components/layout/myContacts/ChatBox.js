@@ -38,7 +38,7 @@ export default function ChatBox() {
             />
             <div
               className={`absolute bottom-0 right-0 w-[7px] h-[7px] rounded-full ${
-                { sender } === "online"
+                sender === "online"
                   ? "bg-gradient-to-r from-[#4AFF93] to-[#26FFFF]"
                   : "bg-[#DF0000]"
               } mb-9 `}
@@ -77,11 +77,10 @@ export default function ChatBox() {
           </div>
         ))}
       </div>
-      <div className="flex justify-between items-center py-[8px] px-[20px] gap-[20px]">
+      <div className="flex justify-center items-center py-[8px] px-[20px] gap-[20px]">
         <Avatar
-          style={{ width: "3rem", height: "3rem" }}
-          {...genConfig("sourabh")}
-          className=""
+          style={{ width: "46px", height: "46px" }}
+          {...genConfig("anoy")}
         />
         <div className="w-full h-[48px] flex items-center rounded-full bg-black  ">
           <ChatBubbleLeftIcon className="text-white w-[24px] h-[24px] pl-[6px]" />
