@@ -46,7 +46,7 @@ export default function ContactV2() {
                     "linear-gradient(261deg, #26FFFF 5.76%, #4AFF93 94.17%)",
                 }}
               >
-                <div className=" flex flex-col w-full h-full items-center justify-center gap-[8px] bg-black rounded-[8px] hover:bg-[#1c1d22] transition-all hover:scale-110 hover:bg-transparent">
+                <div className=" flex flex-col w-full h-full items-center justify-center gap-[8px] bg-black rounded-[8px] transition-all hover:scale-110">
                   <div className="relative">
                     <Avatar
                       style={{ width: "2.5rem", height: "2.5rem" }}
