@@ -212,7 +212,20 @@ const Graph = () => {
                 <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.1} />
                 <Tooltip content={<CustomTooltip />} />
 
-                <YAxis domain={["dataMin + 0.1", "dataMax + 0.1"]} hide />
+                <YAxis
+                  domain={
+                    value === "1m"
+                      ? ["dataMin + 0.1", "dataMax + 0.1"]
+                      : value === "15m"
+                      ? ["dataMin + 0.3", "dataMax + 0.3"]
+                      : value === "1h"
+                      ? ["dataMin + 0.7", "dataMax + 0.7"]
+                      : value === "1d"
+                      ? ["dataMin + 2", "dataMax + 2"]
+                      : ["dataMin + 6", "dataMax + 6"]
+                  }
+                  hide
+                />
                 <Area
                   type="monotone"
                   dataKey="ticker"
