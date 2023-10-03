@@ -33,7 +33,7 @@ const Graph = () => {
     if (active && payload && payload.length) {
       return (
         <div
-          className="bg-[#1C1D22] px-5 py-5 rounded-xl text-[16px] flex flex-col gap-[20px]"
+          className="bg-[#1C1D22] w-full px-5 py-5 rounded-xl text-[16px] flex flex-col gap-[20px]"
           style={{
             boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
           }}
@@ -195,7 +195,7 @@ const Graph = () => {
             </Select>
           </div>
         </div>
-        <div className="flex-grow flex items-center justify-center">
+        <div className="flex-grow flex items-center justify-center h-[200px]">
           {history && history.length > 0 && (
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart

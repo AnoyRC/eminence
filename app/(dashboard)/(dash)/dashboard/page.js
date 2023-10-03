@@ -10,8 +10,8 @@ export default function Home() {
         <MyWallet />
         <Contacts />
       </div>
-      <Graph />
       <Transactions numItemsToShow={5} />
+      <Graph />
     </section>
   );
 }
