@@ -195,7 +195,7 @@ const Graph = () => {
             </Select>
           </div>
         </div>
-        <div className="flex-grow flex items-center justify-center h-[200px]">
+        <div className="flex-grow flex items-center justify-center h-[206px]">
           {history && history.length > 0 && (
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart
