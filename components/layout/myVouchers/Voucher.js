@@ -4,7 +4,7 @@ import { DocumentDuplicateIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import Avatar, { genConfig } from "react-nice-avatar";
 
-export default function Voucher() {
+export default function Voucher({ route }) {
   const pubKey = "FdK7Kuaa6Qao1PQH9mMPYgvEKeC2jAViM67skuAcV1iM";
   const { Info } = useToast();
   return (
