@@ -1,41 +1,41 @@
-import Image from "next/image";
+import Image from 'next/image';
 
 export default function Slider() {
   const dataArray = [
     {
-      heading: "Non Custodial Security",
+      heading: 'Non Custodial Security',
       description:
-        "Your wallet empowers you with full control. You own your private keys, ensuring the utmost security for your Solana assets. No intermediaries, just you and your crypto.",
-      image: "/images/home/non-custodial.svg",
-      alt: "Using finger print to unlock wallet",
+        'Your wallet empowers you with full control. You own your private keys, ensuring the utmost security for your Solana assets. No intermediaries, just you and your crypto.',
+      image: '/images/home/non-custodial.svg',
+      alt: 'Using finger print to unlock wallet',
     },
     {
-      heading: "Crypto Meets Social",
+      heading: 'Crypto Meets Social',
       description:
         "We've made crypto more than transactions; it's a space for social connection. Easily link up with friends and family in the crypto world, turning transactions into conversations.",
-      image: "/images/home/crypto-social.svg",
-      alt: "Boy chatting with friends sitting on a chair",
+      image: '/images/home/crypto-social.svg',
+      alt: 'Boy chatting with friends sitting on a chair',
     },
     {
-      heading: "Smart Contacts",
+      heading: 'Smart Contacts',
       description:
         "Keeping track of your crypto network is a breeze. Save contacts and send Solana with a few taps – it's quick, easy, and hassle-free.",
-      image: "/images/home/smart-contracts.svg",
-      alt: "4 people standing in a circle with laptops",
+      image: '/images/home/smart-contracts.svg',
+      alt: '4 people standing in a circle with laptops',
     },
     {
-      heading: "Effortless Payments",
+      heading: 'Effortless Payments',
       description:
         "Simplify receiving payments with your unique link. It's a no-fuss way for others to send you Solana securely, anytime, anywhere.",
-      image: "/images/home/payments.svg",
-      alt: "Sending payment to a friend using a mobile phone",
+      image: '/images/home/payments.svg',
+      alt: 'Sending payment to a friend using a mobile phone',
     },
     {
-      heading: "One-Stop Solana Shop",
+      heading: 'One-Stop Solana Shop',
       description:
-        "Easily acquire Solana without leaving your wallet. A seamless experience awaits both beginners and seasoned crypto users, all powered by Moonpay.",
-      image: "/images/home/solana-transaction.svg",
-      alt: "Sending solana to a friend using a mobile phone",
+        'Easily acquire Solana without leaving your wallet. A seamless experience awaits both beginners and seasoned crypto users, all powered by Moonpay.',
+      image: '/images/home/solana-transaction.svg',
+      alt: 'Sending solana to a friend using a mobile phone',
     },
   ];
 
@@ -59,6 +59,7 @@ export default function Slider() {
                 </p>
               </div>
             </div>
+
             <div className="w-[340px] h-[340px] md:w-[400px] md:h-[400px] lg:w-[500px] lg:h-[500px]">
               <Image
                 src={item.image}
