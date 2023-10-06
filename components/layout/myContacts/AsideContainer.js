@@ -5,30 +5,20 @@ import ContactTab from "./ContactTab";
 import { togglePopup } from "@/redux/contactsSlice";
 import { useDispatch } from "react-redux";
 
-const contacts = [
-  { name: "Sourabh", status: "online" },
-  { name: "Gautam Raj", status: "online" },
-  { name: "Anoy", status: "online" },
-  { name: "Pratik", status: "offline" },
-];
+import Contacts from "./Contacts";
 
 export default function AsideContainer() {
   const dispatch = useDispatch();
   return (
-    <aside className="py-[28px] w-[300px] h-full bg-black/40 flex flex-col px-[28px] gap-[28px]">
-      {/* Search Bar */}
-      <div
-        className="w-full h-[48px] rounded-full flex text-white p-[1px]"
-        style={{
-          background: "linear-gradient(90deg, #4AFF93 0%, #26FFFF 100%)",
-        }}
-      >
-        <div className="w-full h-full flex rounded-full bg-black p-[12px]">
-          <MagnifyingGlassIcon />
+    <aside className="p-6 w-[300px] h-full bg-black/40 flex flex-col">
+      <div className="flex justify-center items-center text-white p-[1px] rounded-full mb-7 bg-gradient-priamry">
+        <div className="w-full h-full flex justify-center items-center rounded-full bg-black px-3 py-2">
+          <MagnifyingGlassIcon className="h-5 w-5 text-primary-white" />
+
           <input
             type="text"
             placeholder="Search"
-            className="bg-transparent outline-none border-none text-[16px] ml-[12px] w-full"
+            className="bg-transparent outline-none text-base ml-3 w-full text-primary-white"
           />
         </div>
       </div>
@@ -45,15 +35,7 @@ export default function AsideContainer() {
         </div>
       </div>
 
-      <div className="flex flex-col gap-[12px] w-full">
-        {contacts.map((contact) => (
-          <ContactTab
-            key={contact.name}
-            name={contact.name}
-            status={contact.status}
-          />
-        ))}
-      </div>
+      <Contacts />
     </aside>
   );
 }

@@ -1,12 +1,12 @@
-import Image from "next/image";
+import Image from 'next/image';
 
 const Card = () => {
   return (
     <section className="relative mx-auto w-fit py-32">
       <h2 className="text-primary-black text-center text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-normal relative z-10 mb-10">
-        Get your <span className="text-white">Own Card</span>
+        Get your <span className="text-white leading-normal">Own Card</span>
         <div>
-          Des<span className="text-white">ign</span>
+          Des<span className="text-white leading-normal">ign</span>
         </div>
       </h2>
 
