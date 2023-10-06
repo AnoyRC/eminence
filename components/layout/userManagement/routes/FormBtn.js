@@ -8,6 +8,9 @@ import useOnboard from "@/hooks/useOnboard";
 import Button from "@/components/ui/Button";
 import useCreateWallet from "@/hooks/useCreateWallet";
 import useToast from "@/hooks/useToast";
+import { togglePopup } from "@/redux/checkLoginSlice";
+import { useDispatch, useSelector } from "react-redux";
+import useLogin from "@/hooks/useLogin";
 
 const PublicProfileBtn = () => {
   const router = useRouter();
@@ -104,15 +107,15 @@ const ForgotBtn = () => {
 const WelcomeBtn = ({ password }) => {
   const router = useRouter();
   const { retrieveFromLocalStorage } = useCreateWallet();
-  const { Error } = useToast();
+  const { Error, Success } = useToast();
+  const mnemonic = useSelector((state) => state.wallet.mnemonics);
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (password.length === 0) {
       Error("Please enter a password");
       return;
     }
-    retrieveFromLocalStorage(password);
-    router.push("/dashboard");
+    await retrieveFromLocalStorage(password, false);
   };
 
   return (
@@ -123,6 +126,43 @@ const WelcomeBtn = ({ password }) => {
         color="bg-primary-black text-primary-white"
         style="font-bold text-base rounded-lg py-3 mb-1.5 max-w-xs"
         onClick={handleClick}
+      />
+
+      <p className="text-primary-black text-sm font-medium text-center">
+        Forgot Password?{" "}
+        <Link
+          className="underline underline-offset-4 font-bold transition-transform hover:scale-105"
+          href={"/forgotPassword"}
+        >
+          Generate New
+        </Link>
+      </p>
+    </>
+  );
+};
+
+const CheckLoginBtn = ({ password }) => {
+  const dispatch = useDispatch();
+  const { retrieveFromLocalStorage } = useCreateWallet();
+  const { Error, Success } = useToast();
+
+  const handleClick = async () => {
+    if (password.length === 0) {
+      Error("Please enter a password");
+      return;
+    }
+
+    retrieveFromLocalStorage(password, true);
+  };
+
+  return (
+    <>
+      <Button
+        label="Unlock"
+        fullWidth
+        color="bg-primary-black text-primary-white"
+        style="font-bold text-base rounded-lg py-3 mb-1.5 max-w-xs"
+        onClick={async () => await handleClick()}
       />
 
       <p className="text-primary-black text-sm font-medium text-center">
@@ -181,4 +221,5 @@ export {
   WelcomeBtn,
   NewPasswordBtn,
   ImportWalletBtn,
+  CheckLoginBtn,
 };

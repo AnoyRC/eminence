@@ -1,34 +1,34 @@
-'use client';
+"use client";
 
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
-import StepsItem from './StepsItem';
+import StepsItem from "./StepsItem";
 
 const steps = [
   {
     id: 1,
-    name: 'Craft Your Digital Vault',
-    img: '/images/userManagement/steps/profile.svg',
+    name: "Craft Your Digital Vault",
+    img: "/images/userManagement/steps/profile.svg",
   },
   {
     id: 2,
     name: "Reveal Your Wallet's Core",
-    img: '/images/userManagement/steps/shield.svg',
+    img: "/images/userManagement/steps/shield.svg",
   },
+  // {
+  //   id: 3,
+  //   name: 'Verify Your Secret Shield',
+  //   img: '/images/userManagement/steps/verify-shield.svg',
+  // },
   {
     id: 3,
-    name: 'Verify Your Secret Shield',
-    img: '/images/userManagement/steps/verify-shield.svg',
+    name: "Set and Confirm Your PassCode",
+    img: "/images/userManagement/steps/lock.svg",
   },
   {
     id: 4,
-    name: 'Set and Confirm Your PassCode',
-    img: '/images/userManagement/steps/lock.svg',
-  },
-  {
-    id: 5,
-    name: 'Your Security and Privacy',
-    img: '/images/userManagement/steps/faq.svg',
+    name: "Your Security and Privacy",
+    img: "/images/userManagement/steps/faq.svg",
   },
 ];
 

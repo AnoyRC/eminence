@@ -1,3 +1,4 @@
+import AddContactPopUp from "@/components/layout/myContacts/AddContactPopUp";
 import AsideContainer from "@/components/layout/myContacts/AsideContainer";
 
 export default function VouchersLayout({ children }) {
@@ -9,8 +10,10 @@ export default function VouchersLayout({ children }) {
       }}
     >
       <div className="flex justify-center flex-grow relative overflow-auto">
+        <AddContactPopUp />
         <div className="w-[668px] px-[16px] py-[20px]">{children}</div>
       </div>
+
       <AsideContainer />
     </main>
   );

@@ -1,9 +1,9 @@
 "use client";
 import useToast from "@/hooks/useToast";
-import { DocumentDuplicateIcon } from "@heroicons/react/24/solid";
+import { DocumentDuplicateIcon, PlusIcon } from "@heroicons/react/24/solid";
 import Avatar, { genConfig } from "react-nice-avatar";
 
-export default function ContactTab({ name, status }) {
+export default function ContactTabSearch({ name, status }) {
   const pubKey = "FdK7Kuaa6Qao1PQH9mMPYgvEKeC2jAViM67skuAcV1iM";
   const { Info } = useToast();
   return (
@@ -36,12 +36,13 @@ export default function ContactTab({ name, status }) {
             </div>
           </div>
           <div
-            className={` w-[10px] h-[10px] rounded-full ${
-              status === "online"
-                ? "bg-gradient-to-r from-[#4AFF93] to-[#26FFFF]"
-                : "bg-[#DF0000]"
-            } `}
-          ></div>
+            className="flex justify-center items-center p-[8px] rounded-full w-[32px] hover:cursor-pointer"
+            style={{
+              background: "linear-gradient(90deg, #4AFF93 0%, #26FFFF 100%)",
+            }}
+          >
+            <PlusIcon className="h-4 w-4 text-black" />
+          </div>
         </div>
       </div>
     </div>

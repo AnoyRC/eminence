@@ -6,11 +6,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { setMnemonics, setPubKey } from "@/redux/walletSlice";
 import forge, { random, pki } from "node-forge";
 import useToast from "./useToast";
+import { togglePopup } from "@/redux/checkLoginSlice";
+import { useRouter } from "next/navigation";
 
 export default function useCreateWallet() {
   const dispatch = useDispatch();
   const mnemonic = useSelector((state) => state.wallet.mnemonics);
   const { Error, Success } = useToast();
+  const router = useRouter();
 
   const createWallet = () => {
     const mnemonic = bip39.generateMnemonic();
@@ -52,7 +55,7 @@ export default function useCreateWallet() {
     );
   };
 
-  const retrieveFromLocalStorage = (password) => {
+  const retrieveFromLocalStorage = async (password, isPopUp) => {
     //Create RSA Key from Password
     const encrypted = localStorage.getItem("secret");
     const iv = forge.util.createBuffer(
@@ -62,19 +65,37 @@ export default function useCreateWallet() {
       Buffer.from(encrypted.slice(32), "hex")
     );
 
-    forge.pkcs5.pbkdf2(
+    let decryptedKey = null;
+
+    const decryptCipher = async () => {
+      let decipher = forge.cipher.createDecipher("AES-CBC", decryptedKey);
+      decipher.start({ iv: iv });
+      decipher.update(message);
+      const response = await decipher.finish();
+
+      if (!response) {
+        Error("Incorrect Password");
+        return;
+      }
+
+      //Import Wallet
+      importWallet(decipher.output.toString());
+      Success("Welcome to Eminence!");
+      if (isPopUp) {
+        dispatch(togglePopup(false));
+      } else {
+        router.push("/dashboard");
+      }
+    };
+
+    await forge.pkcs5.pbkdf2(
       password,
       "Eminence",
       20000,
       24,
-      function (err, derivedKey) {
-        let decipher = forge.cipher.createDecipher("AES-CBC", derivedKey);
-        decipher.start({ iv: iv });
-        decipher.update(message);
-        decipher.finish();
-        //Import Wallet
-        importWallet(decipher.output.toString());
-        Success("Welcome to Eminence");
+      async function (err, derivedKey) {
+        decryptedKey = derivedKey;
+        decryptCipher();
       }
     );
   };
