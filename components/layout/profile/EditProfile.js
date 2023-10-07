@@ -1,5 +1,4 @@
 "use client";
-import { XMarkIcon } from "@heroicons/react/24/solid";
 import {
   Card,
   CardBody,
@@ -52,7 +51,6 @@ export default function EditProfile() {
               </Typography>
               <Typography
                 color="black"
-                variant=""
                 className={"mt-1 font-normal " + myFont.className}
               >
                 Edit your profile information

@@ -2,6 +2,7 @@ import ProfileHandler from "@/components/layout/profile/ProfileHeader";
 import MyWallet from "@/components/layout/dashboard/home/MyWallet";
 import CurrencyRatio from "@/components/layout/profile/CurrencyRatio";
 import EditProfile from "@/components/layout/profile/EditProfile";
+import CardSelect from "@/components/layout/profile/CardSelect";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
         <CurrencyRatio />
       </div>
       <EditProfile />
+      <CardSelect />
     </section>
   );
 }
