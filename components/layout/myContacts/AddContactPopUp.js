@@ -41,7 +41,7 @@ export default function AddContactPopUp() {
                   "linear-gradient(261deg, #26FFFF 5.76%, #4AFF93 94.17%)",
               }}
             >
-              <div className={"h-full w-full rounded-[8px] bg- "}>
+              <div className={"h-full w-full rounded-[8px] bg-black "}>
                 <Card
                   className={"h-full w-full rounded-[8px] bg-black pb-[5px]"}
                 >

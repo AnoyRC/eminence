@@ -1,13 +1,17 @@
-import MyWallet from '@/components/layout/dashboard/home/MyWallet';
-import Contacts from '@/components/layout/dashboard/home/Contacts';
-import Transactions from '@/components/layout/dashboard/home/Transactions';
-import Graph from '@/components/layout/dashboard/home/Graph';
+import ProfileHandler from "@/components/layout/profile/ProfileHeader";
+import MyWallet from "@/components/layout/dashboard/home/MyWallet";
+import CurrencyRatio from "@/components/layout/profile/CurrencyRatio";
+import EditProfile from "@/components/layout/profile/EditProfile";
 
 export default function Home() {
   return (
-    <section>
-      {/* Import My Wallet, Contacts, Transactions, Graph */}
-      Dashboard
+    <section className="w-full h-full flex flex-col gap-5 pb-5 ">
+      <ProfileHandler />
+      <div className="flex justify-between">
+        <MyWallet />
+        <CurrencyRatio />
+      </div>
+      <EditProfile />
     </section>
   );
 }
