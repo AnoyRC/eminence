@@ -1,15 +1,15 @@
-'use client';
-import Button from '@/components/ui/Button';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+"use client";
+import Button from "@/components/ui/Button";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const Experience = () => {
   const router = useRouter();
 
   const check = () => {
-    const secretPair = localStorage.getItem('secretPair');
-    if (secretPair) router.push('/login');
-    else router.push('/onboard');
+    const secretPair = localStorage.getItem("secretPair");
+    if (secretPair) router.push("/login");
+    else router.push("/onboard");
   };
 
   return (

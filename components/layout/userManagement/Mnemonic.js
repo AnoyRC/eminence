@@ -1,18 +1,19 @@
-'use client';
+"use client";
 
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
-import useToast from '@/hooks/useToast';
+import useToast from "@/hooks/useToast";
 
-import { Tooltip } from '@material-tailwind/react';
+import { Tooltip } from "@material-tailwind/react";
 
 const Mnemonic = () => {
   const mnemonic = useSelector((state) => state.wallet.mnemonics);
   const { Success } = useToast();
 
   const handleCopyText = () => {
+    event.preventDefault();
     navigator.clipboard.writeText(mnemonic);
-    Success('Security phase copied');
+    Success("Security phase copied");
   };
 
   return (
@@ -30,7 +31,7 @@ const Mnemonic = () => {
           className="grid grid-cols-3 grid-rows-4 gap-5 w-full cursor-copy mb-4"
           onClick={handleCopyText}
         >
-          {mnemonic.split(' ').map((word, index) => (
+          {mnemonic.split(" ").map((word, index) => (
             <div
               key={index}
               className="flex flex-start font-medium text-primary-black text-base py-1 px-3 w-full bg-primary-white/60 rounded"
