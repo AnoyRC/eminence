@@ -1,12 +1,13 @@
-"use client";
+'use client';
 
-import { configureStore } from "@reduxjs/toolkit";
-import { defaultSlice } from "./defaultSlice.js";
-import { walletSlice } from "./walletSlice.js";
-import { toastSlice } from "./toastSlice.js";
-import { graphSlice } from "./graphSlice.js";
-import { checkLoginSlice } from "./checkLoginSlice.js";
-import { contactsSlice } from "./contactsSlice.js";
+import { configureStore } from '@reduxjs/toolkit';
+import { defaultSlice } from './defaultSlice.js';
+import { walletSlice } from './walletSlice.js';
+import { toastSlice } from './toastSlice.js';
+import { graphSlice } from './graphSlice.js';
+import { checkLoginSlice } from './checkLoginSlice.js';
+import { contactsSlice } from './contactsSlice.js';
+import { contactSlice } from './contactSlice.js';
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     wallet: walletSlice.reducer,
     toast: toastSlice.reducer,
     graph: graphSlice.reducer,
+    contact: contactSlice.reducer,
     checkLogin: checkLoginSlice.reducer,
     contacts: contactsSlice.reducer,
   },
