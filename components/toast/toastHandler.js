@@ -7,7 +7,7 @@ export default function ToastHandler() {
   const toastlist = useSelector((state) => state.toast.toastList);
 
   return (
-    <div className="absolute bottom-7 left-7 flex flex-col space-y-5">
+    <div className="absolute bottom-7 left-7 flex flex-col space-y-5 z-30">
       {toastlist.length > 0 &&
         toastlist.map((toast, index) => (
           <Toast key={index} type={toast.type} msg={toast.msg} />
