@@ -24,7 +24,7 @@ const currency = [
     image: "/images/Deposit/Nigeria.svg",
   },
   {
-    name: "turkish Lira",
+    name: "Turkish Lira",
     symbol: "TRY",
     image: "/images/Deposit/Turkey.svg",
   },
@@ -93,6 +93,8 @@ export default function OnRamp() {
             placeholder="0.0"
           ></input>
 
+          <vr className="h-[40px] w-[3px] bg-black"></vr>
+
           <Select
             size="regular"
             className="border-transparent h-full text-black w-[200px]"
@@ -101,7 +103,7 @@ export default function OnRamp() {
                 "after:border-transparent before:border-transparent w-[200px]",
             }}
             containerProps={{
-              className: "w-[200px]",
+              className: "min-w-[0px] w-[55%]",
             }}
           >
             {currency.map((item) => (
@@ -138,15 +140,16 @@ export default function OnRamp() {
             56.67
           </h1>
 
+          <vr className="h-[40px] w-[3px] bg-black"></vr>
+
           <Select
             size="regular"
-            className="border-transparent h-full text-black w-[200px]"
+            className="border-transparent h-full text-black"
             labelProps={{
-              className:
-                "after:border-transparent before:border-transparent w-[200px]",
+              className: "after:border-transparent before:border-transparent",
             }}
             containerProps={{
-              className: "w-[200px]",
+              className: "min-w-[0px] w-[55%]",
             }}
           >
             {cryptoCurrency.map((item) => (
