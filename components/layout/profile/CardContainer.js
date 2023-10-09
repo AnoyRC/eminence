@@ -3,7 +3,7 @@ import { useState } from "react";
 import CardFront from "./CardFront";
 import CardBack from "./CardBack";
 
-export default function CardContainer() {
+export default function CardContainer({ design }) {
   const [isFrontCardVisible, setIsFrontCardVisible] = useState(true);
 
   const toggleCard = () => {
@@ -11,8 +11,8 @@ export default function CardContainer() {
   };
 
   return isFrontCardVisible ? (
-    <CardFront toggleCard={toggleCard} />
+    <CardFront toggleCard={toggleCard} design={design} />
   ) : (
-    <CardBack toggleCard={toggleCard} />
+    <CardBack toggleCard={toggleCard} design={design} />
   );
 }

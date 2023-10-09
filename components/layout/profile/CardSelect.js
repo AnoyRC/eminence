@@ -54,7 +54,7 @@ export default function CardSelect() {
             className="flex flex-col gap-[30px] justify-center items-center w-[50%] hover:cursor-pointer"
             onClick={() => setSelectedCard(0)}
           >
-            <CardContainer color="bg-primary-black" />
+            <CardContainer color="bg-primary-black" design={"white"} />
             <div
               className="w-[60px] h-[30px] rounded-[4px] p-[0.5px] relative"
               style={{

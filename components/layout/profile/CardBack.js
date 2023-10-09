@@ -2,9 +2,17 @@ import Image from "next/image";
 import { ArrowPathRoundedSquareIcon } from "@heroicons/react/24/solid";
 import Avatar, { genConfig } from "react-nice-avatar";
 
-export default function CardBack({ toggleCard }) {
+export default function CardBack({ toggleCard, design }) {
+  const backgroundColor =
+    design === "white" ? "bg-primary-white" : "bg-primary-black";
+  const textColor =
+    design === "white" ? "text-primary-black" : "text-primary-white";
+  const accountNoColor =
+    design === "white" ? "text-[#1c1d22cc]" : "text-[#CCC]";
   return (
-    <div className="relative overflow-hidden bg-primary-black w-[220px] h-[316px] shadow-md shadow-[#ffffff40] rounded-lg">
+    <div
+      className={`${backgroundColor} relative overflow-hidden  w-[220px] h-[316px] shadow-md shadow-[#ffffff40] rounded-lg`}
+    >
       <div className="absolute w-[348px] h-[385px] left-6">
         <Image
           src="/images/Frame_32.png"
@@ -20,7 +28,9 @@ export default function CardBack({ toggleCard }) {
             onClick={() => toggleCard()}
             className="hover:cursor-pointer z-20"
           >
-            <ArrowPathRoundedSquareIcon className="text-white h-[20px] w-[20px] " />
+            <ArrowPathRoundedSquareIcon
+              className={`${textColor} h-[20px] w-[20px] `}
+            />
           </button>
 
           <div className="w-full flex gap-[12px] items-center">
@@ -31,10 +41,12 @@ export default function CardBack({ toggleCard }) {
             />
 
             <div className="  flex flex-col justify-center justify-items-start">
-              <h1 className="text-primary-white text-[14px] font-medium">
+              <h1 className={`${textColor} text-[14px] font-medium`}>
                 Sourabh Singh
               </h1>
-              <p className="text-[#f0f0f099] flex flex-start items-center text-[12px]">
+              <p
+                className={`${accountNoColor} flex flex-start items-center text-[10px]`}
+              >
                 8421....0792
               </p>
             </div>
