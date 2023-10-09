@@ -47,12 +47,14 @@ const SecurityPhaseBtn = () => {
 
 const ConfirmSecurityBtn = ({ inputMnemonic }) => {
   const { step3 } = useOnboard();
+  const { Error } = useToast();
 
   const handleClick = (e) => {
     e.preventDefault();
 
     for (let i = 0; i < inputMnemonic.length; i++) {
       if (inputMnemonic[i] === "") {
+        Error("Please fill all the fields");
         return;
       }
     }
@@ -91,11 +93,19 @@ const ConfirmPasswordBtn = ({ password, confirmPassword }) => {
   const handleClick = (e) => {
     e.preventDefault();
 
+    if (
+      password.current.value.length === 0 ||
+      confirmPassword.current.value.length === 0
+    ) {
+      Error("Please fill all the fields");
+      return;
+    }
+
     if (password.current.value === confirmPassword.current.value) {
       step4.ConfirmPassword(password.current.value);
       return;
     }
-    Error("Password not match");
+    Error("Password do not match");
   };
 
   return (

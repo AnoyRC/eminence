@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import Input from "@/components/ui/Input";
+import { NewPasswordBtn } from "./FormBtn";
 
 const EminentInput = () => {
   const [firstName, setFirstName] = useState("");
@@ -40,24 +41,25 @@ const WelcomeInput = ({ password, setPassword }) => {
 };
 
 const NewPasswordInput = () => {
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const password = useRef();
+  const confirmPassword = useRef();
 
   return (
-    <div className="max-w-xs w-80 space-y-3 mb-8">
-      <Input
+    <div className="max-w-xs w-80  mb-8">
+      <input
+        type="password"
+        ref={password}
+        className="w-full mb-5 rounded px-8 py-3 bg-primary-white/60 text-primary-black font-medium text-base"
         placeholder="Enter Password"
-        type="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
+      />
+      <input
+        type="password"
+        ref={confirmPassword}
+        className="w-full rounded mb-5 px-8 py-3 bg-primary-white/60 text-primary-black font-medium text-base"
+        placeholder="Confirm Password"
       />
 
-      <Input
-        placeholder="Confirm Password"
-        type="Password"
-        value={confirmPassword}
-        onChange={(e) => setConfirmPassword(e.target.value)}
-      />
+      <NewPasswordBtn password={password} confirmPassword={confirmPassword} />
     </div>
   );
 };

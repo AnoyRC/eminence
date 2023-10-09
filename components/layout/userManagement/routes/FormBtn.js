@@ -11,6 +11,7 @@ import useToast from "@/hooks/useToast";
 import { togglePopup } from "@/redux/checkLoginSlice";
 import { useDispatch, useSelector } from "react-redux";
 import useLogin from "@/hooks/useLogin";
+import { setMnemonics } from "@/redux/walletSlice";
 
 const PublicProfileBtn = () => {
   const router = useRouter();
@@ -178,11 +179,28 @@ const CheckLoginBtn = ({ password }) => {
   );
 };
 
-const NewPasswordBtn = () => {
+const NewPasswordBtn = ({ password, confirmPassword }) => {
   const router = useRouter();
+  const { step4 } = useOnboard();
+  const { Error } = useToast();
 
-  const handleClick = () => {
-    router.push("/dashboard");
+  const handleClick = (e) => {
+    e.preventDefault();
+
+    if (
+      password.current.value.length === 0 ||
+      confirmPassword.current.value.length === 0
+    ) {
+      Error("Please fill all the fields");
+      return;
+    }
+
+    if (password.current.value === confirmPassword.current.value) {
+      step4.ConfirmPassword(password.current.value);
+      router.push("/dashboard");
+      return;
+    }
+    Error("Password do not match");
   };
 
   return (
@@ -191,15 +209,25 @@ const NewPasswordBtn = () => {
       fullWidth
       color="bg-primary-black text-primary-white"
       style="font-bold text-base rounded-lg py-3 mb-1.5 max-w-xs"
-      onClick={handleClick}
+      onClick={(e) => handleClick(e)}
     />
   );
 };
 
-const ImportWalletBtn = () => {
+const ImportWalletBtn = ({ inputMnemonic }) => {
   const router = useRouter();
+  const dispatch = useDispatch();
+  const { Error } = useToast();
 
   const handleClick = () => {
+    if (inputMnemonic.length !== 12) {
+      Error("Please fill all the fields");
+      return;
+    }
+
+    const mnemonic = inputMnemonic.join(" ");
+
+    dispatch(setMnemonics(mnemonic));
     router.push("/newPassword");
   };
 

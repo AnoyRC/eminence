@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import { ConfirmSecurityBtn } from "./FormBtn";
+import { ImportWalletBtn } from "../routes/FormBtn";
 
 const SecurityInput = ({ importWallet }) => {
   const phrase =
@@ -36,7 +37,9 @@ const SecurityInput = ({ importWallet }) => {
         ))}
       </section>
 
-      {importWallet ? null : (
+      {importWallet ? (
+        <ImportWalletBtn inputMnemonic={inputMnemonic} />
+      ) : (
         <ConfirmSecurityBtn inputMnemonic={inputMnemonic} />
       )}
     </>
