@@ -1,3 +1,9 @@
+import OnRamp from "@/components/layout/Deposit/OnRamp";
+
 export default function Home() {
-  return <section>Deposit</section>;
+  return (
+    <section>
+      <OnRamp />
+    </section>
+  );
 }
