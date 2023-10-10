@@ -8,6 +8,8 @@ import forge, { random, pki } from "node-forge";
 import useToast from "./useToast";
 import { togglePopup } from "@/redux/checkLoginSlice";
 import { useRouter } from "next/navigation";
+import nacl from "tweetnacl";
+import bs58 from "bs58";
 
 export default function useCreateWallet() {
   const dispatch = useDispatch();
@@ -100,10 +102,26 @@ export default function useCreateWallet() {
     );
   };
 
+  const signMessage = async () => {
+    const seed = bip39.mnemonicToSeedSync(mnemonic);
+    const keypair = Keypair.fromSeed(seed.slice(0, 32));
+
+    const message =
+      "Welcome to Eminence Wallet. Sign this message to verify your identity.";
+
+    const signature = nacl.sign.detached(
+      Buffer.from(message, "utf-8"),
+      keypair.secretKey
+    );
+
+    return bs58.encode(signature);
+  };
+
   return {
     createWallet,
     importWallet,
     saveToLocalStorage,
     retrieveFromLocalStorage,
+    signMessage,
   };
 }

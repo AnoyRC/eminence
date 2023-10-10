@@ -53,7 +53,7 @@ export default function useOnboard() {
 
   const step5 = {
     Continue: () => {
-      router.push("/welcome");
+      router.push("/publicProfile");
     },
   };
 

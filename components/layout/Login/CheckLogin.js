@@ -7,6 +7,7 @@ import { WelcomeInput } from "../userManagement/routes/FormInput";
 import UserForm from "../userManagement/UserForm";
 import Button from "@/components/ui/Button";
 import { useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
   const [password, setPassword] = useState("");
@@ -28,6 +29,7 @@ const Login = () => {
 };
 
 const CreateWallet = () => {
+  const router = useRouter();
   return (
     <div className="absolute top-0 left-0 w-full h-full bg-black/30 backdrop-blur-lg backdrop-filter z-20 flex flex-col items-center justify-center">
       <UserForm>
@@ -42,7 +44,9 @@ const CreateWallet = () => {
           fullWidth
           color="bg-primary-black text-primary-white"
           style="font-bold text-base rounded-lg py-3 "
-          onClick={() => {}}
+          onClick={() => {
+            router.push("/onboard");
+          }}
         />
       </UserForm>
     </div>

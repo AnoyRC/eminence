@@ -1,11 +1,11 @@
 "use client";
 
 import { useRef, useState } from "react";
-
+import { EminentBtn } from "./FormBtn";
 import Input from "@/components/ui/Input";
 import { NewPasswordBtn } from "./FormBtn";
 
-const EminentInput = () => {
+const EminentInput = ({ avatar }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 
@@ -23,6 +23,7 @@ const EminentInput = () => {
         value={lastName}
         onChange={(e) => setLastName(e.target.value)}
       />
+      <EminentBtn firstName={firstName} lastName={lastName} avatarId={avatar} />
     </div>
   );
 };
