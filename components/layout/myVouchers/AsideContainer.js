@@ -1,32 +1,46 @@
-import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
-import VoucherTab from "./VoucherTab";
+'use client';
 
-const vouchers = [
-  { voucherId: "123456789", amount: "293" },
-  { voucherId: "1011121314", amount: "27" },
-];
+import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
+import VoucherTab from './VoucherTab';
+import { useEffect, useState } from 'react';
 
 export default function AsideContainer() {
+  const [vouchers, setVouchers] = useState([]);
+
+  useEffect(() => {
+    const fetchVouchers = async () => {
+      const res = await fetch('http://localhost:8080/api/voucher/get', {
+        method: 'GET',
+
+        headers: {
+          'Content-Type': 'application/json',
+          'x-auth-token': localStorage.getItem('x-auth-token'),
+          'x-auth-pubkey': localStorage.getItem('x-auth-pubkey'),
+        },
+      });
+      const data = await res.json();
+
+      setVouchers(data);
+    };
+
+    fetchVouchers();
+  }, []);
+
   return (
-    <aside className="py-[28px] w-[300px] h-full bg-black/40 flex flex-col px-[28px] gap-[28px]">
-      {/* Search Bar */}
-      <div
-        className="w-full h-[48px] rounded-full flex text-white p-[1px]"
-        style={{
-          background: "linear-gradient(90deg, #4AFF93 0%, #26FFFF 100%)",
-        }}
-      >
-        <div className="w-full h-full flex rounded-full bg-black p-[12px]">
-          <MagnifyingGlassIcon />
+    <aside className="py-[28px] w-[300px] h-full bg-black/40 flex flex-col px-[28px]">
+      <div className="flex justify-center items-center text-white p-px rounded-full mb-7 bg-gradient-priamry">
+        <div className="w-full h-full flex justify-center items-center rounded-full bg-black px-3 py-2">
+          <MagnifyingGlassIcon className="h-5 w-5 text-primary-white" />
+
           <input
             type="text"
             placeholder="Search"
-            className="bg-transparent outline-none border-none text-[16px] ml-[12px] w-full"
+            className="bg-transparent outline-none text-base ml-3 w-full text-primary-white"
           />
         </div>
       </div>
 
-      <h1 className="text-white text-[24px] font-bold">Vouchers</h1>
+      <h3 className="text-white text-[24px] font-bold mb-6">Vouchers</h3>
 
       <div className="flex flex-col gap-[12px] w-full">
         {vouchers.map((voucher) => (
