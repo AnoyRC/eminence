@@ -53,6 +53,7 @@ export default function Balance({
         <input
           type={'text'}
           className="font-bold text-black text-[48px] bg-transparent focus-visible:outline-none"
+          required
           value={value}
           onChange={(e) => onChange(e)}
         ></input>

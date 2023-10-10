@@ -1,21 +1,32 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { Input, Textarea } from '@material-tailwind/react';
 
 import Balance from '@/components/ui/Balance';
 
-export default function VoucherEditor() {
+export default function VoucherEditor({
+  amount,
+  message,
+  password,
+  voucherId,
+  setAmount,
+  setMessage,
+  setPassword,
+}) {
+  const [balance, setBalance] = useState(0);
+
   return (
     <div className="w-full items-center rounded-[8px] p-[1px] bg-gradient-priamry">
       <div className="flex justify-between h-full w-full bg-black rounded-lg p-2 gap-3">
         <div className="w-2/5">
           <Balance
             symbol="SOL"
-            balance={100}
-            value={100}
+            balance={balance}
+            value={amount}
             type="Send"
             editable
-            onChange={(e) => console.log(e.target.value)}
+            onChange={(e) => setAmount(e.target.value)}
           />
         </div>
 
@@ -23,20 +34,38 @@ export default function VoucherEditor() {
           <p className="text-white font-bold text-xl">
             Voucher Id:{' '}
             <span className="text-transparent bg-clip-text bg-gradient-priamry">
-              256789801
+              {voucherId}
             </span>
           </p>
 
-          <Input variant="standard" label="Password" color="white" />
-          <Textarea
-            label="Custom Message"
+          <Input
+            type="password"
             variant="standard"
-            className="border-white text-white"
-            labelProps={{
-              className:
-                ' peer-placeholder-shown:text-white peer-disabled:peer-placeholder-shown:text-white peer-focus:text-white after:border-white peer-focus:after:!border-white',
-            }}
+            label="Password"
+            color="white"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
+
+          <div className="relative">
+            <Textarea
+              label="Custom Message"
+              variant="standard"
+              className="border-white text-white"
+              labelProps={{
+                className:
+                  ' peer-placeholder-shown:text-white peer-disabled:peer-placeholder-shown:text-white peer-focus:text-white after:border-white peer-focus:after:!border-white',
+              }}
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              maxLength={100}
+            />
+
+            <span className="absolute text-primary-white bottom-2 right-0 text-xs">
+              {100 - message.length} letter Left
+            </span>
+          </div>
         </div>
       </div>
     </div>
