@@ -4,8 +4,9 @@ import { DocumentDuplicateIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
 import Avatar, { genConfig } from 'react-nice-avatar';
 
-export default function Voucher() {
+export default function Voucher({ amount, message }) {
   const pubKey = 'FdK7Kuaa6Qao1PQH9mMPYgvEKeC2jAViM67skuAcV1iM';
+
   const { Info } = useToast();
   return (
     <div
@@ -33,20 +34,19 @@ export default function Voucher() {
         </div>
 
         <div className="flex flex-col justify-between items-center py-[16px]">
-          <h1 className="text-[56px] text-white font-bold -mt-3">Voucher</h1>
-          <h1 className="text-[14px] text-white w-[220px]">
-            Your Custom message for the receiver. The maximum character you can
-            store is 80.
-          </h1>
+          <h3 className="text-[56px] text-white font-bold -mt-3">Voucher</h3>
+          <p className="text-[14px] break-words	 text-white w-[220px]">
+            {message}
+          </p>
           <div className="flex w-full gap-[13px] mb-1">
-            <h1 className="text-[20px] text-white ">Amount:</h1>
+            <p className="text-[20px] text-white ">Amount:</p>
             <div
               className="flex justify-center items-center py-[6px] px-[24px] rounded-full"
               style={{
                 background: 'linear-gradient(90deg, #4AFF93 0%, #26FFFF 100%)',
               }}
             >
-              <h1 className="text-[12px] text-black">3.26 Sol</h1>
+              <p className="text-xs text-black font-medium">{amount} Sol</p>
             </div>
           </div>
         </div>
@@ -67,9 +67,9 @@ export default function Voucher() {
               />
             </div>
             <div className="flex flex-col justify-center">
-              <h1 className=" font-bold text-transparent text-[14px] bg-clip-text bg-gradient-to-r from-[#4AFF93] to-[#26FFFF]">
+              <h4 className=" font-bold text-transparent text-[14px] bg-clip-text bg-gradient-to-r from-[#4AFF93] to-[#26FFFF]">
                 Gautam Raj
-              </h1>
+              </h4>
               <button
                 className="text-[#f0f0f099] flex flex-start items-center text-[10px] hover:cursor-pointer"
                 onClick={() => {
