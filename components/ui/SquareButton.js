@@ -5,8 +5,8 @@ export default function SquareButton({ Line1, Line2, onClick, Icon }) {
       onClick={onClick}
     >
       <div className="flex flex-col text-white font-bold text-[52px] leading-[65px]">
-        <h1>{Line1}</h1>
-        <h1>{Line2}</h1>
+        <p>{Line1}</p>
+        <p>{Line2}</p>
       </div>
       <Icon className="w-[60px] h-[60px] text-white mt-1.5" />
     </div>
