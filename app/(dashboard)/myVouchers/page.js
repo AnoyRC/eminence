@@ -61,7 +61,11 @@ export default function Home() {
 
   return (
     <section className="w-full h-full flex flex-col gap-5">
-      <Voucher amount={amount} message={message} />
+      <Voucher
+        amount={amount}
+        message={message}
+        pubKey={localStorage.getItem('x-auth-pubkey')}
+      />
 
       <VoucherEditor
         amount={amount}

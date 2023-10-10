@@ -1,65 +1,65 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import TransactionList from "./TransactionList";
-import { ArrowsUpDownIcon } from "@heroicons/react/24/solid";
+'use client';
+import React, { useState, useEffect } from 'react';
+import TransactionList from './TransactionList';
+import { ArrowsUpDownIcon } from '@heroicons/react/24/solid';
 
 const sampleData = [
   {
-    name: "Gautam",
-    date: "Aug 21, 2023 09:30 PM",
-    id: "2EHbc...KjLKn",
-    amount: "0.313",
-    type: "credited",
-    moneyType: "Sol",
-    private: "true",
+    name: 'Gautam',
+    date: 'Aug 21, 2023 09:30 PM',
+    id: '2EHbc...KjLKn',
+    amount: '0.313',
+    type: 'credited',
+    moneyType: 'Sol',
+    private: 'true',
   },
   {
-    name: "Sourabh",
-    date: "Aug 24, 2023 09:30 PM",
-    id: "2EHbc...KjLKn",
-    amount: "0.312",
-    type: "debited",
-    moneyType: "USDC",
-    private: "true",
+    name: 'Sourabh',
+    date: 'Aug 24, 2023 09:30 PM',
+    id: '2EHbc...KjLKn',
+    amount: '0.312',
+    type: 'debited',
+    moneyType: 'USDC',
+    private: 'true',
   },
   {
-    name: "Anoy",
-    date: "Aug 22, 2023 09:30 PM",
-    id: "2EHbc...KjLKn",
-    amount: "0.315",
-    type: "credited",
-    moneyType: "Sol",
-    private: "false",
+    name: 'Anoy',
+    date: 'Aug 22, 2023 09:30 PM',
+    id: '2EHbc...KjLKn',
+    amount: '0.315',
+    type: 'credited',
+    moneyType: 'Sol',
+    private: 'false',
   },
   {
-    name: "Pratik",
-    date: "Aug 22, 2023 09:30 PM",
-    id: "2EHbc...KjLKn",
-    amount: "0.315",
-    type: "credited",
-    moneyType: "Sol",
-    private: "false",
+    name: 'Pratik',
+    date: 'Aug 22, 2023 09:30 PM',
+    id: '2EHbc...KjLKn',
+    amount: '0.315',
+    type: 'credited',
+    moneyType: 'Sol',
+    private: 'false',
   },
   {
-    name: "Oishee",
-    date: "Aug 22, 2023 09:30 PM",
-    id: "2EHbc...KjLKn",
-    amount: "0.315",
-    type: "credited",
-    moneyType: "Sol",
-    private: "false",
+    name: 'Oishee',
+    date: 'Aug 22, 2023 09:30 PM',
+    id: '2EHbc...KjLKn',
+    amount: '0.315',
+    type: 'credited',
+    moneyType: 'Sol',
+    private: 'false',
   },
   {
-    name: "Gautam",
-    date: "Aug 25, 2023 09:30 PM",
-    id: "2EHbc...KjLKn",
-    amount: "0.315",
-    type: "credited",
-    moneyType: "Sol",
-    private: "false",
+    name: 'Gautam',
+    date: 'Aug 25, 2023 09:30 PM',
+    id: '2EHbc...KjLKn',
+    amount: '0.315',
+    type: 'credited',
+    moneyType: 'Sol',
+    private: 'false',
   },
 ];
-const tableHeadings = ["name", "date", "id", "amount", "private"];
+const tableHeadings = ['name', 'date', 'id', 'amount', 'private'];
 
 const sortData = (data, columnIndex, isAscending) => {
   return data.slice().sort((a, b) => {
@@ -118,9 +118,9 @@ const Transactions = ({ numItemsToShow }) => {
               onClick={() => handleSort(index)}
               className={`py-4 text-[#f0f0f099] font-medium cursor-pointer ${
                 (index === 0 || index === 4 || index === 2) &&
-                "pointer-events-none"
+                'pointer-events-none'
               } ${
-                index === 3 || index === 4 ? "pl-[30px]" : ""
+                index === 3 || index === 4 ? 'pl-[30px]' : ''
               } border-b border-[#f0f0f099]`}
             >
               <div className="flex items-center ">

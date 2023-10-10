@@ -28,13 +28,13 @@ export default function VoucherTab({ voucherId, amount }) {
 
   return (
     <button
-      className="flex w-full rounded-[8px] px-[8px] py-[12px] bg-[#1C1D22] hover:scale-105 hover:opacity-80"
+      className="flex w-full rounded-lg px-[8px] py-[12px] bg-[#1C1D22] hover:scale-105 hover:opacity-80 transition-[transform,opacity]"
       onClick={handleVoucherClick}
     >
       <div className="flex justify-between items-center w-full">
-        <div className="flex gap-[12px]">
+        <div className="flex gap-3">
           <div
-            className="flex justify-center items-center p-[8px] rounded-full w-[39px]"
+            className="flex justify-center items-center p-2 rounded-full w-[39px]"
             style={{
               background: 'linear-gradient(90deg, #4AFF93 0%, #26FFFF 100%)',
             }}
@@ -48,7 +48,7 @@ export default function VoucherTab({ voucherId, amount }) {
           </div>
 
           <div className="flex flex-col text-left">
-            <h4 className="text-white text-[14px]">{voucherId}</h4>
+            <h4 className="text-white text-sm">{voucherId}</h4>
             <span className=" font-bold text-transparent text-[12px] bg-clip-text bg-gradient-to-r from-[#4AFF93] to-[#26FFFF]">
               {amount} Sol
             </span>
