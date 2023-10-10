@@ -4,6 +4,8 @@ import useOnboard from "@/hooks/useOnboard";
 
 import Button from "@/components/ui/Button";
 import useToast from "@/hooks/useToast";
+import usePostServer from "@/hooks/usePostServer";
+import useCreateWallet from "@/hooks/useCreateWallet";
 
 const GetStartedBtn = () => {
   const { step1 } = useOnboard();
@@ -89,8 +91,10 @@ const ConfirmSecurityBtn = ({ inputMnemonic }) => {
 const ConfirmPasswordBtn = ({ password, confirmPassword }) => {
   const { step4 } = useOnboard();
   const { Error } = useToast();
+  const { generateToken } = usePostServer();
+  const { signMessage } = useCreateWallet();
 
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
 
     if (
@@ -102,8 +106,17 @@ const ConfirmPasswordBtn = ({ password, confirmPassword }) => {
     }
 
     if (password.current.value === confirmPassword.current.value) {
-      step4.ConfirmPassword(password.current.value);
-      return;
+      try {
+        const signature = await signMessage();
+
+        await generateToken(signature);
+
+        step4.ConfirmPassword(password.current.value);
+
+        return;
+      } catch (err) {
+        Error("Something went wrong");
+      }
     }
     Error("Password do not match");
   };

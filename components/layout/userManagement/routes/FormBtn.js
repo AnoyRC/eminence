@@ -8,13 +8,13 @@ import useOnboard from "@/hooks/useOnboard";
 import Button from "@/components/ui/Button";
 import useCreateWallet from "@/hooks/useCreateWallet";
 import useToast from "@/hooks/useToast";
-import { togglePopup } from "@/redux/checkLoginSlice";
 import { useDispatch, useSelector } from "react-redux";
-import useLogin from "@/hooks/useLogin";
 import { setMnemonics } from "@/redux/walletSlice";
+import usePostServer from "@/hooks/usePostServer";
 
 const PublicProfileBtn = () => {
   const router = useRouter();
+  const { createUserRandom } = usePostServer();
 
   const handleClick = () => {
     router.push("/createEminent");
@@ -32,27 +32,30 @@ const PublicProfileBtn = () => {
 
       <p className="text-primary-black text-sm font-medium text-center">
         Don&apos;t want a public profile?{" "}
-        <Link
+        <button
           className="underline underline-offset-4 font-bold transition-transform hover:scale-105"
-          href={"/dashboard"}
+          onClick={async (e) => {
+            e.preventDefault();
+            await createUserRandom();
+          }}
         >
           Skip for Now
-        </Link>
+        </button>
       </p>
     </div>
   );
 };
 
-const EminentBtn = () => {
-  const router = useRouter();
+const EminentBtn = ({ firstName, lastName, avatarId }) => {
+  const { createUser } = usePostServer();
 
-  const handleClick = () => {
-    router.push("/dashboard");
+  const handleClick = async () => {
+    await createUser({ firstName, lastName, avatarId });
   };
 
   return (
     <Button
-      label="Continue"
+      label="Create Profile"
       fullWidth
       color="bg-primary-black text-primary-white"
       style="font-bold text-base rounded-lg py-3 mb-1.5 max-w-xs"
