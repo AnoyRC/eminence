@@ -1,8 +1,9 @@
 'use client';
 
-import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
-import VoucherTab from './VoucherTab';
 import { useEffect, useState } from 'react';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
+
+import VoucherTab from './VoucherTab';
 
 export default function AsideContainer() {
   const [vouchers, setVouchers] = useState([]);

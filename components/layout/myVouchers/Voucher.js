@@ -1,13 +1,27 @@
 'use client';
-import useToast from '@/hooks/useToast';
-import { DocumentDuplicateIcon } from '@heroicons/react/24/solid';
+
 import Image from 'next/image';
+import { DocumentDuplicateIcon } from '@heroicons/react/24/solid';
 import Avatar, { genConfig } from 'react-nice-avatar';
 
-export default function Voucher({ amount, message }) {
-  const pubKey = 'FdK7Kuaa6Qao1PQH9mMPYgvEKeC2jAViM67skuAcV1iM';
+import useToast from '@/hooks/useToast';
+import { useEffect, useState } from 'react';
 
+export default function Voucher({ amount, message, pubKey }) {
   const { Info } = useToast();
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const res = await fetch(`http://localhost:8080/api/user/info/${pubKey}`);
+      const data = await res.json();
+      console.log(data);
+      setUser(data);
+    };
+
+    fetchUser();
+  }, []);
+
   return (
     <div
       className="w-full h-[240px] items-center rounded-[8px] p-[1px]"
@@ -62,13 +76,13 @@ export default function Voucher({ amount, message }) {
             <div className="h-[40px] w-[40px] rounded-full border-[2px] flex items-center justify-center border-[#26FFFF]">
               <Avatar
                 style={{ width: '32px', height: '32px' }}
-                {...genConfig('smkmskmd')}
+                {...genConfig(user?.avatarId)}
                 className=""
               />
             </div>
             <div className="flex flex-col justify-center">
               <h4 className=" font-bold text-transparent text-[14px] bg-clip-text bg-gradient-to-r from-[#4AFF93] to-[#26FFFF]">
-                Gautam Raj
+                {user?.firstName + ' ' + user?.lastName}
               </h4>
               <button
                 className="text-[#f0f0f099] flex flex-start items-center text-[10px] hover:cursor-pointer"
