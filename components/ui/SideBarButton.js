@@ -1,28 +1,26 @@
-import Image from "next/image";
+import Image from 'next/image';
+import Link from 'next/link';
 
-export default function SideBarButton({ logo, label, onClick, active }) {
+export default function SideBarButton({ logo, label, active, href }) {
   return (
-    <div className="flex items-center hover:cursor-pointer" onClick={onClick}>
-      {active ? (
-        <>
-          <Image src={logo} width={24} height={24} alt="image" />
-          <p
-            className="text-transparent text-[20px] ml-[16px]"
-            style={{
-              background:
-                "linear-gradient(261deg, #26FFFF 5.76%, #4AFF93 94.17%)",
-              backgroundClip: "text",
-            }}
-          >
-            {label}
-          </p>{" "}
-        </>
-      ) : (
-        <>
-          <Image src={logo} width={24} height={24} alt="image" />
-          <p className="text-[20px] ml-[16px] text-[#f0f0f0]">{label}</p>
-        </>
-      )}
-    </div>
+    <Link className="flex items-center hover:cursor-pointer" href={href}>
+      <>
+        <Image
+          src={active ? logo + '-gradient.svg' : logo + '.svg'}
+          width={24}
+          height={24}
+          alt="image"
+        />
+        <p
+          className={`text-xl ml-4 ${
+            active
+              ? 'text-transparent bg-clip-text bg-gradient-to-r from-[#4AFF93] to-[#26FFFF] font-bold'
+              : 'text-primary-white'
+          }`}
+        >
+          {label}
+        </p>
+      </>
+    </Link>
   );
 }
