@@ -11,14 +11,17 @@ import AvatarList from "../userManagement/routes/eminent/AvatarList";
 import { EminentInput } from "../userManagement/routes/FormInput";
 import EminentAvatar from "../userManagement/routes/eminent/EminentAvatar";
 import { Button } from "@material-tailwind/react";
+import Input from "@/components/ui/Input";
 
 const myFont = localFont({
   src: "../../../public/fonts/Satoshi-Variable.woff2",
 });
 
 export default function EditProfile() {
-  const [avatar, setAvatar] = useState("");
+  const [avatar, setAvatar] = useState("abcdef");
   const [client, setClient] = useState(false);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
 
   const handleAvatarClick = (selectedAvatar) => {
     setAvatar(selectedAvatar);
@@ -59,10 +62,23 @@ export default function EditProfile() {
           </div>
         </CardHeader>
         <CardBody className="flex flex-col gap-5 items-center justify-center w-full">
-          {client && <EminentAvatar avatar={avatar} />}
-          <EminentInput />
+          {client && <EminentAvatar avatar={avatar} setAvatar={setAvatar} />}
+          <Input
+            placeholder="First Name"
+            type="text"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            width={"60%"}
+          />
+          <Input
+            placeholder="Second Name"
+            type="text"
+            value={lastName}
+            width={"60%"}
+            onChange={(e) => setLastName(e.target.value)}
+          />
           <Button
-            className=" bg-primary-black  w-80 flex flex-row  text-primary-white items-center justify-center text-[14px] font-bold rounded-full -mt-5"
+            className=" bg-primary-black w-[60%] flex flex-row  text-primary-white items-center justify-center text-[14px] font-bold rounded-full mt-3"
             href=""
             style={{
               textTransform: "none",
