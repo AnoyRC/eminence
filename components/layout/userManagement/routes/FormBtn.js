@@ -186,8 +186,10 @@ const NewPasswordBtn = ({ password, confirmPassword }) => {
   const router = useRouter();
   const { step4 } = useOnboard();
   const { Error } = useToast();
+  const { generateToken } = usePostServer();
+  const { signMessage } = useCreateWallet();
 
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
 
     if (
@@ -199,9 +201,19 @@ const NewPasswordBtn = ({ password, confirmPassword }) => {
     }
 
     if (password.current.value === confirmPassword.current.value) {
-      step4.ConfirmPassword(password.current.value);
-      router.push("/dashboard");
-      return;
+      try {
+        const signature = await signMessage();
+
+        await generateToken(signature);
+
+        step4.ConfirmPassword(password.current.value);
+
+        router.push("/dashboard");
+
+        return;
+      } catch (err) {
+        Error("Something went wrong");
+      }
     }
     Error("Password do not match");
   };

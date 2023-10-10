@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   history: [],
+  weekStat: null,
 };
 
 export const graphSlice = createSlice({
@@ -11,7 +12,10 @@ export const graphSlice = createSlice({
     setHistory: (state, action) => {
       state.history = action.payload;
     },
+    setWeekStat: (state, action) => {
+      state.weekStat = action.payload;
+    },
   },
 });
 
-export const { setHistory } = graphSlice.actions;
+export const { setHistory, setWeekStat } = graphSlice.actions;

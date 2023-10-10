@@ -10,6 +10,8 @@ import {
   TabPanel,
 } from "@material-tailwind/react";
 import localFont from "next/font/local";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
 
 const myFont = localFont({
   src: "../../../../public/fonts/Satoshi-Variable.woff2",
@@ -17,18 +19,51 @@ const myFont = localFont({
 
 const MyWallet = () => {
   const [activeTab, setActiveTab] = useState("Sol");
+  const balance = useSelector((state) => state.profile.balance);
+  const balanceUSDC = useSelector((state) => state.profile.balanceUSDC);
+  const weekStat = useSelector((state) => state.graph.weekStat);
+  const router = useRouter();
 
   const data = [
     {
+      id: 1,
       label: "Sol",
       value: "Sol",
-      amount: 71.27,
-      changeValue: "+08.14",
+      amount: balance,
+      changeValue: weekStat
+        ? weekStat[6].ticker > weekStat[0].ticker
+          ? "+" +
+            Math.trunc(
+              ((weekStat[6].ticker - weekStat[0].ticker) / weekStat[0].ticker) *
+                100
+            ) +
+            (
+              ((weekStat[6].ticker - weekStat[0].ticker) / weekStat[0].ticker) *
+              100
+            )
+              .toString()
+              .split(".")[1]
+              .substring(0, 2)
+          : Math.trunc(
+              ((weekStat[6].ticker - weekStat[0].ticker) / weekStat[0].ticker) *
+                100
+            ) +
+            "." +
+            (
+              ((weekStat[6].ticker - weekStat[0].ticker) / weekStat[0].ticker) *
+              100
+            )
+              .toString()
+              .split(".")[1]
+              .substring(0, 2) +
+            "%"
+        : "0.00%",
     },
     {
+      id: 2,
       label: "USDC",
       value: "USDC",
-      amount: 36.5,
+      amount: balanceUSDC,
       changeValue: "+27.14",
     },
   ];
@@ -48,9 +83,9 @@ const MyWallet = () => {
                 "rounded-full bg-gradient-to-r from-[#4AFF93] to-[#26FFFF]",
             }}
           >
-            {data.map(({ label, value }) => (
+            {data.map(({ label, value, id }) => (
               <Tab
-                key={value}
+                key={id}
                 value={value}
                 onClick={() => setActiveTab(value)}
                 className={
@@ -67,9 +102,9 @@ const MyWallet = () => {
       </div>
       <div className="flex flex-col items-center gap-[24px]">
         <TabsBody className="">
-          {data.map(({ amount, changeValue, value }) => (
+          {data.map(({ amount, changeValue, value, id }) => (
             <TabPanel
-              key={amount}
+              key={id}
               value={value}
               className={
                 "p-1 h-full flex flex-col items-center justify-center " +
@@ -78,28 +113,32 @@ const MyWallet = () => {
             >
               <div className="text-[48px] font-bold text-primary-black relative leading-10">
                 <span className="text-[48px] font-bold">
-                  {Math.trunc(amount)}.
+                  {Math.trunc(amount) >= 1000
+                    ? Math.trunc(amount / 1000).toString() + "K"
+                    : Math.trunc(amount) >= 1000000
+                    ? Math.trunc(amount / 1000000).toString() + "M"
+                    : Math.trunc(amount)}
+                  {amount.toString().split(".")[1] && "."}
                 </span>
                 <span className="text-[32px] font-bold">
-                  {Math.trunc(amount) !== 0 && amount.toString().split(".")[1]}
+                  {Math.trunc(amount) !== 0 &&
+                    amount.toString().split(".")[1].substring(0, 2)}
                 </span>
                 <span> {value}</span>
               </div>
               <p className="text-[14px] font-bold">
-                <span>
-                  {changeValue[0]}
-                  {Math.trunc(changeValue)}.
-                </span>
-                <span className="text-[10px]">
-                  {Math.trunc(changeValue) !== 0 &&
-                    changeValue.toString().split(".")[1]}
-                  %
-                </span>
+                {value === "Sol" ? (
+                  <>
+                    {changeValue}
 
-                <span className="tex-[12px] font-medium ml-[4px]">
-                  {" "}
-                  Last Week
-                </span>
+                    <span className="tex-[12px] font-medium ml-[4px]">
+                      {" "}
+                      Last Week
+                    </span>
+                  </>
+                ) : (
+                  <>Stable Coin</>
+                )}
               </p>
             </TabPanel>
           ))}
@@ -111,6 +150,7 @@ const MyWallet = () => {
             style={{
               textTransform: "none",
             }}
+            onClick={() => router.push("/deposit")}
           >
             Buy
             <span>

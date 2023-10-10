@@ -2,6 +2,7 @@
 import { Button, Option, Select } from "@material-tailwind/react";
 import Image from "next/image";
 import localFont from "next/font/local";
+import { useState } from "react";
 
 const myFont = localFont({
   src: "../../../public/fonts/Satoshi-Variable.woff2",
@@ -54,6 +55,9 @@ const cryptoCurrency = [
 ];
 
 export default function OnRamp() {
+  const [selectedCurrency, setSelectedCurrency] = useState("INR");
+  const [selectedCryptoCurrency, setSelectedCryptoCurrency] = useState("SOL");
+
   return (
     <div
       className="w-full rounded-[8px] p-[0.5px]"
@@ -97,14 +101,15 @@ export default function OnRamp() {
 
           <Select
             size="regular"
-            className="border-transparent h-full text-black w-[200px]"
+            className="border-transparent h-full text-black"
             labelProps={{
-              className:
-                "after:border-transparent before:border-transparent w-[200px]",
+              className: "after:border-transparent before:border-transparent",
             }}
             containerProps={{
-              className: "min-w-[0px] w-[55%]",
+              className: "max-w-[200px]",
             }}
+            value={selectedCurrency}
+            onChange={(e) => setSelectedCurrency(e)}
           >
             {currency.map((item) => (
               <Option value={item.symbol} key={item.symbol}>
@@ -149,8 +154,10 @@ export default function OnRamp() {
               className: "after:border-transparent before:border-transparent",
             }}
             containerProps={{
-              className: "min-w-[0px] w-[55%]",
+              className: "max-w-[200px]",
             }}
+            value={selectedCryptoCurrency}
+            onChange={(e) => setSelectedCryptoCurrency(e)}
           >
             {cryptoCurrency.map((item) => (
               <Option value={item.symbol} key={item.symbol}>
