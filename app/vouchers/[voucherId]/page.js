@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import Voucher from '@/components/layout/myVouchers/Voucher';
-import VoucherReceive from '@/components/layout/voucher/VoucherReceive';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import Voucher from "@/components/layout/voucher/Voucher";
+import VoucherReceive from "@/components/layout/voucher/VoucherReceive";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function VoucherId({ params }) {
   const [loading, setLoading] = useState(true);
@@ -28,16 +28,16 @@ export default function VoucherId({ params }) {
           <Image src="/loading.svg" width={200} height={200} />
         </div>
       ) : (
-        <div className=" flex flex-col max-w-2xl gap-5 mx-auto h-full justify-center -translate-y-8">
+        <div className=" flex flex-col max-w-5xl gap-5 mx-auto h-full justify-center -translate-y-8">
           <Voucher data={voucher} />
 
-          <VoucherReceive
+          {/* <VoucherReceive
             currency="SOL"
             balance={100}
             value={100}
             id={params.voucherId}
             message="Hello World"
-          />
+          /> */}
         </div>
       )}
     </div>

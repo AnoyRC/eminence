@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { ArrowPathRoundedSquareIcon } from "@heroicons/react/24/solid";
 import Avatar, { genConfig } from "react-nice-avatar";
-import QRCodeGenerator from "./CardQrCode";
+import QRCodeGenerator from "../CardQrCode";
 
 export default function CardFront({ toggleCard, design }) {
   const backgroundColor =
@@ -15,9 +15,9 @@ export default function CardFront({ toggleCard, design }) {
     design === "white" ? "text-[#1c1d22cc]" : "text-[#ffffffcc]";
   return (
     <div
-      className={`${backgroundColor} relative overflow-hidden  w-[220px] h-[316px] shadow-md shadow-[#ffffff40] rounded-lg`}
+      className={`${backgroundColor} relative overflow-hidden  w-[320px] h-[436px] shadow-md shadow-[#ffffff40] rounded-2xl`}
     >
-      <div className="absolute w-[450px] h-[450px] -top-[62px] -left-[40px] ">
+      <div className="absolute w-[600px] h-[600px] -top-[62px] -left-[18px] ">
         <Image
           src="/images/logo.png"
           width={377}
@@ -27,9 +27,9 @@ export default function CardFront({ toggleCard, design }) {
         />
       </div>
 
-      <div className=" w-full h-full flex flex-row items-center gap-2">
+      <div className=" w-full h-full flex flex-row items-center gap-5">
         <div
-          className={` ${eminenceColor}  font-bold text-[12px] rotate-180 `}
+          className={` ${eminenceColor}  font-bold text-[18px] rotate-180 pr-2 `}
           style={{
             writingMode: "vertical-rl",
           }}
@@ -43,35 +43,29 @@ export default function CardFront({ toggleCard, design }) {
             className="hover:cursor-pointer z-20"
           >
             <ArrowPathRoundedSquareIcon
-              className={`${textColor} h-[20px] w-[20px] `}
+              className={`${textColor} h-[25px] w-[25px] `}
             />
           </button>
 
-          {/* <Image
-            src="/images/myVouchers/sampleQr.png"
-            width={120}
-            height={120}
-            alt="QR"
-          /> */}
           <QRCodeGenerator
-            remainingRoute={`http://localhost:3000`}
-            height={120}
-            width={120}
+            remainingRoute={`/profile/234`}
+            height={150}
+            width={150}
           />
 
           <div className="flex gap-[12px] items-center">
             <Avatar
-              style={{ width: "2rem", height: "2rem" }}
+              style={{ width: "55px", height: "55px" }}
               {...genConfig("sourabh")}
               className=""
             />
 
             <div className="flex flex-col justify-center">
-              <h1 className={`${textColor} text-[14px] font-medium`}>
+              <h1 className={`${textColor} text-[18px] font-bold`}>
                 Sourabh Singh
               </h1>
               <p
-                className={`${accountNoColor} flex flex-start items-center text-[10px]`}
+                className={`${accountNoColor} flex flex-start items-center text-[13px]`}
               >
                 8421....0792
               </p>

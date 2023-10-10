@@ -1,16 +1,17 @@
 "use client";
 import React, { useRef, useEffect } from "react";
 
-const QRCodeGenerator = ({ route }) => {
+const QRCodeGenerator = ({ remainingRoute, width, height }) => {
   const ref = useRef(null);
 
   useEffect(() => {
     // Check if we are in the browser environment before using the QRCodeStyling library
     if (typeof window !== "undefined") {
       import("qr-code-styling").then(({ default: QRCodeStyling }) => {
+        const fullRoute = `${window.location.origin}${remainingRoute}`;
         const qrCode = new QRCodeStyling({
-          width: 120,
-          height: 120,
+          width: width,
+          height: height,
           type: "svg",
           image: "/images/logo.png",
           shape: "rounded",
@@ -27,13 +28,13 @@ const QRCodeGenerator = ({ route }) => {
         });
 
         qrCode.update({
-          data: route,
+          data: fullRoute,
         });
 
         qrCode.append(ref.current);
       });
     }
-  }, [route]);
+  }, [remainingRoute]);
 
   return <div ref={ref} />;
 };

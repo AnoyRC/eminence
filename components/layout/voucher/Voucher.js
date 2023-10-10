@@ -11,7 +11,7 @@ export default function Voucher({ amount, message }) {
   const { Info } = useToast();
   return (
     <div
-      className="w-full h-[240px] items-center rounded-[8px] p-[1px]"
+      className="w-full h-[440px] items-center rounded-[8px] p-[1px]"
       style={{
         background: "linear-gradient(90deg, #4AFF93 0%, #26FFFF 100%)",
       }}
@@ -20,34 +20,34 @@ export default function Voucher({ amount, message }) {
         <div className="flex">
           <Image
             src="/images/logo.png"
-            width={80}
-            height={80}
+            width={146}
+            height={146}
             alt="Logo"
-            className="h-[80px] mt-2"
+            className="h-[146px] mt-2 ml-4"
           />
           <Image
             src="/images/myVouchers/Ribbon.svg"
-            width={64}
-            height={240}
+            width={118}
+            height={440}
             alt="Ribbon"
             className="-ml-3"
           />
         </div>
 
-        <div className="flex flex-col justify-between items-center py-[16px]">
-          <h3 className="text-[56px] text-white font-bold -mt-3">Voucher</h3>
+        <div className="flex flex-col justify-between items-center py-[16px] mr-2">
+          <h3 className="text-[86px] text-white font-bold -mt-3">Voucher</h3>
           <p className="text-[14px] break-words	 text-white w-[220px]">
             {message}
           </p>
           <div className="flex w-full gap-[13px] mb-1">
-            <p className="text-[20px] text-white ">Amount:</p>
+            <p className="text-[28px] font-bold text-white ">Amount:</p>
             <div
               className="flex justify-center items-center py-[6px] px-[24px] rounded-full"
               style={{
                 background: "linear-gradient(90deg, #4AFF93 0%, #26FFFF 100%)",
               }}
             >
-              <p className="text-xs text-black font-medium">{amount} Sol</p>
+              <p className="text-lg text-black font-bold">{amount} Sol</p>
             </div>
           </div>
         </div>
@@ -55,29 +55,29 @@ export default function Voucher({ amount, message }) {
         <div className="flex flex-col justify-between items-center py-[16px] mr-[28px]">
           {/* <Image
             src="/images/myVouchers/sampleQr.png"
-            width={144}
-            height={144}
+            width={200}
+            height={200}
             alt="QR"
           /> */}
           <QRCodeGenerator
             remainingRoute={`/vouchers/234`}
-            height={144}
-            width={144}
+            height={200}
+            width={200}
           />
           <div className="flex gap-[12px]">
-            <div className="h-[40px] w-[40px] rounded-full border-[2px] flex items-center justify-center border-[#26FFFF]">
+            <div className="h-[70px] w-[70px] rounded-full border-[2px] flex items-center justify-center border-[#26FFFF]">
               <Avatar
-                style={{ width: "32px", height: "32px" }}
+                style={{ width: "62px", height: "62px" }}
                 {...genConfig("smkmskmd")}
                 className=""
               />
             </div>
             <div className="flex flex-col justify-center">
-              <h4 className=" font-bold text-transparent text-[14px] bg-clip-text bg-gradient-to-r from-[#4AFF93] to-[#26FFFF]">
+              <h4 className=" font-bold text-transparent text-[24px] bg-clip-text bg-gradient-to-r from-[#4AFF93] to-[#26FFFF]">
                 Gautam Raj
               </h4>
               <button
-                className="text-[#f0f0f099] flex flex-start items-center text-[10px] hover:cursor-pointer"
+                className="text-[#f0f0f099] flex flex-start items-center text-[16px] hover:cursor-pointer"
                 onClick={() => {
                   navigator.clipboard.writeText(pubKey);
                   Info("Copied to clipboard");
