@@ -5,15 +5,15 @@ import { Input } from '@material-tailwind/react';
 import Balance from '@/components/ui/Balance';
 import Button from '@/components/ui/Button';
 
-export default function VoucherReceive({ currency, balance, value }) {
+export default function VoucherReceive({ balance, value }) {
   return (
     <div className="w-full items-center rounded-[8px] p-[1px] bg-gradient-priamry">
       <div className="flex justify-between h-full w-full bg-black rounded-lg p-2 gap-3 items-center">
         <div className="w-2/5">
           <Balance
-            symbol={currency}
-            balance={balance}
-            value={value}
+            symbol="sol"
+            balance={balance ? balance : 0}
+            value={value ? value : 0}
             type="Receive"
             editable
             onChange={(e) => console.log(e.target.value)}
