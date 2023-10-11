@@ -1,7 +1,7 @@
-import localFont from 'next/font/local';
-import Image from 'next/image';
+import localFont from "next/font/local";
+import Image from "next/image";
 
-const myFont = localFont({ src: '../../public/fonts/Satoshi-Variable.woff2' });
+const myFont = localFont({ src: "../../public/fonts/Satoshi-Variable.woff2" });
 
 export default function Balance({
   symbol,
@@ -15,13 +15,13 @@ export default function Balance({
   return (
     <div
       className={
-        'w-full h-[216px] rounded-[8px] flex flex-col justify-between py-[20px] px-[12px] ' +
+        "w-full h-[216px] rounded-[8px] flex flex-col justify-between py-[20px] px-[12px] " +
         myFont.className
       }
       style={{
         background:
-          'linear-gradient(0deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.20) 100%), linear-gradient(225deg, #49E9FF 0%, #40FF8D 100%)',
-        boxShadow: '0px 0px 16px 4px rgba(255, 255, 255, 0.25)',
+          "linear-gradient(0deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.20) 100%), linear-gradient(225deg, #49E9FF 0%, #40FF8D 100%)",
+        boxShadow: "0px 0px 16px 4px rgba(255, 255, 255, 0.25)",
       }}
     >
       <div className="flex w-full items-center justify-between">
@@ -34,7 +34,7 @@ export default function Balance({
             alt="Coin"
           />
           <p className="text-black font-bold text-[12px]">
-            {symbol === 'USDC' ? 'USD Coin' : 'Solana'}
+            {symbol === "USDC" ? "USD Coin" : "Solana"}
           </p>
         </div>
       </div>
@@ -42,16 +42,18 @@ export default function Balance({
       {!editable && (
         <p className="font-bold text-black text-[48px]">
           {Math.trunc(amount)}
-          {amount % Math.trunc(amount) !== 0 && '.'}
+          {amount % Math.trunc(amount) !== 0 && "."}
           <span className="text-[24px]">
-            {Math.trunc(amount) !== 0 && amount.toString().split('.')[1]}
+            {amount % Math.trunc(amount) !== 0 &&
+              amount.toString().split(".")[1] &&
+              amount.toString().split(".")[1]}
           </span>
         </p>
       )}
 
       {editable && (
         <input
-          type={'text'}
+          type={"text"}
           className="font-bold text-black text-[48px] bg-transparent focus-visible:outline-none"
           required
           value={value}
@@ -65,11 +67,12 @@ export default function Balance({
           <h1>Balance</h1>
           <h1>
             {Math.trunc(balance)}
-            {balance % Math.trunc(balance) !== 0 && '.'}
+            {balance !== 0 && balance % Math.trunc(balance) !== 1 && "."}
             <span className="text-[10px]">
               {balance % Math.trunc(balance) !== 0 &&
-                balance.toString().split('.')[1]}
-            </span>{' '}
+                balance.toString().split(".")[1] &&
+                balance.toString().split(".")[1].substring(0, 2)}
+            </span>{" "}
             {symbol}
           </h1>
         </div>

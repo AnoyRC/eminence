@@ -1,6 +1,7 @@
 "use client";
 import Balance from "@/components/ui/Balance";
 import GradientButton from "@/components/ui/GradientButton";
+import useTransfer from "@/hooks/useTransfer";
 import {
   Select,
   Option,
@@ -9,8 +10,27 @@ import {
   Button,
 } from "@material-tailwind/react";
 import Image from "next/image";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const Transfer = () => {
+  const [currency, setCurrency] = useState("SOL");
+  const [recipient, setRecipient] = useState("");
+  const [amount, setAmount] = useState("0.0");
+  const balance = useSelector((state) => state.profile.balance);
+  const balanceUSDC = useSelector((state) => state.profile.balanceUSDC);
+  const { transfer, transferToken } = useTransfer();
+
+  const handleTransfer = async () => {
+    if (currency === "SOL") {
+      const result = await transfer(amount, recipient);
+      if (result) setAmount("0.0");
+    } else {
+      const result = await transferToken(amount, recipient);
+      if (result) setAmount("0.0");
+    }
+  };
+
   return (
     <div className="flex flex-col justify-between pt-[28px] h-full px-[28px]">
       <div className="flex flex-col gap-[20px]">
@@ -23,15 +43,34 @@ const Transfer = () => {
             mount: { y: 0 },
             unmount: { y: 25 },
           }}
+          value={currency}
+          onChange={(e) => setCurrency(e)}
         >
-          <Option>SOL</Option>
-          <Option>USDC</Option>
+          <Option value="SOL">SOL</Option>
+          <Option value="USDC">USDC</Option>
         </Select>
 
-        <Input type="text" color="white" label="Recipient's Address" />
-        <Input type="text" color="white" label="Amount" />
+        <Input
+          type="text"
+          color="white"
+          label="Recipient's Address"
+          value={recipient}
+          onChange={(e) => setRecipient(e.target.value)}
+        />
+        <Input
+          type="text"
+          color="white"
+          label="Amount"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+        />
 
-        <Balance symbol={"SOL"} type={"Send"} amount={71.64} balance={254.12} />
+        <Balance
+          symbol={currency}
+          type={"Send"}
+          amount={amount}
+          balance={currency === "SOL" ? balance : balanceUSDC}
+        />
       </div>
 
       <div className="flex flex-col w-full gap-[10px]">
@@ -47,7 +86,7 @@ const Transfer = () => {
             alt="Elusiv"
           />
         </div>
-        <GradientButton label={"Transfer"} />
+        <GradientButton label={"Transfer"} onClick={handleTransfer} />
       </div>
     </div>
   );
