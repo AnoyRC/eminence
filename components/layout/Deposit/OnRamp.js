@@ -2,7 +2,9 @@
 import { Button, Option, Select } from "@material-tailwind/react";
 import Image from "next/image";
 import localFont from "next/font/local";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useDeposit from "@/hooks/useDeposit";
+import useToast from "@/hooks/useToast";
 
 const myFont = localFont({
   src: "../../../public/fonts/Satoshi-Variable.woff2",
@@ -13,31 +15,37 @@ const currency = [
     name: "Indian Rupees",
     symbol: "INR",
     image: "/images/Deposit/ind.svg",
+    fiatType: "1",
   },
   {
     name: "Mexican Peso",
     symbol: "MXN",
     image: "/images/Deposit/mexico.svg",
+    fiatType: "4",
   },
   {
     name: "Nigerian Naira",
     symbol: "NGN",
     image: "/images/Deposit/Nigeria.svg",
+    fiatType: "6",
   },
   {
     name: "Turkish Lira",
     symbol: "TRY",
     image: "/images/Deposit/Turkey.svg",
+    fiatType: "2",
   },
   {
     name: "UAE Dirham",
     symbol: "AED",
     image: "/images/Deposit/uae.svg",
+    fiatType: "3",
   },
   {
     name: "Vietnamese Dong",
     symbol: "VND",
     image: "/images/Deposit/Viet.svg",
+    fiatType: "5",
   },
 ];
 
@@ -46,17 +54,37 @@ const cryptoCurrency = [
     name: "Solana",
     symbol: "SOL",
     image: "/images/Dashboard/AsideContainer/SOL.svg",
+    coinCode: "sol",
   },
   {
     name: "USDC",
     symbol: "USDC",
     image: "/images/Dashboard/AsideContainer/USDC.svg",
+    coinCode: "usdc",
   },
 ];
 
 export default function OnRamp() {
-  const [selectedCurrency, setSelectedCurrency] = useState("INR");
-  const [selectedCryptoCurrency, setSelectedCryptoCurrency] = useState("SOL");
+  const [selectedCurrency, setSelectedCurrency] = useState("1");
+  const [selectedCryptoCurrency, setSelectedCryptoCurrency] = useState("sol");
+  const [fiatAmount, setFiatAmount] = useState(0);
+  const [cryptoAmount, setCryptoAmount] = useState(0);
+  const { initiateOnramp, fetchConversion } = useDeposit();
+  const { Error } = useToast();
+
+  useEffect(() => {
+    const fetch = async () => {
+      const cryptoAmount = await fetchConversion(
+        selectedCryptoCurrency,
+        selectedCurrency,
+        fiatAmount
+      );
+
+      setCryptoAmount(cryptoAmount);
+    };
+
+    fetch();
+  }, [selectedCurrency, selectedCryptoCurrency]);
 
   return (
     <div
@@ -95,12 +123,13 @@ export default function OnRamp() {
             className="w-full h-full bg-transparent text-black text-3xl p-2 font-bold placeholder:text-black outline-none"
             type="text"
             placeholder="0.0"
+            value={fiatAmount}
+            onChange={(e) => setFiatAmount(e.target.value)}
           ></input>
 
           <vr className="h-[40px] w-[3px] bg-black"></vr>
 
           <Select
-            size="regular"
             className="border-transparent h-full text-black"
             labelProps={{
               className: "after:border-transparent before:border-transparent",
@@ -112,7 +141,7 @@ export default function OnRamp() {
             onChange={(e) => setSelectedCurrency(e)}
           >
             {currency.map((item) => (
-              <Option value={item.symbol} key={item.symbol}>
+              <Option value={item.fiatType} key={item.symbol}>
                 <div
                   className={"flex items-center gap-[10px] " + myFont.className}
                 >
@@ -142,13 +171,16 @@ export default function OnRamp() {
           }}
         >
           <h1 className="w-full bg-transparent text-black text-3xl p-2 font-bold placeholder:text-black outline-none">
-            56.67
+            {fiatAmount
+              ? Math.trunc(fiatAmount / cryptoAmount).toString() +
+                "." +
+                (fiatAmount / cryptoAmount).toString().split(".")[1].slice(0, 2)
+              : 0}
           </h1>
 
           <vr className="h-[40px] w-[3px] bg-black"></vr>
 
           <Select
-            size="regular"
             className="border-transparent h-full text-black"
             labelProps={{
               className: "after:border-transparent before:border-transparent",
@@ -160,7 +192,7 @@ export default function OnRamp() {
             onChange={(e) => setSelectedCryptoCurrency(e)}
           >
             {cryptoCurrency.map((item) => (
-              <Option value={item.symbol} key={item.symbol}>
+              <Option value={item.coinCode} key={item.symbol}>
                 <div
                   className={"flex items-center gap-[10px] " + myFont.className}
                 >
@@ -182,14 +214,25 @@ export default function OnRamp() {
 
         <Button
           className={
-            "bg-white flex items-center justify-center text-white text-2xl w-full h-[65px] rounded-[8px] font-normal mt-3 " +
+            "bg-white flex items-center justify-center text-white text-2xl w-full h-[65px] rounded-[8px] font-normal mt-3 hover:cursor-pointer " +
             myFont.className
           }
           style={{
             textTransform: "none",
           }}
+          onClick={() => {
+            if (Number(fiatAmount) <= 0) {
+              Error("Please enter a valid amount");
+              return;
+            }
+            initiateOnramp(
+              selectedCryptoCurrency,
+              selectedCurrency,
+              Number(fiatAmount)
+            );
+          }}
         >
-          <div className="flex flex-row items-center p-4 pr-1 gap-[5px] w-fit rounded-[8px] ">
+          <div className="flex flex-row items-center p-4 pr-1 gap-[5px] w-fit rounded-[8px]">
             <h1 className="text-black">Proceed with</h1>
             <Image
               src="/images/Deposit/OnRampLogo.svg"

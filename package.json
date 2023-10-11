@@ -11,6 +11,7 @@
   "dependencies": {
     "@heroicons/react": "^2.0.18",
     "@material-tailwind/react": "^2.1.2",
+    "@onramp.money/onramp-web-sdk": "^1.4.6",
     "@reduxjs/toolkit": "^1.9.5",
     "@solana/spl-token": "^0.3.8",
     "@solana/web3.js": "^1.78.5",
