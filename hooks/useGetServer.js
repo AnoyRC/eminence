@@ -6,16 +6,24 @@ import { Keypair } from "@solana/web3.js";
 import { setUser } from "@/redux/profileSlice";
 import { useRouter } from "next/navigation";
 import * as bip39 from "bip39";
+import useCreateWallet from "./useCreateWallet";
+import usePostServer from "./usePostServer";
 
 export default function useGetServer() {
   const { Error } = useToast();
   const mnemonics = useSelector((state) => state.wallet.mnemonics);
   const dispatch = useDispatch();
   const router = useRouter();
+  const { signMessage } = useCreateWallet();
+  const { generateToken } = usePostServer();
 
   const getUserSelf = async () => {
     const seed = bip39.mnemonicToSeedSync(mnemonics);
     const keypair = Keypair.fromSeed(seed.slice(0, 32));
+
+    const signature = await signMessage();
+
+    await generateToken(signature);
 
     const token = localStorage.getItem("token");
 
