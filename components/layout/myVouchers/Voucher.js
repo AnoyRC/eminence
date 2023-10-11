@@ -1,9 +1,13 @@
-"use client";
-import useToast from "@/hooks/useToast";
-import { DocumentDuplicateIcon } from "@heroicons/react/24/solid";
-import Image from "next/image";
-import Avatar, { genConfig } from "react-nice-avatar";
-import QRCodeGenerator from "../profile/CardQrCode";
+'use client';
+
+import { useState, useEffect } from 'react';
+import { DocumentDuplicateIcon } from '@heroicons/react/24/solid';
+import Image from 'next/image';
+import Avatar, { genConfig } from 'react-nice-avatar';
+
+import useToast from '@/hooks/useToast';
+
+import QRCodeGenerator from '../profile/CardQrCode';
 
 export default function Voucher({ amount, message, pubKey }) {
   const { Info } = useToast();
@@ -24,7 +28,7 @@ export default function Voucher({ amount, message, pubKey }) {
     <div
       className="w-full h-[240px] items-center rounded-[8px] p-[1px]"
       style={{
-        background: "linear-gradient(90deg, #4AFF93 0%, #26FFFF 100%)",
+        background: 'linear-gradient(90deg, #4AFF93 0%, #26FFFF 100%)',
       }}
     >
       <div className="flex justify-between h-full w-full bg-[#000000] rounded-[8px]">
@@ -55,7 +59,7 @@ export default function Voucher({ amount, message, pubKey }) {
             <div
               className="flex justify-center items-center py-[6px] px-[24px] rounded-full"
               style={{
-                background: "linear-gradient(90deg, #4AFF93 0%, #26FFFF 100%)",
+                background: 'linear-gradient(90deg, #4AFF93 0%, #26FFFF 100%)',
               }}
             >
               <p className="text-xs text-black font-medium">{amount} Sol</p>
@@ -78,24 +82,24 @@ export default function Voucher({ amount, message, pubKey }) {
           <div className="flex gap-[12px]">
             <div className="h-[40px] w-[40px] rounded-full border-[2px] flex items-center justify-center border-[#26FFFF]">
               <Avatar
-                style={{ width: "32px", height: "32px" }}
+                style={{ width: '32px', height: '32px' }}
                 {...genConfig(user?.avatarId)}
                 className=""
               />
             </div>
             <div className="flex flex-col justify-center">
               <h4 className=" font-bold text-transparent text-[14px] bg-clip-text bg-gradient-to-r from-[#4AFF93] to-[#26FFFF]">
-                {user?.firstName + " " + user?.lastName}
+                {user?.firstName + ' ' + user?.lastName}
               </h4>
               <button
                 className="text-[#f0f0f099] flex flex-start items-center text-[10px] hover:cursor-pointer"
                 onClick={() => {
                   navigator.clipboard.writeText(pubKey);
-                  Info("Copied to clipboard");
+                  Info('Copied to clipboard');
                 }}
               >
                 {pubKey.substring(0, 4) +
-                  "..." +
+                  '...' +
                   pubKey.substring(pubKey.length - 4, pubKey.length)}
                 <DocumentDuplicateIcon className="w-[11px] h-[11px] ml-[4px]" />
               </button>
