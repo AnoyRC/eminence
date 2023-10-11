@@ -44,13 +44,14 @@ export default function AsideContainer() {
       <h3 className="text-white text-[24px] font-bold mb-6">Vouchers</h3>
 
       <div className="flex flex-col gap-[12px] w-full">
-        {vouchers.map((voucher) => (
-          <VoucherTab
-            key={voucher.voucherId}
-            voucherId={voucher.voucherId}
-            amount={voucher.amount}
-          />
-        ))}
+        {vouchers &&
+          vouchers.map((voucher) => (
+            <VoucherTab
+              key={voucher.voucherId}
+              voucherId={voucher.voucherId}
+              amount={voucher.amount}
+            />
+          ))}
       </div>
     </aside>
   );
