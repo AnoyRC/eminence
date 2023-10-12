@@ -15,7 +15,7 @@ const MessageInput = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(chatId);
+
     if (chatId === null) Error('Please select a contact');
 
     try {

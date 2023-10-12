@@ -9,7 +9,7 @@ import * as bip39 from 'bip39';
 import useCreateWallet from './useCreateWallet';
 import usePostServer from './usePostServer';
 import { setUserContacts } from '@/redux/profileSlice';
-import { addMessage, setMessages } from '@/redux/contactSlice';
+import { setMessages } from '@/redux/contactSlice';
 
 export default function useGetServer() {
   const { Error } = useToast();
@@ -18,6 +18,53 @@ export default function useGetServer() {
   const router = useRouter();
   const { signMessage } = useCreateWallet();
   const { generateToken } = usePostServer();
+
+  const getUserByPubkey = async (pubkey) => {
+    try {
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_NEXT_URL}/api/user/info/${pubkey}`,
+        { headers: 'Content-Type: application/json' }
+      );
+
+      return res.data;
+    } catch (err) {
+      Error('User Not Found');
+    }
+  };
+
+  const getUserByName = async (name) => {
+    const seed = bip39.mnemonicToSeedSync(mnemonics);
+    const keypair = Keypair.fromSeed(seed.slice(0, 32));
+
+    const signature = await signMessage();
+
+    await generateToken(signature);
+
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      Error('Please Login');
+      router.push('/login');
+      return;
+    }
+
+    const headers = {
+      'Content-Type': 'application/json',
+      'x-auth-token': token,
+      'x-auth-pubkey': keypair.publicKey.toString(),
+    };
+
+    try {
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_NEXT_URL}/api/user/${name}`,
+        { headers }
+      );
+
+      return res.data;
+    } catch (err) {
+      Error('User Not Found');
+    }
+  };
 
   const getUserSelf = async () => {
     const seed = bip39.mnemonicToSeedSync(mnemonics);
@@ -112,5 +159,11 @@ export default function useGetServer() {
     }
   };
 
-  return { getUserSelf, getUserContacts, getChatMessages };
+  return {
+    getUserSelf,
+    getUserContacts,
+    getChatMessages,
+    getUserByPubkey,
+    getUserByName,
+  };
 }

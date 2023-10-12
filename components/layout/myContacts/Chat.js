@@ -12,6 +12,7 @@ const Chat = ({ pubkey }) => {
   const { createChat } = usePostServer();
   const { getChatMessages } = useGetServer();
 
+  const user = useSelector((state) => state.profile.user);
   const chatId = useSelector((state) => state.contact.chatId);
   const messages = useSelector((state) => state.contact.messages);
 
@@ -29,7 +30,7 @@ const Chat = ({ pubkey }) => {
     };
 
     const ably = configureAbly({
-      authUrl: `${process.env.NEXT_PUBLIC_NEXT_URL}/api/ably/auth`,
+      authUrl: `${process.env.NEXT_PUBLIC_NEXT_URL}/api/ably/auth?id=${user._id}`,
     });
 
     let channel = ably.channels.get(chatId?._id);
