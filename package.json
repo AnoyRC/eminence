@@ -9,8 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@elusiv/sdk": "^0.1.22",
     "@heroicons/react": "^2.0.18",
     "@material-tailwind/react": "^2.1.2",
+    "@noble/ed25519": "^2.0.0",
     "@onramp.money/onramp-web-sdk": "^1.4.6",
     "@reduxjs/toolkit": "^1.9.5",
     "@solana/spl-token": "^0.3.8",

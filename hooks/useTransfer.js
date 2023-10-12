@@ -9,6 +9,12 @@ import {
   SystemProgram,
   Transaction,
 } from "@solana/web3.js";
+import {
+  Elusiv,
+  SEED_MESSAGE,
+  airdropToken,
+  getMintAccount,
+} from "@elusiv/sdk";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import * as bip39 from "bip39";
 import { sendAndConfirmTransaction } from "@solana/web3.js";
@@ -16,6 +22,11 @@ import {
   getOrCreateAssociatedTokenAccount,
   transfer as tokenTransfer,
 } from "@solana/spl-token";
+import * as ed from "@noble/ed25519";
+import { sign } from "@noble/ed25519";
+import { sha512 } from "@noble/hashes/sha512";
+
+ed.etc.sha512Sync = (...m) => sha512(ed.etc.concatBytes(...m));
 
 export default function useTransfer() {
   const { Success, Error } = useToast();
@@ -123,5 +134,146 @@ export default function useTransfer() {
     }
   };
 
-  return { transfer, transferToken };
+  const transferPrivate = async (amount, to) => {
+    try {
+      const connection = new Connection(cluster);
+
+      const seed = bip39.mnemonicToSeedSync(mnemonics);
+      const keypair = Keypair.fromSeed(seed.slice(0, 32));
+
+      const ElusivSeed = await sign(
+        Buffer.from(SEED_MESSAGE, "utf-8"),
+        keypair.secretKey.slice(0, 32)
+      );
+
+      const elusiv = await Elusiv.getElusivInstance(
+        ElusivSeed,
+        keypair.publicKey,
+        connection,
+        cluster === "https://api.devnet.solana.com" ? "devnet" : "mainnet-beta"
+      );
+
+      const topupTxData = await elusiv.buildTopUpTx(
+        amount * LAMPORTS_PER_SOL,
+        "LAMPORTS"
+      );
+
+      topupTxData.tx.sign(keypair);
+
+      const topupSig = await elusiv.sendElusivTx(topupTxData);
+
+      console.log(topupSig);
+
+      const privateBalance = await elusiv.getLatestPrivateBalance("LAMPORTS");
+      console.log(`Current private balance: ${privateBalance}`);
+
+      const recipient = new PublicKey(to);
+      const estimatedFee = await elusiv.estimateSendFee({
+        recipient,
+        amount: Number(privateBalance),
+        tokenType: "LAMPORTS",
+      });
+      console.log(estimatedFee);
+      const sendTx = await elusiv.buildSendTx(
+        Number(privateBalance) - Number(estimatedFee.txFee),
+        recipient,
+        "LAMPORTS"
+      );
+      const sendSig = await elusiv.sendElusivTx(sendTx);
+
+      console.log(
+        `Performed topup with sig ${topupSig.signature} and send with sig ${sendSig.signature}`
+      );
+
+      Success(
+        "Transaction Success with Signature: " +
+          sendSig.signature.toString().substring(0, 5) +
+          "..." +
+          sendSig.signature
+            .toString()
+            .substring(
+              sendSig.signature.toString().length - 5,
+              sendSig.signature.toString().length
+            )
+      );
+
+      return true;
+    } catch (err) {
+      console.log(err);
+      Error("Transaction Failed");
+      return false;
+    }
+  };
+
+  const transferPrivateTokens = async (amount, to) => {
+    try {
+      const connection = new Connection(cluster);
+      const seed = bip39.mnemonicToSeedSync(mnemonics);
+      const keypair = Keypair.fromSeed(seed.slice(0, 32));
+
+      const ElusivSeed = sign(
+        Buffer.from(SEED_MESSAGE, "utf-8"),
+        keypair.secretKey.slice(0, 32)
+      );
+
+      const elusiv = await Elusiv.getElusivInstance(
+        ElusivSeed,
+        keypair.publicKey,
+        connection,
+        cluster === "https://api.devnet.solana.com" ? "devnet" : "mainnet-beta"
+      );
+
+      const topupTx = await elusiv.buildTopUpTx(
+        amount * Math.pow(10, 6),
+        "USDC"
+      );
+
+      topupTx.tx.partialSign(keypair);
+
+      const sig = await elusiv.sendElusivTx(topupTx);
+
+      console.log(sig);
+
+      const privateBalance = await elusiv.getLatestPrivateBalance("USDC");
+
+      console.log(privateBalance);
+
+      const recipient = new PublicKey(to);
+
+      const estimatedFee = await elusiv.estimateSendFee({
+        recipient,
+        amount: Number(privateBalance),
+        tokenType: "USDC",
+      });
+
+      const sendTx = await elusiv.buildSendTx(
+        Number(privateBalance) - Number(estimatedFee.txFee),
+        recipient,
+        "USDC"
+      );
+      const sendSig = await elusiv.sendElusivTx(sendTx);
+
+      console.log(sendSig.signature);
+
+      Success(
+        "Transaction Success with Signature: " +
+          sendSig.signature.toString().substring(0, 5) +
+          "..." +
+          sendSig.signature
+            .toString()
+            .substring(
+              sendSig.signature.toString().length - 5,
+              sendSig.signature.toString().length
+            )
+      );
+
+      return true;
+    } catch (err) {
+      console.log(err);
+      Error("Transaction Failed");
+      return false;
+    }
+  };
+
+  return { transfer, transferToken, transferPrivate, transferPrivateTokens };
 }
