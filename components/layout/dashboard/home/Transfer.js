@@ -1,6 +1,7 @@
 "use client";
 import Balance from "@/components/ui/Balance";
 import GradientButton from "@/components/ui/GradientButton";
+import useToast from "@/hooks/useToast";
 import useTransfer from "@/hooks/useTransfer";
 import {
   Select,
@@ -19,14 +20,31 @@ const Transfer = () => {
   const [amount, setAmount] = useState("0.0");
   const balance = useSelector((state) => state.profile.balance);
   const balanceUSDC = useSelector((state) => state.profile.balanceUSDC);
-  const { transfer, transferToken } = useTransfer();
+  const [checked, setChecked] = useState(false);
+  const { Error } = useToast();
+  const { transfer, transferToken, transferPrivate, transferPrivateTokens } =
+    useTransfer();
 
   const handleTransfer = async () => {
-    if (currency === "SOL") {
+    if (!recipient) return Error("Please enter a valid address");
+    if (!amount) return Error("Please enter a valid amount");
+
+    if (currency === "SOL" && amount > balance)
+      return Error("Insufficient Balance");
+    if (currency === "USDC" && amount > balanceUSDC)
+      return Error("Insufficient Balance");
+
+    if (currency === "SOL" && !checked) {
       const result = await transfer(amount, recipient);
       if (result) setAmount("0.0");
-    } else {
+    } else if (currency === "USDC" && !checked) {
       const result = await transferToken(amount, recipient);
+      if (result) setAmount("0.0");
+    } else if (currency === "SOL" && checked) {
+      const result = await transferPrivate(amount, recipient);
+      if (result) setAmount("0.0");
+    } else {
+      const result = await transferPrivateTokens(amount, recipient);
       if (result) setAmount("0.0");
     }
   };
@@ -75,7 +93,12 @@ const Transfer = () => {
 
       <div className="flex flex-col w-full gap-[10px]">
         <div className="flex items-center -ml-2">
-          <Checkbox color="teal" className="" />
+          <Checkbox
+            color="teal"
+            className=""
+            value={checked}
+            onChange={(e) => setChecked(e)}
+          />
           <h1 className="text-white text-[16px] ml-1 mr-2">
             Pay Anonymously with{" "}
           </h1>
