@@ -29,7 +29,7 @@ const Chat = ({ pubkey }) => {
     };
 
     const ably = configureAbly({
-      authUrl: `/api/ably/auth`,
+      authUrl: `${process.env.NEXT_PUBLIC_NEXT_URL}/api/ably/auth`,
     });
 
     let channel = ably.channels.get(chatId?._id);
@@ -60,17 +60,18 @@ const Chat = ({ pubkey }) => {
         width={500}
         height={500}
         className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 prevent-select"
+        alt=""
       />
 
       {messages &&
         messages.map((message) => (
           <div
+            key={message._id}
             className={`flex ${
               message.sender === pubkey ? 'justify-start' : 'justify-end'
             }`}
           >
             <p
-              key={message._id}
               className={`text-sm text-primary-black px-4 py-2 rounded-full font-medium mb-1.5 ${
                 message.sender === pubkey ? 'bg-[#49E9FF]' : 'bg-[#40ff8d]'
               }`}
