@@ -2,14 +2,28 @@
 
 import { useState } from 'react';
 import { PaperAirplaneIcon } from '@heroicons/react/24/outline';
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import usePostServer from '@/hooks/usePostServer';
+import useToast from '@/hooks/useToast';
 
 const MessageInput = () => {
   const [message, setMessage] = useState('');
+  const chatId = useSelector((state) => state.contact.chatId);
+  const { Error } = useToast();
 
-  const onSubmit = (e) => {
+  const { createMessage } = usePostServer();
+
+  const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(message);
-    setMessage('');
+    if (chatId === null) Error('Please select a contact');
+
+    try {
+      await createMessage('text', chatId, message);
+      setMessage('');
+    } catch (erorr) {
+      Error('Please select a contact');
+    }
   };
 
   return (
@@ -23,7 +37,7 @@ const MessageInput = () => {
       />
 
       <button
-        type="button"
+        type="submit"
         className="rounded-full flex justify-center items-center bg-gradient-priamry py-1.5 pl-2 pr-1"
         onClick={onSubmit}
       >

@@ -9,6 +9,7 @@ import * as bip39 from 'bip39';
 import useCreateWallet from './useCreateWallet';
 import usePostServer from './usePostServer';
 import { setUserContacts } from '@/redux/profileSlice';
+import { addMessage, setMessages } from '@/redux/contactSlice';
 
 export default function useGetServer() {
   const { Error } = useToast();
@@ -75,8 +76,6 @@ export default function useGetServer() {
         { headers }
       );
 
-      console.log(res.data);
-
       dispatch(setUserContacts(res.data));
       return res.data;
     } catch (err) {
@@ -84,5 +83,34 @@ export default function useGetServer() {
     }
   };
 
-  return { getUserSelf, getUserContacts };
+  const getChatMessages = async (chatId) => {
+    const seed = bip39.mnemonicToSeedSync(mnemonics);
+    const keypair = Keypair.fromSeed(seed.slice(0, 32));
+
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      Error('Please Login');
+      router.push('/login');
+      return;
+    }
+
+    const headers = {
+      'x-auth-token': token,
+      'x-auth-pubkey': keypair.publicKey.toString(),
+    };
+
+    try {
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_NEXT_URL}/api/message/${chatId}`,
+        { headers }
+      );
+
+      dispatch(setMessages(res.data));
+    } catch (err) {
+      Error('Something Went Wrong');
+    }
+  };
+
+  return { getUserSelf, getUserContacts, getChatMessages };
 }
