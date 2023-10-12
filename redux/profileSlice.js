@@ -7,6 +7,9 @@ const initialState = {
   balanceUSDC: 0,
   balanceListerners: [],
   contacts: [],
+  quote: null,
+  quoteUSDC: null,
+  vouchers: [],
 };
 
 export const profileSlice = createSlice({
@@ -37,6 +40,18 @@ export const profileSlice = createSlice({
     setUserContacts: (state, action) => {
       state.contacts = action.payload;
     },
+    setQuote: (state, action) => {
+      state.quote = action.payload;
+    },
+    setQuoteUSDC: (state, action) => {
+      state.quoteUSDC = action.payload;
+    },
+    setVouchers: (state, action) => {
+      state.vouchers = action.payload;
+    },
+    addVoucher: (state, action) => {
+      state.vouchers.push(action.payload);
+    },
   },
 });
 
@@ -49,4 +64,8 @@ export const {
   addBalanceListener,
   removeAllBalanceListeners,
   setUserContacts,
+  setQuote,
+  setQuoteUSDC,
+  setVouchers,
+  addVoucher,
 } = profileSlice.actions;

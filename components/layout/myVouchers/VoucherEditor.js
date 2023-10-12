@@ -1,9 +1,10 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { Input, Textarea } from '@material-tailwind/react';
+import { useEffect, useState } from "react";
+import { Input, Textarea } from "@material-tailwind/react";
 
-import Balance from '@/components/ui/Balance';
+import Balance from "@/components/ui/Balance";
+import { useSelector } from "react-redux";
 
 export default function VoucherEditor({
   amount,
@@ -14,7 +15,7 @@ export default function VoucherEditor({
   setMessage,
   setPassword,
 }) {
-  const [balance, setBalance] = useState(0);
+  const balance = useSelector((state) => state.profile.balance);
 
   return (
     <div className="w-full items-center rounded-[8px] p-[1px] bg-gradient-priamry">
@@ -32,7 +33,7 @@ export default function VoucherEditor({
 
         <div className="flex-grow px-5 flex flex-col gap-4">
           <p className="text-white font-bold text-xl">
-            Voucher Id:{' '}
+            Voucher Id:{" "}
             <span className="text-transparent bg-clip-text bg-gradient-priamry">
               {voucherId}
             </span>
@@ -55,7 +56,7 @@ export default function VoucherEditor({
               className="border-white text-white"
               labelProps={{
                 className:
-                  ' peer-placeholder-shown:text-white peer-disabled:peer-placeholder-shown:text-white peer-focus:text-white after:border-white peer-focus:after:!border-white',
+                  " peer-placeholder-shown:text-white peer-disabled:peer-placeholder-shown:text-white peer-focus:text-white after:border-white peer-focus:after:!border-white",
               }}
               value={message}
               onChange={(e) => setMessage(e.target.value)}

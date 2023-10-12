@@ -1,11 +1,23 @@
 "use client";
 import Balance from "@/components/ui/Balance";
 import GradientButton from "@/components/ui/GradientButton";
+import useSwap from "@/hooks/useSwap";
+import useToast from "@/hooks/useToast";
+import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const Swap = () => {
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState(1);
+  const [symbol, setSymbol] = useState("SOL");
+  const { Error } = useToast();
+  const { swap, swapUSDC, quote, quoteUSDC } = useSwap();
+  const balance = useSelector((state) => state.profile.balance);
+  const balanceUSDC = useSelector((state) => state.profile.balanceUSDC);
+  const quoteData = useSelector((state) => state.profile.quote);
+  const quoteUSDCData = useSelector((state) => state.profile.quoteUSDC);
+  const connection = useSelector((state) => state.profile.connection);
 
   const handleChange = (e) => {
     if (e.target.value === "") setAmount(0);
@@ -13,8 +25,30 @@ const Swap = () => {
     if (regex.test(e.target.value)) setAmount(e.target.value);
   };
 
+  useEffect(() => {
+    if (amount && symbol === "SOL" && amount !== "0") {
+      quote(amount);
+    }
+    if (amount && symbol === "USDC" && amount !== "0") {
+      quoteUSDC(amount);
+    }
+  }, [amount, symbol]);
+
   return (
-    <div className="flex flex-col justify-between pt-[28px] h-full px-[28px]">
+    <div className="flex flex-col justify-between pt-[28px] h-full px-[28px] relative">
+      {connection === "https://api.devnet.solana.com" && (
+        <div className="w-full h-full backdrop-filter backdrop-blur-lg bg-black/30 absolute top-0 left-0 z-10 flex flex-col justify-center items-center">
+          <Image src="/images/logo.png" alt="logo" width={50} height={50} />
+
+          <h3 className="text-primary-white font-bold text-2xl leading-normal">
+            Eminence
+          </h3>
+
+          <p className="text-primary-white max-w-xs text-center">
+            Swapping is not available in devnet
+          </p>
+        </div>
+      )}
       <div className="flex flex-col gap-[20px]">
         <div className="flex">
           <h1 className="text-white text-[16px] mr-1"> Swap by </h1>
@@ -29,23 +63,38 @@ const Swap = () => {
 
         <div className="flex flex-col gap-[20px] relative">
           <Balance
-            symbol={"SOL"}
+            symbol={symbol}
             type={"Send"}
             editable
-            balance={254.12}
+            balance={symbol === "SOL" ? balance : balanceUSDC}
             value={amount}
             onChange={handleChange}
           />
           <Balance
-            symbol={"USDC"}
+            symbol={symbol === "SOL" ? "USDC" : "SOL"}
             type={"Receive"}
-            amount={124.64}
-            balance={1370.12}
+            amount={
+              symbol === "SOL"
+                ? quoteData
+                  ? quoteData.outAmount
+                    ? quoteData.outAmount / 10 ** 6
+                    : 0
+                  : 0
+                : quoteUSDCData
+                ? quoteUSDCData.outAmount
+                  ? quoteUSDCData.outAmount / LAMPORTS_PER_SOL
+                  : 0
+                : 0
+            }
+            balance={symbol === "SOL" ? balanceUSDC : balance}
           />
           <div
-            className="flex items-center justify-center h-[60px] w-[60px] rounded-full bg-[#1C1D22] absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]"
+            className="flex items-center justify-center h-[60px] w-[60px] rounded-full bg-[#1C1D22] absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] hover:cursor-pointer"
             style={{
               boxShadow: "0px 0px 12px 8px rgba(0, 0, 0, 0.25)",
+            }}
+            onClick={() => {
+              setSymbol(symbol === "SOL" ? "USDC" : "SOL");
             }}
           >
             <Image
@@ -59,11 +108,12 @@ const Swap = () => {
       </div>
 
       <div className="flex flex-col w-full gap-[10px]">
-        <div className="flex justify-between text-[14px]">
-          <h1 className="font-bold">Rate</h1>
-          <h1 className="font-bold text-white">1 SOL = 20 USDC</h1>
-        </div>
-        <GradientButton label={"Swap"} />
+        <GradientButton
+          label={"Swap"}
+          onClick={
+            symbol === "SOL" ? () => swap(amount) : () => swapUSDC(amount)
+          }
+        />
       </div>
     </div>
   );

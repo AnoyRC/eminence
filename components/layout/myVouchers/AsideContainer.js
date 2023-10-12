@@ -1,31 +1,21 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
+import { useEffect, useState } from "react";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 
-import VoucherTab from './VoucherTab';
+import VoucherTab from "./VoucherTab";
+import { useSelector } from "react-redux";
+import useGetServer from "@/hooks/useGetServer";
 
 export default function AsideContainer() {
-  const [vouchers, setVouchers] = useState([]);
+  const vouchers = useSelector((state) => state.profile.vouchers);
+  const mnemonics = useSelector((state) => state.wallet.mnemonics);
+
+  const { fetchVouchers } = useGetServer();
 
   useEffect(() => {
-    const fetchVouchers = async () => {
-      const res = await fetch('http://localhost:8080/api/voucher/get', {
-        method: 'GET',
-
-        headers: {
-          'Content-Type': 'application/json',
-          'x-auth-token': localStorage.getItem('x-auth-token'),
-          'x-auth-pubkey': localStorage.getItem('x-auth-pubkey'),
-        },
-      });
-      const data = await res.json();
-
-      setVouchers(data);
-    };
-
-    fetchVouchers();
-  }, []);
+    if (mnemonics) fetchVouchers();
+  }, [mnemonics]);
 
   return (
     <aside className="py-[28px] w-[300px] h-full bg-black/40 flex flex-col px-[28px]">
@@ -45,6 +35,7 @@ export default function AsideContainer() {
 
       <div className="flex flex-col gap-[12px] w-full">
         {vouchers &&
+          vouchers.length > 0 &&
           vouchers.map((voucher) => (
             <VoucherTab
               key={voucher.voucherId}

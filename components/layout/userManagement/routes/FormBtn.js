@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-import useOnboard from '@/hooks/useOnboard';
+import useOnboard from "@/hooks/useOnboard";
 
-import Button from '@/components/ui/Button';
-import useCreateWallet from '@/hooks/useCreateWallet';
-import useToast from '@/hooks/useToast';
-import { useDispatch, useSelector } from 'react-redux';
-import { setMnemonics } from '@/redux/walletSlice';
-import usePostServer from '@/hooks/usePostServer';
+import Button from "@/components/ui/Button";
+import useCreateWallet from "@/hooks/useCreateWallet";
+import useToast from "@/hooks/useToast";
+import { useDispatch, useSelector } from "react-redux";
+import { setMnemonics } from "@/redux/walletSlice";
+import usePostServer from "@/hooks/usePostServer";
 
 const PublicProfileBtn = () => {
   const router = useRouter();
@@ -18,13 +18,13 @@ const PublicProfileBtn = () => {
 
   const handleClick = (e) => {
     e.preventDefault();
-    router.push('/createEminent');
+    router.push("/createEminent");
   };
 
   return (
     <div className="w-full max-w-xs">
       <Button
-        type={'submit'}
+        type={"submit"}
         label="Be an Eminent"
         fullWidth
         color="bg-primary-black text-primary-white"
@@ -33,7 +33,7 @@ const PublicProfileBtn = () => {
       />
 
       <p className="text-primary-black text-sm font-medium text-center">
-        Don&apos;t want a public profile?{' '}
+        Don&apos;t want a public profile?{" "}
         <button
           className="underline underline-offset-4 font-bold transition-transform hover:scale-105"
           onClick={async (e) => {
@@ -58,7 +58,7 @@ const EminentBtn = ({ firstName, lastName, avatarId }) => {
 
   return (
     <Button
-      type={'submit'}
+      type={"submit"}
       label="Create Profile"
       fullWidth
       color="bg-primary-black text-primary-white"
@@ -75,20 +75,20 @@ const ForgotBtn = () => {
   const handleContinueClick = (e) => {
     e.preventDefault();
 
-    router.push('/importWallet');
+    router.push("/importWallet");
   };
 
   const handleNewAccountClick = (e) => {
     e.preventDefault();
 
     step1.CreateWallet;
-    router.push('/onboard');
+    router.push("/onboard");
   };
 
   return (
     <>
       <Button
-        type={'submit'}
+        type={"submit"}
         label="Continue"
         fullWidth
         color="bg-primary-black text-primary-white"
@@ -97,7 +97,7 @@ const ForgotBtn = () => {
       />
 
       <Button
-        type={'submit'}
+        type={"submit"}
         label="Create New Account"
         fullWidth
         color="bg-primary-black text-primary-white"
@@ -106,10 +106,10 @@ const ForgotBtn = () => {
       />
 
       <p className="text-primary-black text-sm font-medium text-center">
-        Remember Password?{' '}
+        Remember Password?{" "}
         <Link
           className="underline underline-offset-4 font-bold transition-transform hover:scale-105"
-          href={'/welcome'}
+          href={"/welcome"}
         >
           Go back
         </Link>
@@ -128,7 +128,7 @@ const WelcomeBtn = ({ password }) => {
     e.preventDefault();
 
     if (password.length === 0) {
-      Error('Please enter a password');
+      Error("Please enter a password");
       return;
     }
     await retrieveFromLocalStorage(password, false);
@@ -137,7 +137,7 @@ const WelcomeBtn = ({ password }) => {
   return (
     <>
       <Button
-        type={'submit'}
+        type={"submit"}
         label="Unlock"
         fullWidth
         color="bg-primary-black text-primary-white"
@@ -146,10 +146,10 @@ const WelcomeBtn = ({ password }) => {
       />
 
       <p className="text-primary-black text-sm font-medium text-center">
-        Forgot Password?{' '}
+        Forgot Password?{" "}
         <Link
           className="underline underline-offset-4 font-bold transition-transform hover:scale-105"
-          href={'/forgotPassword'}
+          href={"/forgotPassword"}
         >
           Generate New
         </Link>
@@ -166,7 +166,7 @@ const CheckLoginBtn = ({ password }) => {
     e.preventDefault();
 
     if (password.length === 0) {
-      Error('Please enter a password');
+      Error("Please enter a password");
       return;
     }
 
@@ -176,7 +176,7 @@ const CheckLoginBtn = ({ password }) => {
   return (
     <>
       <Button
-        type={'submit'}
+        type={"submit"}
         label="Unlock"
         fullWidth
         color="bg-primary-black text-primary-white"
@@ -185,10 +185,10 @@ const CheckLoginBtn = ({ password }) => {
       />
 
       <p className="text-primary-black text-sm font-medium text-center">
-        Forgot Password?{' '}
+        Forgot Password?{" "}
         <Link
           className="underline underline-offset-4 font-bold transition-transform hover:scale-105"
-          href={'/forgotPassword'}
+          href={"/forgotPassword"}
         >
           Generate New
         </Link>
@@ -211,7 +211,7 @@ const NewPasswordBtn = ({ password, confirmPassword }) => {
       password.current.value.length === 0 ||
       confirmPassword.current.value.length === 0
     ) {
-      Error('Please fill all the fields');
+      Error("Please fill all the fields");
       return;
     }
 
@@ -223,17 +223,19 @@ const NewPasswordBtn = ({ password, confirmPassword }) => {
 
         step4.ConfirmPassword(password.current.value);
 
-        router.push('/dashboard');
+        router.push("/dashboard");
+        return;
       } catch (err) {
-        Error('Something went wrong');
+        Error("Something went wrong");
+        return;
       }
     }
-    Error('Password do not match');
+    Error("Password do not match");
   };
 
   return (
     <Button
-      type={'submit'}
+      type={"submit"}
       label="Continue"
       fullWidth
       color="bg-primary-black text-primary-white"
@@ -252,19 +254,19 @@ const ImportWalletBtn = ({ inputMnemonic }) => {
     e.preventDefault();
 
     if (inputMnemonic.length !== 12) {
-      Error('Please fill all the fields');
+      Error("Please fill all the fields");
       return;
     }
 
-    const mnemonic = inputMnemonic.join(' ');
+    const mnemonic = inputMnemonic.join(" ");
 
     dispatch(setMnemonics(mnemonic));
-    router.push('/newPassword');
+    router.push("/newPassword");
   };
 
   return (
     <Button
-      type={'submit'}
+      type={"submit"}
       label="Confirm Security Phrase"
       fullWidth
       color="bg-primary-black text-primary-white"

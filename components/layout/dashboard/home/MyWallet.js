@@ -121,7 +121,7 @@ const MyWallet = () => {
                   {amount.toString().split(".")[1] && "."}
                 </span>
                 <span className="text-[32px] font-bold">
-                  {Math.trunc(amount) !== 0 &&
+                  {amount > 0 &&
                     amount.toString().split(".")[1].substring(0, 2)}
                 </span>
                 <span> {value}</span>
