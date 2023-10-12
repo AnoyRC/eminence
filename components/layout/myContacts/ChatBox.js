@@ -18,7 +18,6 @@ export default function ChatBox() {
         `${process.env.NEXT_PUBLIC_NEXT_URL}/api/user/info/${currentContact}`
       );
       const data = await res.json();
-      console.log(data);
       setUser(data);
     };
 

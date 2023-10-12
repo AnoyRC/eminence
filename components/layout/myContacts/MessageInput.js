@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { PaperAirplaneIcon } from '@heroicons/react/24/outline';
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
 import usePostServer from '@/hooks/usePostServer';
 import useToast from '@/hooks/useToast';
 
@@ -16,11 +15,11 @@ const MessageInput = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+
     if (chatId === null) Error('Please select a contact');
 
     try {
-      await createMessage('text', chatId, message);
-      await fetch(`/api/ably/message`, {
+      await fetch(`${process.env.NEXT_PUBLIC_NEXT_URL}/api/ably/message`, {
         method: 'POST',
 
         headers: {
@@ -28,13 +27,14 @@ const MessageInput = () => {
         },
 
         body: JSON.stringify({
-          channelName: chatId,
+          channelName: chatId._id,
           message,
         }),
       });
+      await createMessage('text', chatId, message);
       setMessage('');
     } catch (erorr) {
-      Error('Please select a contact');
+      Error('Something went wrong');
     }
   };
 

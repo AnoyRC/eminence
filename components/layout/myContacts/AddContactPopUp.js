@@ -1,5 +1,7 @@
-"use client";
-import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/solid";
+'use client';
+
+import { useState } from 'react';
+import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/solid';
 import {
   Card,
   CardHeader,
@@ -9,26 +11,51 @@ import {
   Input,
   Select,
   Option,
-} from "@material-tailwind/react";
-import localFont from "next/font/local";
-import ContactTabSearch from "./ContactTabSearch";
-import { useDispatch, useSelector } from "react-redux";
-import { togglePopup } from "@/redux/contactsSlice";
+} from '@material-tailwind/react';
+import localFont from 'next/font/local';
+import ContactTabSearch from './ContactTabSearch';
+import { useDispatch, useSelector } from 'react-redux';
+import { togglePopup } from '@/redux/contactsSlice';
+import useGetServer from '@/hooks/useGetServer';
 
 const myFont = localFont({
-  src: "../../../public/fonts/Satoshi-Variable.woff2",
+  src: '../../../public/fonts/Satoshi-Variable.woff2',
 });
-
-const contacts = [
-  { name: "Sourabh" },
-  { name: "Gautam Raj" },
-  { name: "Anoy" },
-  { name: "Pratik" },
-];
 
 export default function AddContactPopUp() {
   const dispatch = useDispatch();
+  const [queryType, setQueryType] = useState('address');
+  const [query, setQuery] = useState('');
+  const [users, setUsers] = useState(null);
   const isPopup = useSelector((state) => state.contacts.isPopup);
+  const { getUserByPubkey, getUserByName } = useGetServer();
+
+  const handleSearchClick = () => {
+    const fetchUser = async () => {
+      if (queryType === 'address') {
+        const data = await getUserByPubkey(query);
+        if (data) {
+          setUsers([data]);
+          setQuery('');
+          return;
+        }
+
+        setUsers(null);
+      } else {
+        const data = await getUserByName(query);
+        if (data) {
+          setUsers(data);
+          setQuery('');
+          return;
+        }
+
+        setUsers(null);
+      }
+    };
+
+    fetchUser();
+  };
+
   return (
     isPopup && (
       <div className="absolute top-0 left-0 h-full w-full backdrop-filter backdrop-blur-lg z-20">
@@ -38,12 +65,12 @@ export default function AddContactPopUp() {
               className="w-full rounded-[8px] p-[0.5px]"
               style={{
                 background:
-                  "linear-gradient(261deg, #26FFFF 5.76%, #4AFF93 94.17%)",
+                  'linear-gradient(261deg, #26FFFF 5.76%, #4AFF93 94.17%)',
               }}
             >
-              <div className={"h-full w-full rounded-[8px] bg-black "}>
+              <div className={'h-full w-full rounded-[8px] bg-black '}>
                 <Card
-                  className={"h-full w-full rounded-[8px] bg-black pb-[5px]"}
+                  className={'h-full w-full rounded-[8px] bg-black pb-[5px]'}
                 >
                   <CardHeader
                     floated={false}
@@ -61,18 +88,22 @@ export default function AddContactPopUp() {
                         </Typography>
                         <Typography
                           color="white"
-                          variant=""
-                          className={"mt-1 font-normal " + myFont.className}
+                          variant="paragraph"
+                          className={'mt-1 font-normal ' + myFont.className}
                         >
                           Add a new contact to your list
                         </Typography>
                       </div>
                       <XMarkIcon
                         className="h-6 w-6 text-white hover:cursor-pointer absolute top-0 right-0"
-                        onClick={() => dispatch(togglePopup(false))}
+                        onClick={() => {
+                          dispatch(togglePopup(false));
+                          setUsers(null);
+                        }}
                       />
                     </div>
                   </CardHeader>
+
                   <CardBody className="p-4 flex flex-col w-full gap-[15px]">
                     <div className="flex gap-[8px]">
                       <div className="w-[65%]">
@@ -80,61 +111,71 @@ export default function AddContactPopUp() {
                           variant="outlined"
                           label="Search"
                           color="white"
+                          value={query}
+                          onChange={(e) => setQuery(e.target.value)}
                           icon={
                             <MagnifyingGlassIcon
-                              className={"text-white " + myFont.className}
+                              className={'text-white ' + myFont.className}
                             />
                           }
                         />
                       </div>
+
                       <div className="w-[30%]">
                         <Select
                           label="Select Type"
                           className={
-                            "border-b-white border-x-white text-white " +
+                            'border-b-white border-x-white text-white ' +
                             myFont.className
                           }
                           labelProps={{
                             className:
-                              "before:border-white after:border-white text-white",
+                              'before:border-white after:border-white text-white',
                           }}
+                          value={queryType}
+                          onChange={(e) => setQueryType(e)}
                         >
-                          <Option>User Name</Option>
-                          <Option>Address</Option>
+                          <Option value="name">User Name</Option>
+                          <Option value="address">Address</Option>
                         </Select>
                       </div>
                     </div>
+
                     <Button
                       className={
-                        " bg-gradient-to-r from-[#26FFFF] to-[#4AFF93]  w-full flex flex-row  text-black items-center justify-center text-[14px] font-bold rounded-[8px] " +
-                        myFont.className
+                        ' bg-gradient-to-r from-[#26FFFF] to-[#4AFF93]  w-full flex flex-row  text-black items-center justify-center text-[14px] font-bold rounded-[8px]'
                       }
-                      href=""
                       style={{
-                        textTransform: "none",
+                        textTransform: 'none',
                       }}
+                      onClick={handleSearchClick}
                     >
-                      Search Contact
+                      Search User
                       <span>
                         <MagnifyingGlassIcon className="h-4 w-4 ml-2 text-black" />
                       </span>
                     </Button>
-                    {contacts.length > 0 && (
-                      <Typography
-                        variant="h2"
-                        color="white"
-                        className={myFont.className}
-                      >
-                        Results
-                      </Typography>
-                    )}
-                    {contacts.length > 0 &&
-                      contacts.map((contact) => (
+
+                    <Typography
+                      variant="h2"
+                      color="white"
+                      className={myFont.className}
+                    >
+                      Results
+                    </Typography>
+
+                    {users ? (
+                      users.length > 0 &&
+                      users.map((user) => (
                         <ContactTabSearch
-                          key={contact.name}
-                          name={contact.name}
+                          key={user.pubkey}
+                          name={user.firstName + ' ' + user.lastName}
+                          pubkey={user.pubkey}
                         />
-                      ))}
+                      ))
+                    ) : (
+                      <p>No user found</p>
+                    )}
                   </CardBody>
                 </Card>
               </div>
