@@ -26,7 +26,7 @@ export default function ChatBox() {
   }, []);
 
   return (
-    <div className="flex flex-col w-full h-full border border-primary-white border-t-transparent">
+    <div className="flex flex-col w-full h-full border border-primary-white border-t-transparent overflow-hidden">
       {currentContact && user && (
         <>
           <ChatHeader
@@ -36,8 +36,11 @@ export default function ChatBox() {
             status={user}
           />
 
-          <section className="px-9 py-6 h-full flex flex-col justify-between">
-            <Chat pubkey={user.pubkey} />
+          <section className="px-9 py-6 h-full flex flex-col justify-between overflow-hidden">
+            <div className="overflow-y-auto hide-scroll">
+              <Chat pubkey={user.pubkey} />
+            </div>
+
             <SendMessageContainer id={user.pubkey} />
           </section>
         </>
