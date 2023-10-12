@@ -20,6 +20,18 @@ const MessageInput = () => {
 
     try {
       await createMessage('text', chatId, message);
+      await fetch(`/api/ably/message`, {
+        method: 'POST',
+
+        headers: {
+          'Content-Type': 'application/json',
+        },
+
+        body: JSON.stringify({
+          channelName: chatId,
+          message,
+        }),
+      });
       setMessage('');
     } catch (erorr) {
       Error('Please select a contact');
