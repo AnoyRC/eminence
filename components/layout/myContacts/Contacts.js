@@ -1,13 +1,12 @@
 'use client';
 
 import { useDispatch, useSelector } from 'react-redux';
-
-import { setSelectedContact } from '@/redux/contactSlice';
+import { useEffect } from 'react';
 
 import useGetServer from '@/hooks/useGetServer';
 
 import ContactList from './ContactList';
-import { useEffect, useState } from 'react';
+import { setSelectedContact } from '@/redux/contactSlice';
 
 const Contacts = () => {
   const dispatch = useDispatch();

@@ -43,7 +43,11 @@ const ContactList = ({ pubKey }) => {
           ></div>
         </>
       ) : (
-        <div></div>
+        <div className="relative flex items-center">
+          <div className="w-8 h-8 rounded-full bg-black/40 skeleton mr-3"></div>
+
+          <p className="h-5 w-20 bg-black/40 skeleton"></p>
+        </div>
       )}
     </div>
   );

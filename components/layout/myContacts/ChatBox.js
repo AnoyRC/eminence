@@ -10,6 +10,7 @@ import ChatHeader from './ChatHeader';
 export default function ChatBox() {
   const currentContact = useSelector((state) => state.contact.contact);
 
+  const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -19,6 +20,8 @@ export default function ChatBox() {
       );
       const data = await res.json();
       setUser(data);
+
+      setLoading(false);
     };
 
     fetchUser();
@@ -30,6 +33,7 @@ export default function ChatBox() {
         <>
           <ChatHeader
             avatar={user.avatarId}
+            loading={loading}
             name={`${user.firstName} ${user.lastName}`}
             id={user.pubkey}
             status={user}
@@ -37,10 +41,10 @@ export default function ChatBox() {
 
           <section className="px-9 py-6 h-full flex flex-col justify-between overflow-hidden">
             <div className="overflow-y-auto hide-scroll">
-              <Chat pubkey={user.pubkey} />
+              <Chat />
             </div>
 
-            <SendMessageContainer id={user.pubkey} />
+            <SendMessageContainer />
           </section>
         </>
       )}

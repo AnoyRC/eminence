@@ -1,28 +1,31 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { configureAbly } from '@ably-labs/react-hooks';
 
 import usePostServer from '@/hooks/usePostServer';
 import useGetServer from '@/hooks/useGetServer';
+import { clearMessages } from '@/redux/contactSlice';
 
-const Chat = ({ pubkey }) => {
+const Chat = () => {
+  const dispatch = useDispatch();
   const { createChat } = usePostServer();
   const { getChatMessages } = useGetServer();
 
   const user = useSelector((state) => state.profile.user);
   const chatId = useSelector((state) => state.contact.chatId);
   const messages = useSelector((state) => state.contact.messages);
+  const currentContact = useSelector((state) => state.contact.contact);
 
   useEffect(() => {
     const fetchChat = async () => {
-      await createChat(pubkey);
+      await createChat(currentContact);
     };
 
     fetchChat();
-  }, []);
+  }, [currentContact]);
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -41,15 +44,15 @@ const Chat = ({ pubkey }) => {
       channel = ably.channels.get(chatId._id);
 
       channel.subscribe((message) => {
-        [...messages, message.data];
+        console.log(message);
+        fetchMessages();
       });
     }
 
     return () => {
       channel.unsubscribe();
-      ably.close();
     };
-  }, [chatId]);
+  }, [chatId, currentContact]);
 
   return (
     <div className="mb-6 flex-1 relative">
@@ -66,12 +69,16 @@ const Chat = ({ pubkey }) => {
           <div
             key={message._id}
             className={`flex ${
-              message.sender === pubkey ? 'justify-start' : 'justify-end'
+              message.sender === currentContact
+                ? 'justify-start'
+                : 'justify-end'
             }`}
           >
             <p
               className={`text-sm text-primary-black px-4 py-2 rounded-full font-medium mb-1.5 ${
-                message.sender === pubkey ? 'bg-[#49E9FF]' : 'bg-[#40ff8d]'
+                message.sender === currentContact
+                  ? 'bg-[#49E9FF]'
+                  : 'bg-[#40ff8d]'
               }`}
             >
               {message.content}
