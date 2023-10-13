@@ -44,7 +44,7 @@ export default function useGetServer() {
 
     if (!token) {
       Error("Please Login");
-      router.push("/login");
+      router.push("/welcome");
       return;
     }
 
@@ -78,7 +78,7 @@ export default function useGetServer() {
 
     if (!token) {
       Error("Please Login");
-      router.push("/login");
+      router.push("/welcome");
       return;
     }
 
@@ -108,7 +108,7 @@ export default function useGetServer() {
 
     if (!token) {
       Error("Please Login");
-      router.push("/login");
+      router.push("/welcome");
       return;
     }
 
@@ -138,7 +138,7 @@ export default function useGetServer() {
 
     if (!token) {
       Error("Please Login");
-      router.push("/login");
+      router.push("/welcome");
       return;
     }
 
@@ -167,7 +167,7 @@ export default function useGetServer() {
 
     if (!token) {
       Error("Please Login");
-      router.push("/login");
+      router.push("/welcome");
       return;
     }
 

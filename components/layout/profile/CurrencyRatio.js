@@ -1,13 +1,22 @@
 "use client";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { PieChart, Pie, Sector, ResponsiveContainer } from "recharts";
 
 export default function CurrencyRatio() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const balance = useSelector((state) => state.profile.balance);
+  const balanceUSDC = useSelector((state) => state.profile.balanceUSDC);
 
   const data = [
-    { name: "SOL", value: 25 },
-    { name: "USDC", value: 100 },
+    {
+      name: "SOL",
+      value: balance === balanceUSDC && balance === 0 ? 50 : balance,
+    },
+    {
+      name: "USDC",
+      value: balance === balanceUSDC && balance === 0 ? 50 : balanceUSDC,
+    },
   ];
 
   const renderActiveShape = (props) => {
@@ -70,7 +79,25 @@ export default function CurrencyRatio() {
           textAnchor={textAnchor}
           fill="#fff"
           className="text-[10px]"
-        >{`${value} ${payload.name}`}</text>
+        >{`${
+          balance === balanceUSDC && balance === 0
+            ? 0
+            : `${
+                Math.trunc(value) >= 1000
+                  ? Math.trunc(value / 1000).toString() + "K"
+                  : Math.trunc(value) >= 1000000
+                  ? Math.trunc(value / 1000000).toString() + "M"
+                  : Math.trunc(value)
+              } 
+        ${value < 100 ? (value.toString().split(".")[1] ? "." : "") : ""}
+        ${
+          value < 100
+            ? value > 0
+              ? value.toString().split(".")[1].substring(0, 2)
+              : ""
+            : ""
+        }`
+        } ${payload.name}`}</text>
         <text
           x={ex + (cos >= 0 ? 1 : -1) * 12}
           y={ey}

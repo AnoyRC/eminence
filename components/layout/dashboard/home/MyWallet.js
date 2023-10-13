@@ -118,10 +118,11 @@ const MyWallet = () => {
                     : Math.trunc(amount) >= 1000000
                     ? Math.trunc(amount / 1000000).toString() + "M"
                     : Math.trunc(amount)}
-                  {amount.toString().split(".")[1] && "."}
+                  {amount < 100 && amount.toString().split(".")[1] && "."}
                 </span>
                 <span className="text-[32px] font-bold">
                   {amount > 0 &&
+                    amount < 100 &&
                     amount.toString().split(".")[1].substring(0, 2)}
                 </span>
                 <span> {value}</span>
