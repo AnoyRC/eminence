@@ -1,5 +1,5 @@
 import ProfileAvatar from '@/components/ui/ProfileAvatar';
-import { EllipsisHorizontalIcon } from '@heroicons/react/24/solid';
+import ChatHeaderMenu from './ChatHeaderMenu';
 
 const ChatHeader = ({ avatar, name, id, status, loading }) => {
   return (
@@ -43,9 +43,7 @@ const ChatHeader = ({ avatar, name, id, status, loading }) => {
         )}
       </div>
 
-      <button className="">
-        <EllipsisHorizontalIcon color="white" />
-      </button>
+      <ChatHeaderMenu />
     </div>
   );
 };

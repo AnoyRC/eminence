@@ -9,7 +9,7 @@ export default function ContactTabSearch({ name, status, pubkey }) {
   const { addContact } = usePostServer();
 
   const handleAddContact = async () => {
-    const contact = await addContact(pubkey);
+    await addContact(pubkey);
   };
 
   return (
