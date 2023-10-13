@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { configureAbly } from "@ably-labs/react-hooks";
+import Image from 'next/image';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { configureAbly } from '@ably-labs/react-hooks';
 
-import usePostServer from "@/hooks/usePostServer";
-import useGetServer from "@/hooks/useGetServer";
+import usePostServer from '@/hooks/usePostServer';
+import useGetServer from '@/hooks/useGetServer';
 
 const Chat = ({ pubkey }) => {
   const { createChat } = usePostServer();
@@ -39,18 +39,15 @@ const Chat = ({ pubkey }) => {
       fetchMessages();
 
       channel = ably.channels.get(chatId._id);
-      console.log(channel);
-      // channel.subscribe((message) => {
-      //   const isOwnMessage = message.data.tabId === tabId;
-      //   setMessages((messages) => [
-      //     ...messages,
-      //     { text: message.data.text, isOwnMessage },
-      //   ]);
-      // });
+
+      channel.subscribe((message) => {
+        [...messages, message.data];
+      });
     }
 
     return () => {
       channel.unsubscribe();
+      ably.close();
     };
   }, [chatId]);
 
@@ -69,12 +66,12 @@ const Chat = ({ pubkey }) => {
           <div
             key={message._id}
             className={`flex ${
-              message.sender === pubkey ? "justify-start" : "justify-end"
+              message.sender === pubkey ? 'justify-start' : 'justify-end'
             }`}
           >
             <p
               className={`text-sm text-primary-black px-4 py-2 rounded-full font-medium mb-1.5 ${
-                message.sender === pubkey ? "bg-[#49E9FF]" : "bg-[#40ff8d]"
+                message.sender === pubkey ? 'bg-[#49E9FF]' : 'bg-[#40ff8d]'
               }`}
             >
               {message.content}

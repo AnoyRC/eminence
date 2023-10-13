@@ -1,10 +1,17 @@
 'use client';
+import usePostServer from '@/hooks/usePostServer';
 import useToast from '@/hooks/useToast';
 import { DocumentDuplicateIcon, PlusIcon } from '@heroicons/react/24/solid';
 import Avatar, { genConfig } from 'react-nice-avatar';
 
 export default function ContactTabSearch({ name, status, pubkey }) {
   const { Info } = useToast();
+  const { addContact } = usePostServer();
+
+  const handleAddContact = async () => {
+    const contact = await addContact(pubkey);
+  };
+
   return (
     <div className="flex w-full rounded-[8px] px-[16px] py-[12px] bg-[#1C1D22]">
       <div className="flex justify-between items-center w-full">
@@ -34,14 +41,16 @@ export default function ContactTabSearch({ name, status, pubkey }) {
               </button>
             </div>
           </div>
-          <div
-            className="flex justify-center items-center p-[8px] rounded-full w-[32px] hover:cursor-pointer"
+
+          <button
+            className="flex justify-center items-center p-[8px] rounded-full w-[32px]"
             style={{
               background: 'linear-gradient(90deg, #4AFF93 0%, #26FFFF 100%)',
             }}
+            onClick={handleAddContact}
           >
             <PlusIcon className="h-4 w-4 text-black" />
-          </div>
+          </button>
         </div>
       </div>
     </div>

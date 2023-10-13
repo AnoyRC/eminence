@@ -22,7 +22,7 @@ export default function ChatBox() {
     };
 
     fetchUser();
-  }, []);
+  }, [currentContact]);
 
   return (
     <div className="flex flex-col w-full h-full border border-primary-white border-t-transparent overflow-hidden">
