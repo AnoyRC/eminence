@@ -6,9 +6,11 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import localFont from "next/font/local";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CardContainer from "./CardContainer";
 import { CheckIcon } from "@heroicons/react/24/solid";
+import usePostServer from "@/hooks/usePostServer";
+import { useSelector } from "react-redux";
 
 const myFont = localFont({
   src: "../../../public/fonts/Satoshi-Variable.woff2",
@@ -16,6 +18,14 @@ const myFont = localFont({
 
 export default function CardSelect() {
   const [selectedCard, setSelectedCard] = useState(0);
+  const { updateCardColor } = usePostServer();
+  const user = useSelector((state) => state.profile.user);
+
+  useEffect(() => {
+    if (user) {
+      setSelectedCard(user.cardColor === "white" ? 0 : 1);
+    }
+  }, [user]);
 
   return (
     <div
@@ -52,7 +62,7 @@ export default function CardSelect() {
         <CardBody className=" flex w-full justify-between">
           <div
             className="flex flex-col gap-[30px] justify-center items-center w-[50%] hover:cursor-pointer"
-            onClick={() => setSelectedCard(0)}
+            onClick={() => updateCardColor("white")}
           >
             <CardContainer color="bg-primary-black" design={"white"} />
             <div
@@ -78,7 +88,7 @@ export default function CardSelect() {
           </div>
           <div
             className="flex flex-col gap-[30px] justify-center items-center w-[50%] hover:cursor-pointer"
-            onClick={() => setSelectedCard(1)}
+            onClick={() => updateCardColor("black")}
           >
             <CardContainer color="bg-primary-black" />
             <div

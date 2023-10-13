@@ -276,6 +276,44 @@ export default function usePostServer() {
     }
   };
 
+  const updateCardColor = async (cardColor) => {
+    const seed = bip39.mnemonicToSeedSync(mnemonics);
+    const keypair = Keypair.fromSeed(seed.slice(0, 32));
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      Error("Please Login");
+      router.push("/welcome");
+      return;
+    }
+
+    const data = {
+      cardColor,
+    };
+
+    const headers = {
+      "Content-Type": "application/json",
+      "x-auth-token": token,
+      "x-auth-pubkey": keypair.publicKey.toString(),
+    };
+
+    try {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_NEXT_URL}/api/user/update/cardcolor`,
+        data,
+        { headers }
+      );
+      Success("Card Updated Successfully");
+      dispatch(setUser(res.data));
+      return true;
+    } catch (err) {
+      console.log(err);
+      Error("Something went wrong");
+      return false;
+    }
+  };
+
   return {
     generateToken,
     createUser,
@@ -285,5 +323,6 @@ export default function usePostServer() {
     createVoucher,
     addContact,
     updateUser,
+    updateCardColor,
   };
 }
