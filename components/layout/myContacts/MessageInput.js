@@ -5,35 +5,54 @@ import { PaperAirplaneIcon } from '@heroicons/react/24/outline';
 import { useSelector } from 'react-redux';
 import usePostServer from '@/hooks/usePostServer';
 import useToast from '@/hooks/useToast';
+import { configureAbly } from '@ably-labs/react-hooks';
 
 const MessageInput = () => {
   const [message, setMessage] = useState('');
+  const user = useSelector((state) => state.profile.user);
   const chatId = useSelector((state) => state.contact.chatId);
   const { Error } = useToast();
 
   const { createMessage } = usePostServer();
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
+  // const onSubmit = async (e) => {
+  //   e.preventDefault();
 
-    if (chatId === null) Error('Please select a contact');
+  //   if (chatId === null) Error('Please select a contact');
 
+  //   try {
+  //     await fetch(`${process.env.NEXT_PUBLIC_NEXT_URL}/api/ably/message`, {
+  //       method: 'POST',
+
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+
+  //       body: JSON.stringify({
+  //         channelName: chatId._id,
+  //         message,
+  //       }),
+  //     });
+  //     await createMessage('text', chatId, message);
+  //     setMessage('');
+  //   } catch (erorr) {
+  //     Error('Something went wrong');
+  //   }
+  // };
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_NEXT_URL}/api/ably/message`, {
-        method: 'POST',
-
-        headers: {
-          'Content-Type': 'application/json',
-        },
-
-        body: JSON.stringify({
-          channelName: chatId._id,
-          message,
-        }),
+      const ably = configureAbly({
+        authUrl: `${process.env.NEXT_PUBLIC_URL}/api/ably/auth?id=${user._id}`,
       });
+
+      const channel = ably.channels.get(chatId._id);
+      channel.publish('message', message);
+
       await createMessage('text', chatId, message);
       setMessage('');
-    } catch (erorr) {
+    } catch (error) {
       Error('Something went wrong');
     }
   };
