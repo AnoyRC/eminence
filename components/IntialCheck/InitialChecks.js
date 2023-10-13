@@ -4,6 +4,7 @@ import useBalance from "@/hooks/useBalance";
 import useGetServer from "@/hooks/useGetServer";
 import useLiveGraph from "@/hooks/useLiveGraph";
 import useLogin from "@/hooks/useLogin";
+import useTransaction from "@/hooks/useTransaction";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
@@ -14,6 +15,7 @@ export default function IntialChecks({ children }) {
   const { balanceListener, getBalance, getBalanceUSDC } = useBalance();
   const connection = useSelector((state) => state.profile.connection);
   const { FetchWeekHistory } = useLiveGraph();
+  const { getAllTransactions } = useTransaction();
 
   //Login Check
   useEffect(() => {
@@ -33,6 +35,7 @@ export default function IntialChecks({ children }) {
       getBalance();
       getBalanceUSDC();
       balanceListener();
+      getAllTransactions();
     }
   }, [mnemonics, connection]);
 

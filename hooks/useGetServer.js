@@ -198,6 +198,19 @@ export default function useGetServer() {
     }
   };
 
+  const getTransactionById = async (signature) => {
+    try {
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_NEXT_URL}/api/transaction/get/${signature}`,
+        { headers: "Content-Type: application/json" }
+      );
+
+      return res.data;
+    } catch (err) {
+      return false;
+    }
+  };
+
   return {
     getUserSelf,
     getUserContacts,
@@ -205,5 +218,6 @@ export default function useGetServer() {
     getUserByPubkey,
     getUserByName,
     fetchVouchers,
+    getTransactionById,
   };
 }
