@@ -228,8 +228,101 @@ export default function usePostServer() {
       );
       Success('Contact Added');
 
-      dispatch(addContact(res));
-      return res;
+      dispatch(setUser(res.data));
+    } catch (err) {
+      console.log(err);
+      Error('Something went wrong');
+    }
+  };
+
+  const removeContact = async (pubkey) => {
+    const seed = bip39.mnemonicToSeedSync(mnemonics);
+    const keypair = Keypair.fromSeed(seed.slice(0, 32));
+
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      Error('Please Login');
+      router.push('/login');
+      return;
+    }
+
+    const headers = {
+      'Content-Type': 'application/json',
+      'x-auth-token': token,
+      'x-auth-pubkey': keypair.publicKey.toString(),
+    };
+
+    try {
+      const res = await axios.delete(
+        `${process.env.NEXT_PUBLIC_NEXT_URL}/api/user/remove/${pubkey}`,
+        { headers }
+      );
+      Success('Contact Removed');
+
+      dispatch(setUser(res.data));
+    } catch (err) {
+      console.log(err);
+      Error('Something went wrong');
+    }
+  };
+
+  const removeChat = async (chatId) => {
+    const seed = bip39.mnemonicToSeedSync(mnemonics);
+    const keypair = Keypair.fromSeed(seed.slice(0, 32));
+
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      Error('Please Login');
+      router.push('/login');
+      return;
+    }
+
+    const headers = {
+      'Content-Type': 'application/json',
+      'x-auth-token': token,
+      'x-auth-pubkey': keypair.publicKey.toString(),
+    };
+
+    try {
+      await axios.delete(
+        `${process.env.NEXT_PUBLIC_NEXT_URL}/api/chat/${chatId}`,
+        { headers }
+      );
+
+      Success('Contact Chat Removed');
+    } catch (err) {
+      console.log(err);
+      Error('Something went wrong');
+    }
+  };
+
+  const removeMessages = async (chatId) => {
+    const seed = bip39.mnemonicToSeedSync(mnemonics);
+    const keypair = Keypair.fromSeed(seed.slice(0, 32));
+
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      Error('Please Login');
+      router.push('/login');
+      return;
+    }
+
+    const headers = {
+      'Content-Type': 'application/json',
+      'x-auth-token': token,
+      'x-auth-pubkey': keypair.publicKey.toString(),
+    };
+
+    try {
+      await axios.delete(
+        `${process.env.NEXT_PUBLIC_NEXT_URL}/api/message/${chatId}`,
+        { headers }
+      );
+
+      Success('All Contact Messages Removed');
     } catch (err) {
       console.log(err);
       Error('Something went wrong');
@@ -244,5 +337,8 @@ export default function usePostServer() {
     createMessage,
     createVoucher,
     addContact,
+    removeContact,
+    removeChat,
+    removeMessages,
   };
 }

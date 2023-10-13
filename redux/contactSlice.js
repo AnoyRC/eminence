@@ -14,11 +14,7 @@ export const contactSlice = createSlice({
       state.contact = action.payload;
     },
 
-    addContact: (state, action) => {
-      state.contact.push(action.payload);
-    },
-
-    clearSelectedContact: () => null,
+    clearSelectedContact: () => initialState,
 
     setChatId: (state, action) => {
       state.chatId = action.payload;
@@ -40,7 +36,6 @@ export const contactSlice = createSlice({
 
 export const {
   setSelectedContact,
-  addContact,
   clearSelectedContact,
   setChatId,
   addMessage,
