@@ -12,6 +12,8 @@ import { EminentInput } from "../userManagement/routes/FormInput";
 import EminentAvatar from "../userManagement/routes/eminent/EminentAvatar";
 import { Button } from "@material-tailwind/react";
 import Input from "@/components/ui/Input";
+import useToast from "@/hooks/useToast";
+import usePostServer from "@/hooks/usePostServer";
 
 const myFont = localFont({
   src: "../../../public/fonts/Satoshi-Variable.woff2",
@@ -22,9 +24,24 @@ export default function EditProfile() {
   const [client, setClient] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const { Error } = useToast();
+  const { updateUser } = usePostServer();
 
   const handleAvatarClick = (selectedAvatar) => {
     setAvatar(selectedAvatar);
+  };
+
+  const handleUpdate = async () => {
+    if (firstName === "" || lastName === "") {
+      Error("Please fill all the fields");
+      return;
+    }
+
+    const res = await updateUser(firstName, lastName, avatar);
+    if (res) {
+      setFirstName("");
+      setLastName("");
+    }
   };
 
   useState(() => {
@@ -83,6 +100,7 @@ export default function EditProfile() {
             style={{
               textTransform: "none",
             }}
+            onClick={handleUpdate}
           >
             Update Profile
           </Button>
