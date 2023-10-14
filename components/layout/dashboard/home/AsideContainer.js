@@ -1,29 +1,30 @@
-"use client";
-import Transfer from "./Transfer";
-import Swap from "./Swap";
+'use client';
+import Transfer from './Transfer';
+import Swap from './Swap';
 import {
   Tabs,
   TabsHeader,
   TabsBody,
   Tab,
   TabPanel,
-} from "@material-tailwind/react";
-import { useState } from "react";
+} from '@material-tailwind/react';
+import { useState } from 'react';
 
 const AsideContainer = () => {
-  const [activeTab, setActiveTab] = useState("transfer");
+  const [activeTab, setActiveTab] = useState('transfer');
   const data = [
     {
-      label: "Transfer",
-      value: "transfer",
+      label: 'Transfer',
+      value: 'transfer',
       component: <Transfer />,
     },
     {
-      label: "Swap",
-      value: "swap",
+      label: 'Swap',
+      value: 'swap',
       component: <Swap />,
     },
   ];
+
   return (
     <aside className="py-[28px] w-[300px] h-full bg-black/40 flex flex-col">
       <Tabs
@@ -35,7 +36,7 @@ const AsideContainer = () => {
           className="rounded-full bg-[#1C1D22] text-white mx-[28px]"
           indicatorProps={{
             className:
-              "rounded-full bg-gradient-to-r from-[#4AFF93] to-[#26FFFF]",
+              'rounded-full bg-gradient-to-r from-[#4AFF93] to-[#26FFFF]',
           }}
         >
           {data.map(({ label, value }) => (
@@ -45,8 +46,8 @@ const AsideContainer = () => {
               onClick={() => setActiveTab(value)}
               className={
                 activeTab === value
-                  ? "text-black transition-colors duration-300"
-                  : "text-white transition-colors duration-300"
+                  ? 'text-black transition-colors duration-300'
+                  : 'text-white transition-colors duration-300'
               }
             >
               {label}
