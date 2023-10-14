@@ -24,7 +24,7 @@ const myFont = localFont({
 
 export default function AddContactPopUp() {
   const dispatch = useDispatch();
-  const [queryType, setQueryType] = useState('address');
+  const [queryType, setQueryType] = useState('name');
   const [query, setQuery] = useState('');
   const [users, setUsers] = useState(null);
   const isPopup = useSelector((state) => state.contacts.isPopup);
@@ -171,6 +171,7 @@ export default function AddContactPopUp() {
                           key={user.pubkey}
                           name={user.firstName + ' ' + user.lastName}
                           pubkey={user.pubkey}
+                          avatarId={user.avatarId}
                         />
                       ))
                     ) : (

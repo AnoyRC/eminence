@@ -1,9 +1,11 @@
 import AddContactPopUp from '@/components/layout/myContacts/AddContactPopUp';
 import AsideContainer from '@/components/layout/myContacts/AsideContainer';
+import PaymentPopup from '@/components/layout/myContacts/paymentPopup/PaymentPopup';
 
 export default function VouchersLayout({ children }) {
   return (
     <>
+      <PaymentPopup />
       <AddContactPopUp />
       <main
         className="flex justify-between w-full"
