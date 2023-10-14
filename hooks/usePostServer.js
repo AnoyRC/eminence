@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import axios from 'axios';
-import useToast from './useToast';
-import { useDispatch, useSelector } from 'react-redux';
-import { Keypair } from '@solana/web3.js';
-import * as bip39 from 'bip39';
-import nacl from 'tweetnacl-sealed-box';
-import bs58 from 'bs58';
-import { addVoucher, setUser } from '@/redux/profileSlice';
-import { useRouter } from 'next/navigation';
-import { addMessage, setChatId } from '@/redux/contactSlice';
+import axios from "axios";
+import useToast from "./useToast";
+import { useDispatch, useSelector } from "react-redux";
+import { Keypair } from "@solana/web3.js";
+import * as bip39 from "bip39";
+import nacl from "tweetnacl-sealed-box";
+import bs58 from "bs58";
+import { addVoucher, setUser } from "@/redux/profileSlice";
+import { useRouter } from "next/navigation";
+import { addMessage, setChatId } from "@/redux/contactSlice";
 
 export default function usePostServer() {
   const { Error, Success } = useToast();
@@ -24,9 +24,9 @@ export default function usePostServer() {
         `${process.env.NEXT_PUBLIC_NEXT_URL}/api/auth`,
         data
       );
-      localStorage.setItem('token', res.data.token);
+      localStorage.setItem("token", res.data.token);
     } catch (err) {
-      Error('Something went wrong');
+      Error("Something went wrong");
     }
   };
 
@@ -41,20 +41,20 @@ export default function usePostServer() {
       firstName,
       lastName,
       avatarId,
-      cardColor: 'black',
+      cardColor: "black",
     };
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
 
     if (!token) {
-      Error('Please Login');
-      router.push('/welcome');
+      Error("Please Login");
+      router.push("/welcome");
       return;
     }
 
     const headers = {
-      'x-auth-token': token,
-      'x-auth-pubkey': keypair.publicKey.toString(),
+      "x-auth-token": token,
+      "x-auth-pubkey": keypair.publicKey.toString(),
     };
 
     try {
@@ -64,11 +64,11 @@ export default function usePostServer() {
         { headers }
       );
       dispatch(setUser(res.data));
-      router.push('/dashboard');
-      Success('User Successfully Created');
+      router.push("/dashboard");
+      Success("User Successfully Created");
     } catch (err) {
       console.log(err);
-      Error('Something went wrong');
+      Error("Something went wrong");
     }
   };
 
@@ -76,7 +76,7 @@ export default function usePostServer() {
     const randomNumber = Math.floor(Math.random() * 1000);
 
     await createUser({
-      firstName: 'Eminence',
+      firstName: "Eminence",
       lastName: `User-${randomNumber}`,
       avatarId: `avatar-${randomNumber}`,
     });
@@ -86,11 +86,11 @@ export default function usePostServer() {
     const seed = bip39.mnemonicToSeedSync(mnemonics);
     const keypair = Keypair.fromSeed(seed.slice(0, 32));
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
 
     if (!token) {
-      Error('Please Login');
-      router.push('/welcome');
+      Error("Please Login");
+      router.push("/welcome");
       return;
     }
 
@@ -99,9 +99,9 @@ export default function usePostServer() {
     };
 
     const headers = {
-      'Content-Type': 'application/json',
-      'x-auth-token': token,
-      'x-auth-pubkey': keypair.publicKey.toString(),
+      "Content-Type": "application/json",
+      "x-auth-token": token,
+      "x-auth-pubkey": keypair.publicKey.toString(),
     };
 
     try {
@@ -114,7 +114,7 @@ export default function usePostServer() {
       dispatch(setChatId(res.data));
     } catch (err) {
       console.log(err);
-      Error('Something went wrong');
+      Error("Something went wrong");
     }
   };
 
@@ -122,11 +122,11 @@ export default function usePostServer() {
     const seed = bip39.mnemonicToSeedSync(mnemonics);
     const keypair = Keypair.fromSeed(seed.slice(0, 32));
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
 
     if (!token) {
-      Error('Please Login');
-      router.push('/welcome');
+      Error("Please Login");
+      router.push("/welcome");
       return;
     }
 
@@ -137,9 +137,9 @@ export default function usePostServer() {
     };
 
     const headers = {
-      'Content-Type': 'application/json',
-      'x-auth-token': token,
-      'x-auth-pubkey': keypair.publicKey.toString(),
+      "Content-Type": "application/json",
+      "x-auth-token": token,
+      "x-auth-pubkey": keypair.publicKey.toString(),
     };
 
     try {
@@ -152,7 +152,7 @@ export default function usePostServer() {
       dispatch(addMessage(res.data));
     } catch (err) {
       console.log(err);
-      Error('Something went wrong');
+      Error("Something went wrong");
     }
   };
 
@@ -160,44 +160,44 @@ export default function usePostServer() {
     const seed = bip39.mnemonicToSeedSync(mnemonics);
     const keypair = Keypair.fromSeed(seed.slice(0, 32));
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
 
     if (!token) {
-      Error('Please Login');
-      router.push('/welcome');
+      Error("Please Login");
+      router.push("/welcome");
       return;
     }
 
     try {
       const response = await fetch(`http://localhost:8080/api/voucher/create`, {
-        method: 'POST',
+        method: "POST",
         body: JSON.stringify({
           amount,
           message,
           voucherId,
-          cardColor: 'Black',
+          cardColor: "Black",
         }),
         headers: {
-          'Content-Type': 'application/json',
-          'x-auth-token': token,
-          'x-auth-pubkey': keypair.publicKey.toString(),
+          "Content-Type": "application/json",
+          "x-auth-token": token,
+          "x-auth-pubkey": keypair.publicKey.toString(),
         },
       });
 
       const data = await response.json();
 
       if (data.error) {
-        Error('Something went wrong');
+        Error("Something went wrong");
         return false;
       }
 
       dispatch(addVoucher(data));
 
-      Success('Voucher Created Successfully');
+      Success("Voucher Created Successfully");
       return true;
     } catch (err) {
       console.log(err);
-      Error('Something went wrong');
+      Error("Something went wrong");
       return false;
     }
   };
@@ -206,18 +206,18 @@ export default function usePostServer() {
     const seed = bip39.mnemonicToSeedSync(mnemonics);
     const keypair = Keypair.fromSeed(seed.slice(0, 32));
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
 
     if (!token) {
-      Error('Please Login');
-      router.push('/welcome');
+      Error("Please Login");
+      router.push("/welcome");
       return;
     }
 
     const headers = {
-      'Content-Type': 'application/json',
-      'x-auth-token': token,
-      'x-auth-pubkey': keypair.publicKey.toString(),
+      "Content-Type": "application/json",
+      "x-auth-token": token,
+      "x-auth-pubkey": keypair.publicKey.toString(),
     };
 
     try {
@@ -226,12 +226,12 @@ export default function usePostServer() {
         { body: null },
         { headers }
       );
-      Success('Contact Added');
+      Success("Contact Added");
 
       dispatch(setUser(res.data));
     } catch (err) {
       console.log(err);
-      Error('Something went wrong');
+      Error("Something went wrong");
     }
   };
 
@@ -239,18 +239,18 @@ export default function usePostServer() {
     const seed = bip39.mnemonicToSeedSync(mnemonics);
     const keypair = Keypair.fromSeed(seed.slice(0, 32));
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
 
     if (!token) {
-      Error('Please Login');
-      router.push('/login');
+      Error("Please Login");
+      router.push("/login");
       return;
     }
 
     const headers = {
-      'Content-Type': 'application/json',
-      'x-auth-token': token,
-      'x-auth-pubkey': keypair.publicKey.toString(),
+      "Content-Type": "application/json",
+      "x-auth-token": token,
+      "x-auth-pubkey": keypair.publicKey.toString(),
     };
 
     try {
@@ -258,12 +258,12 @@ export default function usePostServer() {
         `${process.env.NEXT_PUBLIC_NEXT_URL}/api/user/remove/${pubkey}`,
         { headers }
       );
-      Success('Contact Removed');
+      Success("Contact Removed");
 
       dispatch(setUser(res.data));
     } catch (err) {
       console.log(err);
-      Error('Something went wrong');
+      Error("Something went wrong");
     }
   };
 
@@ -271,18 +271,18 @@ export default function usePostServer() {
     const seed = bip39.mnemonicToSeedSync(mnemonics);
     const keypair = Keypair.fromSeed(seed.slice(0, 32));
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
 
     if (!token) {
-      Error('Please Login');
-      router.push('/login');
+      Error("Please Login");
+      router.push("/login");
       return;
     }
 
     const headers = {
-      'Content-Type': 'application/json',
-      'x-auth-token': token,
-      'x-auth-pubkey': keypair.publicKey.toString(),
+      "Content-Type": "application/json",
+      "x-auth-token": token,
+      "x-auth-pubkey": keypair.publicKey.toString(),
     };
 
     try {
@@ -291,10 +291,10 @@ export default function usePostServer() {
         { headers }
       );
 
-      Success('Contact Chat Removed');
+      Success("Contact Chat Removed");
     } catch (err) {
       console.log(err);
-      Error('Something went wrong');
+      Error("Something went wrong");
     }
   };
 
@@ -302,18 +302,18 @@ export default function usePostServer() {
     const seed = bip39.mnemonicToSeedSync(mnemonics);
     const keypair = Keypair.fromSeed(seed.slice(0, 32));
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
 
     if (!token) {
-      Error('Please Login');
-      router.push('/login');
+      Error("Please Login");
+      router.push("/login");
       return;
     }
 
     const headers = {
-      'Content-Type': 'application/json',
-      'x-auth-token': token,
-      'x-auth-pubkey': keypair.publicKey.toString(),
+      "Content-Type": "application/json",
+      "x-auth-token": token,
+      "x-auth-pubkey": keypair.publicKey.toString(),
     };
 
     try {
@@ -322,10 +322,10 @@ export default function usePostServer() {
         { headers }
       );
 
-      Success('All Contact Messages Removed');
+      Success("All Contact Messages Removed");
     } catch (err) {
       console.log(err);
-      Error('Something went wrong');
+      Error("Something went wrong");
     }
   };
 
@@ -333,11 +333,11 @@ export default function usePostServer() {
     const seed = bip39.mnemonicToSeedSync(mnemonics);
     const keypair = Keypair.fromSeed(seed.slice(0, 32));
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
 
     if (!token) {
-      Error('Please Login');
-      router.push('/welcome');
+      Error("Please Login");
+      router.push("/welcome");
       return;
     }
 
@@ -348,9 +348,9 @@ export default function usePostServer() {
     };
 
     const headers = {
-      'Content-Type': 'application/json',
-      'x-auth-token': token,
-      'x-auth-pubkey': keypair.publicKey.toString(),
+      "Content-Type": "application/json",
+      "x-auth-token": token,
+      "x-auth-pubkey": keypair.publicKey.toString(),
     };
 
     try {
@@ -359,12 +359,12 @@ export default function usePostServer() {
         data,
         { headers }
       );
-      Success('User Updated Successfully');
+      Success("User Updated Successfully");
       dispatch(setUser(res.data));
       return true;
     } catch (err) {
       console.log(err);
-      Error('Something went wrong');
+      Error("Something went wrong");
       return false;
     }
   };
@@ -373,11 +373,11 @@ export default function usePostServer() {
     const seed = bip39.mnemonicToSeedSync(mnemonics);
     const keypair = Keypair.fromSeed(seed.slice(0, 32));
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
 
     if (!token) {
-      Error('Please Login');
-      router.push('/welcome');
+      Error("Please Login");
+      router.push("/welcome");
       return;
     }
 
@@ -386,9 +386,9 @@ export default function usePostServer() {
     };
 
     const headers = {
-      'Content-Type': 'application/json',
-      'x-auth-token': token,
-      'x-auth-pubkey': keypair.publicKey.toString(),
+      "Content-Type": "application/json",
+      "x-auth-token": token,
+      "x-auth-pubkey": keypair.publicKey.toString(),
     };
 
     try {
@@ -397,12 +397,12 @@ export default function usePostServer() {
         data,
         { headers }
       );
-      Success('Card Updated Successfully');
+      Success("Card Updated Successfully");
       dispatch(setUser(res.data));
       return true;
     } catch (err) {
       console.log(err);
-      Error('Something went wrong');
+      Error("Something went wrong");
       return false;
     }
   };
@@ -426,15 +426,22 @@ export default function usePostServer() {
       return;
     }
 
+    let type = "";
+
+    if (isSwap) {
+      type = "swap";
+    } else if (isVoucher) {
+      type = "voucher";
+    }
+
     const body = {
       txId,
       sender: keypair.publicKey.toString(),
       amount,
       recipient,
       currency,
-      isSwap,
-      isVoucher,
       swappedAmount,
+      type,
     };
 
     const headers = {
@@ -449,8 +456,6 @@ export default function usePostServer() {
         body,
         { headers }
       );
-
-      Success("Transaction Added Successfully");
     } catch (err) {
       console.log(err);
       Error("Something went wrong");

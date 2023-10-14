@@ -28,7 +28,7 @@ export default function useGetServer() {
 
       return res.data;
     } catch (err) {
-      Error("User Not Found");
+      return false;
     }
   };
 

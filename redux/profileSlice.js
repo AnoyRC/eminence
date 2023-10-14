@@ -11,6 +11,7 @@ const initialState = {
   quote: null,
   quoteUSDC: null,
   vouchers: [],
+  transactions: [],
 };
 
 export const profileSlice = createSlice({
@@ -54,6 +55,12 @@ export const profileSlice = createSlice({
     addVoucher: (state, action) => {
       state.vouchers.push(action.payload);
     },
+    setTransactions: (state, action) => {
+      state.transactions = action.payload;
+    },
+    removeAllTransactions: (state) => {
+      state.transactions = [];
+    },
   },
 });
 
@@ -70,4 +77,6 @@ export const {
   setQuoteUSDC,
   setVouchers,
   addVoucher,
+  setTransactions,
+  removeAllTransactions,
 } = profileSlice.actions;

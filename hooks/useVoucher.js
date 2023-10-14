@@ -12,11 +12,13 @@ import IDL from "./idl.json";
 import { AnchorProvider, BN, Program, utils } from "@project-serum/anchor";
 import { findProgramAddressSync } from "@project-serum/anchor/dist/cjs/utils/pubkey";
 import useToast from "./useToast";
+import useTransaction from "./useTransaction";
 
 export default function useVoucher() {
   const mnemonics = useSelector((state) => state.wallet.mnemonics);
   const cluster = useSelector((state) => state.profile.connection);
   const { Success, Error } = useToast();
+  const { createVoucherTransaction } = useTransaction();
 
   const createVoucherWeb3 = async (amount, uid, passphrase) => {
     try {
@@ -44,8 +46,6 @@ export default function useVoucher() {
         program.programId
       );
 
-      console.log(voucherPda.toString());
-
       const amountBN = new BN(amount * LAMPORTS_PER_SOL);
 
       const tx = await program.methods
@@ -65,6 +65,9 @@ export default function useVoucher() {
             .toString()
             .substring(tx.toString().length - 4, tx.toString().length)
       );
+
+      createVoucherTransaction(tx, amount, keypair.publicKey.toString(), "SOL");
+
       return true;
     } catch (err) {
       console.log(err);

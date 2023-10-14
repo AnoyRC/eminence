@@ -1,17 +1,21 @@
 "use client";
-import useToast from "@/hooks/useToast";
+import { useState, useEffect, use } from "react";
 import { DocumentDuplicateIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import Avatar, { genConfig } from "react-nice-avatar";
+
+import useToast from "@/hooks/useToast";
+
 import QRCodeGenerator from "../profile/CardQrCode";
+import { useSelector } from "react-redux";
 
 export default function Voucher({ amount, message }) {
-  const pubKey = "FdK7Kuaa6Qao1PQH9mMPYgvEKeC2jAViM67skuAcV1iM";
-
   const { Info } = useToast();
+  const user = useSelector((state) => state.profile.user);
+
   return (
     <div
-      className="w-full h-[440px] items-center rounded-[8px] p-[1px]"
+      className="w-full h-[400px] items-center rounded-[8px] p-[1px]"
       style={{
         background: "linear-gradient(90deg, #4AFF93 0%, #26FFFF 100%)",
       }}
@@ -28,7 +32,7 @@ export default function Voucher({ amount, message }) {
           <Image
             src="/images/myVouchers/Ribbon.svg"
             width={118}
-            height={440}
+            height={400}
             alt="Ribbon"
             className="-ml-3"
           />
@@ -74,7 +78,7 @@ export default function Voucher({ amount, message }) {
             </div>
             <div className="flex flex-col justify-center">
               <h4 className=" font-bold text-transparent text-[24px] bg-clip-text bg-gradient-to-r from-[#4AFF93] to-[#26FFFF]">
-                Gautam Raj
+                {user?.firstName + " " + user?.lastName}
               </h4>
               <button
                 className="text-[#f0f0f099] flex flex-start items-center text-[16px] hover:cursor-pointer"
@@ -83,9 +87,14 @@ export default function Voucher({ amount, message }) {
                   Info("Copied to clipboard");
                 }}
               >
-                {pubKey.substring(0, 4) +
-                  "..." +
-                  pubKey.substring(pubKey.length - 4, pubKey.length)}
+                {user &&
+                  user.pubkey &&
+                  user.pubkey.substring(0, 4) +
+                    "..." +
+                    user.pubkey.substring(
+                      user.pubkey.length - 4,
+                      user.pubkey.length
+                    )}
                 <DocumentDuplicateIcon className="w-[11px] h-[11px] ml-[4px]" />
               </button>
             </div>
