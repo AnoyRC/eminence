@@ -1,10 +1,11 @@
 'use client';
+
 import usePostServer from '@/hooks/usePostServer';
 import useToast from '@/hooks/useToast';
 import { DocumentDuplicateIcon, PlusIcon } from '@heroicons/react/24/solid';
 import Avatar, { genConfig } from 'react-nice-avatar';
 
-export default function ContactTabSearch({ name, status, pubkey }) {
+export default function ContactTabSearch({ name, status, pubkey, avatarId }) {
   const { Info } = useToast();
   const { addContact } = usePostServer();
 
@@ -19,7 +20,7 @@ export default function ContactTabSearch({ name, status, pubkey }) {
           <div className="flex gap-[12px] items-center">
             <Avatar
               style={{ width: '2rem', height: '2rem' }}
-              {...genConfig(name)}
+              {...genConfig(avatarId)}
               className=""
             />
 
