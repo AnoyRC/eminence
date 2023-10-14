@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { clearSelectedContact } from '@/redux/contactSlice';
 import useToast from '@/hooks/useToast';
+import { togglePayPopup } from '@/redux/contactsSlice';
 
 const ChatHeaderMenu = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,10 @@ const ChatHeaderMenu = () => {
   const contacts = useSelector((state) => state.profile.contacts);
   const currentContact = useSelector((state) => state.contact.contact);
   const chatId = useSelector((state) => state.contact.chatId);
+
+  const handlePayPopup = () => {
+    dispatch(togglePayPopup(true));
+  };
 
   const handleCardClick = () => {
     router.push(`/profile/${currentContact}`);
@@ -63,7 +68,10 @@ const ChatHeaderMenu = () => {
       </MenuHandler>
 
       <MenuList className="bg-primary-black">
-        <MenuItem className="text-primary-white hover:bg-black/40 hover:text-primary-white">
+        <MenuItem
+          className="text-primary-white hover:bg-black/40 hover:text-primary-white"
+          onClick={handlePayPopup}
+        >
           Pay User
         </MenuItem>
 
