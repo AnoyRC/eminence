@@ -86,7 +86,6 @@ export default function CardFront({ toggleCard, user, design }) {
                   <button
                     className={`flex flex-start items-center text-[12px] hover:cursor-pointer ${accountNoColor}`}
                     onClick={() => {
-                      console.log('Hi');
                       navigator.clipboard.writeText(
                         user ? user.pubkey : '00000000'
                       );
