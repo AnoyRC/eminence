@@ -8,14 +8,16 @@ import { MyWallet } from "./MyWallet";
 import useToast from "./useToast";
 import { useDispatch } from "react-redux";
 import { setQuote, setQuoteUSDC } from "@/redux/profileSlice";
+import useTransaction from "./useTransaction";
 
 export default function useSwap() {
   const cluster = useSelector((state) => state.profile.connection);
   const mnemonics = useSelector((state) => state.wallet.mnemonics);
   const { Success, Error } = useToast();
   const dispatch = useDispatch();
+  const { createSwapTransaction } = useTransaction();
 
-  const swap = async (amount) => {
+  const swap = async (amount, swappedAmount) => {
     try {
       const connection = new Connection(cluster, "confirmed");
 
@@ -69,6 +71,15 @@ export default function useSwap() {
         signature: txId,
       });
       Success("Swap Successful");
+
+      createSwapTransaction(
+        txId,
+        amount,
+        keypair.publicKey.toString(),
+        "SOL",
+        swappedAmount
+      );
+
       return true;
     } catch (err) {
       Error("Swap Failed");

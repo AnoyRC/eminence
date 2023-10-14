@@ -25,6 +25,7 @@ import {
 import * as ed from "@noble/ed25519";
 import { sign } from "@noble/ed25519";
 import { sha512 } from "@noble/hashes/sha512";
+import useTransaction from "./useTransaction";
 
 ed.etc.sha512Sync = (...m) => sha512(ed.etc.concatBytes(...m));
 
@@ -32,6 +33,7 @@ export default function useTransfer() {
   const { Success, Error } = useToast();
   const cluster = useSelector((state) => state.profile.connection);
   const mnemonics = useSelector((state) => state.wallet.mnemonics);
+  const { createSendTransaction } = useTransaction();
 
   const transfer = async (amount, to) => {
     try {
@@ -65,6 +67,9 @@ export default function useTransfer() {
             .toString()
             .substring(txHash.toString().length - 5, txHash.toString().length)
       );
+
+      await createSendTransaction(txHash, amount, to, "SOL");
+
       return true;
     } catch (err) {
       Error("Transaction Failed");
@@ -126,6 +131,9 @@ export default function useTransfer() {
               signature.toString().length
             )
       );
+
+      await createSendTransaction(txHash, amount, to, "USDC");
+
       return true;
     } catch (err) {
       console.log(err);

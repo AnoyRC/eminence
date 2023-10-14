@@ -14,52 +14,20 @@ const myFont = localFont({
   src: "../../../../public/fonts/Satoshi-Variable.woff2",
 });
 
-import Avatar, { genConfig } from "react-nice-avatar";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import TransactionTab from "./TransactionTab";
+import { ArrowPathIcon } from "@heroicons/react/24/solid";
+import useTransaction from "@/hooks/useTransaction";
+import { removeAllTransactions } from "@/redux/profileSlice";
 
-const TABLE_HEAD = ["Name", "Amount", "Date", "Type", "Private"];
+const TABLE_HEAD = ["Name", "Amount", "Date", "Type", "TxID"];
 
-const TABLE_ROWS = [
-  {
-    avatarId: "anoy",
-    name: "Anoy",
-    pubKey: "FdK7Kuaa6Qao1PQH9mMPYgvEKeC2jAViM67skuAcV1iM",
-    amount: "- 25 Sol",
-    date: 1696331258566,
-    type: "send",
-    isPrivate: true,
-  },
-  {
-    avatarId: "gautam",
-    name: "Gautam",
-    pubKey: "FdK7Kuaa6Qao1PQH9mMPYgvEKeC2jAViM67skuAcV1iM",
-    amount: "+ 25 Sol",
-    date: 1696331258566,
-    type: "receive",
-    isPrivate: false,
-  },
-  {
-    avatarId: "Sikari",
-    name: "Sikari",
-    pubKey: "FdK7Kuaa6Qao1PQH9mMPYgvEKeC2jAViM67skuAcV1iM",
-    amount: "- 25 Sol",
-    date: 1696331258566,
-    type: "swap",
-    isPrivate: false,
-  },
-  {
-    avatarId: "Pratik",
-    name: "Pratik",
-    pubKey: "FdK7Kuaa6Qao1PQH9mMPYgvEKeC2jAViM67skuAcV1iM",
-    amount: "- 25 Sol",
-    date: 1696331258566,
-    type: "voucher",
-    isPrivate: false,
-  },
-];
-
-export default function TransactionV2() {
+export default function TransactionV2({ limit = 5 }) {
   const [isClient, setIsClient] = useState(false);
+  const transactions = useSelector((state) => state.profile.transactions);
+  const { getAllTransactions } = useTransaction();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setIsClient(true);
@@ -67,7 +35,7 @@ export default function TransactionV2() {
 
   return (
     <div
-      className="h-full w-full rounded-[8px] p-[0.5px]"
+      className="h-fit w-full rounded-[8px] p-[0.5px]"
       style={{
         background: "linear-gradient(261deg, #26FFFF 5.76%, #4AFF93 94.17%)",
       }}
@@ -78,22 +46,39 @@ export default function TransactionV2() {
           shadow={false}
           className="rounded-none bg-black"
         >
-          <div className=" flex flex-col justify-between gap-8 pb-1">
-            <div>
-              <Typography
-                variant="h5"
-                color="white"
-                className={myFont.className}
-              >
-                Cash Out Transactions
-              </Typography>
-              <Typography
-                color="white"
-                className={"mt-1 font-normal " + myFont.className}
-              >
-                These are details about the last transactions
-              </Typography>
+          <div className="flex items-center justify-between">
+            <div className=" flex flex-col justify-between gap-8 pb-1">
+              <div>
+                <Typography
+                  variant="h5"
+                  color="white"
+                  className={myFont.className}
+                >
+                  {limit === 5
+                    ? "Recent Transactions"
+                    : "Cash out Transactions"}
+                </Typography>
+                <Typography
+                  color="white"
+                  className={"mt-1 font-normal " + myFont.className}
+                >
+                  These are details about the last transactions
+                </Typography>
+              </div>
             </div>
+            <button
+              className="flex items-center justify-center rounded-full px-2 py-2"
+              style={{
+                background:
+                  "linear-gradient(261deg, #26FFFF 5.76%, #4AFF93 94.17%)",
+              }}
+              onClick={() => {
+                dispatch(removeAllTransactions());
+                getAllTransactions();
+              }}
+            >
+              <ArrowPathIcon className="h-4 w-4 text-black" />
+            </button>
           </div>
         </CardHeader>
         <CardBody className="p-2 px-0">
@@ -126,104 +111,17 @@ export default function TransactionV2() {
               </tr>
             </thead>
             <tbody>
-              {TABLE_ROWS.map(
-                ({ avatarId, name, amount, date, type, isPrivate }, index) => {
-                  const isLast = index === TABLE_ROWS.length - 1;
-                  const classes = isLast
-                    ? "p-4"
-                    : "p-4 border-b border-blue-gray-50";
-
+              {transactions.length > 0 &&
+                transactions.slice(0, limit).map((transaction, index) => {
                   return (
-                    <tr key={name}>
-                      <td className={classes}>
-                        <div className="flex items-center gap-3">
-                          <Avatar
-                            style={{ width: "2rem", height: "2rem" }}
-                            {...genConfig(avatarId)}
-                            className=""
-                          />
-                          <Typography
-                            variant="small"
-                            color="white"
-                            className={"font-bold " + myFont.className}
-                          >
-                            {name}
-                          </Typography>
-                        </div>
-                      </td>
-                      <td className={classes}>
-                        <Typography
-                          variant="small"
-                          color="white"
-                          className={"font-normal " + myFont.className}
-                        >
-                          {amount}
-                        </Typography>
-                      </td>
-                      <td className={classes}>
-                        {isClient && (
-                          <Typography
-                            variant="small"
-                            color="white"
-                            className={"font-normal  " + myFont.className}
-                          >
-                            {new Date(date).getDate() +
-                              " " +
-                              new Date(date).toLocaleString("default", {
-                                month: "long",
-                              }) +
-                              " " +
-                              new Date(date).getFullYear()}
-                          </Typography>
-                        )}
-                        {isClient && (
-                          <Typography
-                            variant="small"
-                            color="white"
-                            className={"font-normal  " + myFont.className}
-                          >
-                            {new Date(date).toLocaleTimeString()}
-                          </Typography>
-                        )}
-                      </td>
-                      <td className={classes}>
-                        <div className="w-max">
-                          <Chip
-                            size="sm"
-                            variant="filled"
-                            value={type}
-                            color={
-                              type === "receive"
-                                ? "green"
-                                : type === "send"
-                                ? "red"
-                                : type === "swap"
-                                ? "blue"
-                                : "orange"
-                            }
-                          />
-                        </div>
-                      </td>
-                      <td className={classes}>
-                        <div className="flex items-center gap-3 [&>*]:opacity-100">
-                          <Checkbox
-                            className="opacity-100"
-                            defaultChecked={isPrivate}
-                            containerProps={{
-                              className:
-                                "checked:[&>*]:border-none checked:[&>*]:bg-gradient-to-r checked:[&>*]:from-[#26FFFF] checked:[&>*]:to-[#4AFF93] [&>*]:text-black [&>*]:rounded-md",
-                            }}
-                            labelProps={{
-                              className: "opacity-100",
-                            }}
-                            disabled
-                          />
-                        </div>
-                      </td>
-                    </tr>
+                    <TransactionTab
+                      key={transaction.txId}
+                      transaction={transaction}
+                      length={transactions.length}
+                      index={index}
+                    />
                   );
-                }
-              )}
+                })}
             </tbody>
           </table>
         </CardBody>

@@ -15,11 +15,13 @@ import {
 } from "@solana/web3.js";
 import * as bip39 from "bip39";
 import { getAssociatedTokenAddressSync } from "@solana/spl-token";
+import useTransaction from "./useTransaction";
 
 export default function useBalance() {
   const cluster = useSelector((state) => state.profile.connection);
   const dispatch = useDispatch();
   const mnemonics = useSelector((state) => state.wallet.mnemonics);
+  const { getAllTransactions } = useTransaction();
   const balanceListerners = useSelector(
     (state) => state.profile.balanceListerners
   );
@@ -31,6 +33,7 @@ export default function useBalance() {
 
     const balance = await connection.getBalance(keypair.publicKey, "confirmed");
     dispatch(setBalance(balance / LAMPORTS_PER_SOL));
+    getAllTransactions();
   };
 
   const getBalanceUSDC = async () => {
@@ -52,6 +55,7 @@ export default function useBalance() {
       );
       const balance = await connection.getTokenAccountBalance(accountInfo);
       dispatch(setBalanceUSDC(balance.value.uiAmount));
+      getAllTransactions();
     } catch (err) {
       dispatch(setBalanceUSDC(0));
     }

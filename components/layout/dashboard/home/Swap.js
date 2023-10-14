@@ -111,7 +111,10 @@ const Swap = () => {
         <GradientButton
           label={"Swap"}
           onClick={
-            symbol === "SOL" ? () => swap(amount) : () => swapUSDC(amount)
+            symbol === "SOL"
+              ? () => swap(amount, quoteData.outAmount / 10 ** 6)
+              : () =>
+                  swapUSDC(amount, quoteUSDCData.outAmount / LAMPORTS_PER_SOL)
           }
         />
       </div>

@@ -1,19 +1,21 @@
 "use client";
 
 import { Connection, LAMPORTS_PER_SOL } from "@solana/web3.js";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Keypair } from "@solana/web3.js";
 import * as bip39 from "bip39";
 import useGetServer from "./useGetServer";
 import usePostServer from "./usePostServer";
+import { removeAllTransactions, setTransactions } from "@/redux/profileSlice";
 
 export default function useTransaction() {
   const mnemonics = useSelector((state) => state.wallet.mnemonics);
   const cluster = useSelector((state) => state.profile.connection);
   const { getTransactionById } = useGetServer();
   const { addTransaction } = usePostServer();
+  const dispatch = useDispatch();
 
-  const getAllTransactions = async (limit = 100) => {
+  const getAllTransactions = async (limit = 20) => {
     const connection = new Connection(cluster);
 
     const seed = bip39.mnemonicToSeedSync(mnemonics);
@@ -42,7 +44,8 @@ export default function useTransaction() {
       }
     }
 
-    console.log(allTransactions);
+    dispatch(removeAllTransactions());
+    dispatch(setTransactions(allTransactions));
   };
 
   const getTransaction = async (signature) => {

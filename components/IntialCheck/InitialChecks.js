@@ -32,10 +32,10 @@ export default function IntialChecks({ children }) {
   //Balance Check
   useEffect(() => {
     if (mnemonics) {
+      getAllTransactions();
       getBalance();
       getBalanceUSDC();
       balanceListener();
-      getAllTransactions();
     }
   }, [mnemonics, connection]);
 
