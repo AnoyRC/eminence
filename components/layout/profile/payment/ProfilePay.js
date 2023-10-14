@@ -1,33 +1,50 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import localFont from 'next/font/local';
-import { useSelector } from 'react-redux';
-import { Input, Select, Option, Button } from '@material-tailwind/react';
+import { useState, useEffect } from "react";
+import localFont from "next/font/local";
+import { useSelector } from "react-redux";
+import { Input, Select, Option, Button } from "@material-tailwind/react";
 
-import useLogin from '@/hooks/useLogin';
+import useLogin from "@/hooks/useLogin";
 
-import LoadingAnimation from '@/components/LoadingAnimation';
+import LoadingAnimation from "@/components/LoadingAnimation";
+import useToast from "@/hooks/useToast";
+import useTransfer from "@/hooks/useTransfer";
+import useGetServer from "@/hooks/useGetServer";
 
 const myFont = localFont({
-  src: '../../../../public/fonts/Satoshi-Variable.woff2',
+  src: "../../../../public/fonts/Satoshi-Variable.woff2",
 });
 
 const ProfilePay = ({ user }) => {
-  const [amount, setAmount] = useState('0.00');
-  const [currencyType, setCurrencyType] = useState('SOL');
+  const [amount, setAmount] = useState("0.00");
+  const [currencyType, setCurrencyType] = useState("SOL");
 
   const { checkLogin } = useLogin();
   const mnemonics = useSelector((state) => state.wallet.mnemonics);
+  const { Error } = useToast();
+  const { transfer, transferToken } = useTransfer();
+  const { getUserSelf } = useGetServer();
 
   const handleClick = () => {
-    checkLogin();
-    console.log(currencyType, amount);
+    if (!checkLogin()) return;
+
+    if (!amount || amount === "" || Number(amount) === 0) {
+      Error("Please enter a valid amount");
+    }
+
+    if (currencyType === "SOL") {
+      transfer(amount, user.pubkey);
+    }
+
+    if (currencyType === "USDC") {
+      transferToken(amount, user.pubkey);
+    }
   };
 
   useEffect(() => {
     if (mnemonics) {
-      console.log('getUserSelf');
+      console.log("getUserSelf");
       getUserSelf();
     }
   }, [mnemonics]);
@@ -40,10 +57,10 @@ const ProfilePay = ({ user }) => {
         <Select
           label="Select Type"
           className={
-            'border-b-white border-x-white text-white mb-10 ' + myFont.className
+            "border-b-white border-x-white text-white mb-10 " + myFont.className
           }
           labelProps={{
-            className: 'before:border-white after:border-white text-white',
+            className: "before:border-white after:border-white text-white",
           }}
           value={currencyType}
           onChange={(e) => setCurrencyType(e)}
@@ -62,10 +79,10 @@ const ProfilePay = ({ user }) => {
 
         <Button
           className={
-            ' bg-gradient-to-r from-[#26FFFF] to-[#4AFF93]  w-full flex flex-row  text-black items-center justify-center text-[14px] font-bold rounded-[8px] mt-5'
+            " bg-gradient-to-r from-[#26FFFF] to-[#4AFF93]  w-full flex flex-row  text-black items-center justify-center text-[14px] font-bold rounded-[8px] mt-5"
           }
           style={{
-            textTransform: 'none',
+            textTransform: "none",
           }}
           onClick={handleClick}
         >
@@ -74,7 +91,7 @@ const ProfilePay = ({ user }) => {
       </div>
     </section>
   ) : (
-    <LoadingAnimation width={'w-full max-w-xs'} height={'h-fit'} size={100} />
+    <LoadingAnimation width={"w-full max-w-xs"} height={"h-fit"} size={100} />
   );
 };
 

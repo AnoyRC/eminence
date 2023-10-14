@@ -14,8 +14,6 @@ export default function DashLayout({ children }) {
           <PageHeader />
           {children}
         </DashboardContainer>
-
-        <CheckLogin />
       </div>
     </IntialChecks>
   );

@@ -5,6 +5,7 @@ import Card from "@/components/layout/Home/Card";
 import Features from "@/components/layout/Home/Features";
 import Experience from "@/components/layout/Home/Experience";
 import ToastHandler from "@/components/toast/toastHandler";
+import CheckLogin from "@/components/layout/Login/CheckLogin";
 
 export default function Home() {
   return (

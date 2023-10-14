@@ -2,6 +2,7 @@ import ReduxProvider from "@/redux/ReduxProvider";
 import "./globals.css";
 import localFont from "next/font/local";
 import ToastHandler from "@/components/toast/toastHandler";
+import CheckLogin from "@/components/layout/Login/CheckLogin";
 
 const myFont = localFont({ src: "../public/fonts/Satoshi-Variable.woff2" });
 
@@ -16,6 +17,7 @@ export default function RootLayout({ children }) {
       <body className={myFont.className}>
         <ReduxProvider>
           {children}
+          <CheckLogin />
           <ToastHandler />
         </ReduxProvider>
       </body>

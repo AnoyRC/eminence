@@ -9,6 +9,7 @@ import { checkLoginSlice } from "./checkLoginSlice.js";
 import { contactsSlice } from "./contactsSlice.js";
 import { contactSlice } from "./contactSlice.js";
 import { profileSlice } from "./profileSlice.js";
+import { fileSlice } from "./fileSlice.js";
 
 export const store = configureStore({
   reducer: {
@@ -20,5 +21,10 @@ export const store = configureStore({
     checkLogin: checkLoginSlice.reducer,
     contacts: contactsSlice.reducer,
     profile: profileSlice.reducer,
+    file: fileSlice.reducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });

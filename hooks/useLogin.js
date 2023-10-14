@@ -17,7 +17,10 @@ function useLogin() {
       } else {
         dispatch(setLogin(false));
       }
+
+      return false;
     }
+    return true;
   };
 
   return { checkLogin };
