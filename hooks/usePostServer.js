@@ -407,6 +407,56 @@ export default function usePostServer() {
     }
   };
 
+  const addTransaction = async (
+    txId,
+    amount,
+    recipient,
+    currency,
+    isSwap,
+    isVoucher,
+    swappedAmount
+  ) => {
+    const seed = bip39.mnemonicToSeedSync(mnemonics);
+    const keypair = Keypair.fromSeed(seed.slice(0, 32));
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      Error("Please Login");
+      router.push("/welcome");
+      return;
+    }
+
+    const body = {
+      txId,
+      sender: keypair.publicKey.toString(),
+      amount,
+      recipient,
+      currency,
+      isSwap,
+      isVoucher,
+      swappedAmount,
+    };
+
+    const headers = {
+      "Content-Type": "application/json",
+      "x-auth-token": token,
+      "x-auth-pubkey": keypair.publicKey.toString(),
+    };
+
+    try {
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_NEXT_URL}/api/transaction/create`,
+        body,
+        { headers }
+      );
+
+      Success("Transaction Added Successfully");
+    } catch (err) {
+      console.log(err);
+      Error("Something went wrong");
+    }
+  };
+
   return {
     generateToken,
     createUser,
@@ -420,5 +470,6 @@ export default function usePostServer() {
     removeMessages,
     updateUser,
     updateCardColor,
+    addTransaction,
   };
 }
