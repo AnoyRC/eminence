@@ -1,23 +1,24 @@
-"use client";
-import Balance from "@/components/ui/Balance";
-import GradientButton from "@/components/ui/GradientButton";
-import useToast from "@/hooks/useToast";
-import useTransfer from "@/hooks/useTransfer";
+'use client';
+
+import Balance from '@/components/ui/Balance';
+import GradientButton from '@/components/ui/GradientButton';
+import useToast from '@/hooks/useToast';
+import useTransfer from '@/hooks/useTransfer';
 import {
   Select,
   Option,
   Input,
   Checkbox,
   Button,
-} from "@material-tailwind/react";
-import Image from "next/image";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+} from '@material-tailwind/react';
+import Image from 'next/image';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const Transfer = () => {
-  const [currency, setCurrency] = useState("SOL");
-  const [recipient, setRecipient] = useState("");
-  const [amount, setAmount] = useState("0.0");
+  const [currency, setCurrency] = useState('SOL');
+  const [recipient, setRecipient] = useState('');
+  const [amount, setAmount] = useState('0.0');
   const balance = useSelector((state) => state.profile.balance);
   const balanceUSDC = useSelector((state) => state.profile.balanceUSDC);
   const [checked, setChecked] = useState(false);
@@ -26,26 +27,26 @@ const Transfer = () => {
     useTransfer();
 
   const handleTransfer = async () => {
-    if (!recipient) return Error("Please enter a valid address");
-    if (!amount) return Error("Please enter a valid amount");
+    if (!recipient) return Error('Please enter a valid address');
+    if (!amount) return Error('Please enter a valid amount');
 
-    if (currency === "SOL" && amount > balance)
-      return Error("Insufficient Balance");
-    if (currency === "USDC" && amount > balanceUSDC)
-      return Error("Insufficient Balance");
+    if (currency === 'SOL' && amount > balance)
+      return Error('Insufficient Balance');
+    if (currency === 'USDC' && amount > balanceUSDC)
+      return Error('Insufficient Balance');
 
-    if (currency === "SOL" && !checked) {
+    if (currency === 'SOL' && !checked) {
       const result = await transfer(amount, recipient);
-      if (result) setAmount("0.0");
-    } else if (currency === "USDC" && !checked) {
+      if (result) setAmount('0.0');
+    } else if (currency === 'USDC' && !checked) {
       const result = await transferToken(amount, recipient);
-      if (result) setAmount("0.0");
-    } else if (currency === "SOL" && checked) {
+      if (result) setAmount('0.0');
+    } else if (currency === 'SOL' && checked) {
       const result = await transferPrivate(amount, recipient);
-      if (result) setAmount("0.0");
+      if (result) setAmount('0.0');
     } else {
       const result = await transferPrivateTokens(amount, recipient);
-      if (result) setAmount("0.0");
+      if (result) setAmount('0.0');
     }
   };
 
@@ -85,9 +86,9 @@ const Transfer = () => {
 
         <Balance
           symbol={currency}
-          type={"Send"}
+          type={'Send'}
           amount={amount}
-          balance={currency === "SOL" ? balance : balanceUSDC}
+          balance={currency === 'SOL' ? balance : balanceUSDC}
         />
       </div>
 
@@ -100,7 +101,7 @@ const Transfer = () => {
             onChange={(e) => setChecked(e)}
           />
           <h1 className="text-white text-[16px] ml-1 mr-2">
-            Pay Anonymously with{" "}
+            Pay Anonymously with{' '}
           </h1>
           <Image
             src="/images/Dashboard/AsideContainer/Elusiv.svg"
@@ -109,7 +110,7 @@ const Transfer = () => {
             alt="Elusiv"
           />
         </div>
-        <GradientButton label={"Transfer"} onClick={handleTransfer} />
+        <GradientButton label={'Transfer'} onClick={handleTransfer} />
       </div>
     </div>
   );

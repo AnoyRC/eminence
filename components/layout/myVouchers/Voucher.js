@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { useState, useEffect, use } from "react";
-import { DocumentDuplicateIcon } from "@heroicons/react/24/solid";
-import Image from "next/image";
-import Avatar, { genConfig } from "react-nice-avatar";
+import { useState, useEffect } from 'react';
+import { DocumentDuplicateIcon } from '@heroicons/react/24/solid';
+import Image from 'next/image';
+import Avatar, { genConfig } from 'react-nice-avatar';
 
-import useToast from "@/hooks/useToast";
+import useToast from '@/hooks/useToast';
 
-import QRCodeGenerator from "../profile/CardQrCode";
-import { useSelector } from "react-redux";
+import QRCodeGenerator from '../profile/CardQrCode';
+import { useSelector } from 'react-redux';
 
 export default function Voucher({ amount, message }) {
   const { Info } = useToast();
@@ -18,7 +18,7 @@ export default function Voucher({ amount, message }) {
     <div
       className="w-full h-[240px] items-center rounded-[8px] p-[1px]"
       style={{
-        background: "linear-gradient(90deg, #4AFF93 0%, #26FFFF 100%)",
+        background: 'linear-gradient(90deg, #4AFF93 0%, #26FFFF 100%)',
       }}
     >
       <div className="flex justify-between h-full w-full bg-[#000000] rounded-[8px]">
@@ -49,7 +49,7 @@ export default function Voucher({ amount, message }) {
             <div
               className="flex justify-center items-center py-[6px] px-[24px] rounded-full"
               style={{
-                background: "linear-gradient(90deg, #4AFF93 0%, #26FFFF 100%)",
+                background: 'linear-gradient(90deg, #4AFF93 0%, #26FFFF 100%)',
               }}
             >
               <p className="text-xs text-black font-medium">{amount} Sol</p>
@@ -72,26 +72,26 @@ export default function Voucher({ amount, message }) {
           <div className="flex gap-[12px]">
             <div className="h-[40px] w-[40px] rounded-full border-[2px] flex items-center justify-center border-[#26FFFF]">
               <Avatar
-                style={{ width: "32px", height: "32px" }}
+                style={{ width: '32px', height: '32px' }}
                 {...genConfig(user?.avatarId)}
                 className=""
               />
             </div>
             <div className="flex flex-col justify-center">
               <h4 className=" font-bold text-transparent text-[14px] bg-clip-text bg-gradient-to-r from-[#4AFF93] to-[#26FFFF]">
-                {user?.firstName + " " + user?.lastName}
+                {user?.firstName + ' ' + user?.lastName}
               </h4>
               <button
                 className="text-[#f0f0f099] flex flex-start items-center text-[10px] hover:cursor-pointer"
                 onClick={() => {
                   navigator.clipboard.writeText(user.pubkey);
-                  Info("Copied to clipboard");
+                  Info('Copied to clipboard');
                 }}
               >
                 {user &&
                   user.pubkey &&
                   user.pubkey.substring(0, 4) +
-                    "..." +
+                    '...' +
                     user.pubkey.substring(
                       user.pubkey.length - 4,
                       user.pubkey.length
