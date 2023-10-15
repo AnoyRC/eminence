@@ -15,34 +15,14 @@ const MessageInput = () => {
 
   const { createMessage } = usePostServer();
 
-  // const onSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   if (chatId === null) Error('Please select a contact');
-
-  //   try {
-  //     await fetch(`${process.env.NEXT_PUBLIC_NEXT_URL}/api/ably/message`, {
-  //       method: 'POST',
-
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-
-  //       body: JSON.stringify({
-  //         channelName: chatId._id,
-  //         message,
-  //       }),
-  //     });
-  //     await createMessage('text', chatId, message);
-  //     setMessage('');
-  //   } catch (erorr) {
-  //     Error('Something went wrong');
-  //   }
-  // };
-
   const onSubmit = async (event) => {
     event.preventDefault();
     try {
+      if (!message) {
+        Error('Please enter a message');
+        return;
+      }
+
       const ably = configureAbly({
         authUrl: `${process.env.NEXT_PUBLIC_URL}/api/ably/auth?id=${user._id}`,
       });

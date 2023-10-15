@@ -4,10 +4,15 @@ import usePostServer from '@/hooks/usePostServer';
 import useToast from '@/hooks/useToast';
 import { DocumentDuplicateIcon, PlusIcon } from '@heroicons/react/24/solid';
 import Avatar, { genConfig } from 'react-nice-avatar';
+import { useSelector } from 'react-redux';
 
 export default function ContactTabSearch({ name, status, pubkey, avatarId }) {
   const { Info } = useToast();
   const { addContact } = usePostServer();
+
+  const currentUser = useSelector((state) => state.profile.contacts);
+
+  if (currentUser.includes(pubkey)) return null;
 
   const handleAddContact = async () => {
     await addContact(pubkey);
@@ -25,9 +30,10 @@ export default function ContactTabSearch({ name, status, pubkey, avatarId }) {
             />
 
             <div className="flex flex-col justify-center">
-              <h1 className="text-primary-white text-[14px] font-medium">
+              <p className="text-primary-white text-[14px] font-medium">
                 {name}
-              </h1>
+              </p>
+
               <button
                 className="text-[#f0f0f099] flex flex-start items-center text-[12px] hover:cursor-pointer"
                 onClick={() => {

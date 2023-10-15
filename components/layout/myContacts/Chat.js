@@ -60,7 +60,7 @@ const Chat = () => {
         src="/images/logo.png"
         width={500}
         height={500}
-        className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 prevent-select"
+        className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 prevent-select -z-0"
         alt=""
       />
 
