@@ -62,7 +62,6 @@ export default function PaymentPopup() {
     };
 
     if (currentContact) {
-      console.log(currentContact);
       fetchUser();
     }
   }, [currentContact, isPopup]);

@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { configureAbly } from '@ably-labs/react-hooks';
+import Image from "next/image";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { configureAbly } from "@ably-labs/react-hooks";
 
-import usePostServer from '@/hooks/usePostServer';
-import useGetServer from '@/hooks/useGetServer';
-import { clearMessages } from '@/redux/contactSlice';
+import usePostServer from "@/hooks/usePostServer";
+import useGetServer from "@/hooks/useGetServer";
+import { clearMessages } from "@/redux/contactSlice";
 
 const Chat = () => {
   const dispatch = useDispatch();
@@ -44,7 +44,6 @@ const Chat = () => {
       channel = ably.channels.get(chatId._id);
 
       channel.subscribe((message) => {
-        console.log(message);
         fetchMessages();
       });
     }
@@ -70,15 +69,15 @@ const Chat = () => {
             key={message._id}
             className={`flex ${
               message.sender === currentContact
-                ? 'justify-start'
-                : 'justify-end'
+                ? "justify-start"
+                : "justify-end"
             }`}
           >
             <p
               className={`text-sm text-primary-black px-4 py-2 rounded-full font-medium mb-1.5 ${
                 message.sender === currentContact
-                  ? 'bg-[#49E9FF]'
-                  : 'bg-[#40ff8d]'
+                  ? "bg-[#49E9FF]"
+                  : "bg-[#40ff8d]"
               }`}
             >
               {message.content}
