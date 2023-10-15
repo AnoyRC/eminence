@@ -88,7 +88,7 @@ export default function useSwap() {
     }
   };
 
-  const swapUSDC = async (amount) => {
+  const swapUSDC = async (amount, swappedAmount) => {
     try {
       const connection = new Connection(cluster, "confirmed");
 
@@ -141,6 +141,13 @@ export default function useSwap() {
         signature: txId,
       });
       Success("Swap Successful");
+      createSwapTransaction(
+        txId,
+        amount,
+        keypair.publicKey.toString(),
+        "USDC",
+        swappedAmount
+      );
       return true;
     } catch (err) {
       Error("Swap Failed");

@@ -2,8 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   user: null,
-  connection:
-    "https://rpc.helius.xyz/?api-key=07172e08-2375-4358-9ad1-522bd8871a8e",
+  connection: "https://solana-mainnet.rpc.extrnode.com",
   balance: 0,
   balanceUSDC: 0,
   balanceListerners: [],
@@ -25,8 +24,7 @@ export const profileSlice = createSlice({
       state.connection = "https://api.devnet.solana.com";
     },
     setMainnet: (state) => {
-      state.connection =
-        "https://rpc.helius.xyz/?api-key=07172e08-2375-4358-9ad1-522bd8871a8e";
+      state.connection = "https://solana-mainnet.rpc.extrnode.com";
     },
     setBalance: (state, action) => {
       state.balance = action.payload;

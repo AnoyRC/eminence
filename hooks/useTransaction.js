@@ -50,7 +50,9 @@ export default function useTransaction() {
 
   const getTransaction = async (signature) => {
     const connection = new Connection(cluster, "confirmed");
-    const transaction = await connection.getParsedTransaction(signature);
+    const transaction = await connection.getParsedTransaction(signature, {
+      maxSupportedTransactionVersion: 0,
+    });
     const simplifiedTransaction = {
       txId: signature,
       date: transaction.blockTime * 1000,

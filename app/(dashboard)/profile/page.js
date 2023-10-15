@@ -3,6 +3,8 @@ import MyWallet from "@/components/layout/dashboard/home/MyWallet";
 import CurrencyRatio from "@/components/layout/profile/CurrencyRatio";
 import EditProfile from "@/components/layout/profile/EditProfile";
 import CardSelect from "@/components/layout/profile/CardSelect";
+import MnemonicShow from "@/components/layout/profile/MnemonicShow";
+import FlushWalletButton from "@/components/layout/profile/FlushWalletButton";
 
 export default function Home() {
   return (
@@ -14,6 +16,8 @@ export default function Home() {
       </div>
       <EditProfile />
       <CardSelect />
+      <MnemonicShow />
+      <FlushWalletButton />
     </section>
   );
 }
