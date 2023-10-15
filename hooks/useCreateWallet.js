@@ -10,12 +10,14 @@ import { togglePopup } from "@/redux/checkLoginSlice";
 import { useRouter } from "next/navigation";
 import nacl from "tweetnacl";
 import bs58 from "bs58";
+import { next } from "@/redux/defaultSlice";
 
 export default function useCreateWallet() {
   const dispatch = useDispatch();
   const mnemonic = useSelector((state) => state.wallet.mnemonics);
   const { Error, Success } = useToast();
   const router = useRouter();
+  const file = useSelector((state) => state.file.file);
 
   const createWallet = () => {
     const mnemonic = bip39.generateMnemonic();
@@ -23,6 +25,31 @@ export default function useCreateWallet() {
     const keypair = Keypair.fromSeed(seed.slice(0, 32));
     dispatch(setMnemonics(mnemonic));
     dispatch(setPubKey(keypair.publicKey.toString()));
+  };
+
+  const createWalletWithImage = async (onboard = false) => {
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const result = new Uint8Array(e.target.result);
+        var md = forge.md.sha256.create();
+        md.update(result.slice(0, 5000));
+        const hex = md.digest().toHex();
+        const mnemonic = bip39
+          .entropyToMnemonic(hex)
+          .split(" ")
+          .slice(0, 12)
+          .join(" ");
+        dispatch(setMnemonics(mnemonic));
+        const seed = bip39.mnemonicToSeedSync(mnemonic);
+        const keypair = Keypair.fromSeed(seed.slice(0, 32));
+        dispatch(setPubKey(keypair.publicKey.toString()));
+      };
+      reader.readAsArrayBuffer(file);
+      if (onboard) dispatch(next());
+    } else {
+      Error("Please upload an image");
+    }
   };
 
   const importWallet = (mnemonic) => {
@@ -123,5 +150,6 @@ export default function useCreateWallet() {
     saveToLocalStorage,
     retrieveFromLocalStorage,
     signMessage,
+    createWalletWithImage,
   };
 }

@@ -8,7 +8,8 @@ import useToast from "./useToast";
 export default function useOnboard() {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { createWallet, saveToLocalStorage } = useCreateWallet();
+  const { createWallet, saveToLocalStorage, createWalletWithImage } =
+    useCreateWallet();
   const mnemonic = useSelector((state) => state.wallet.mnemonics);
   const { Success, Error } = useToast();
 
@@ -18,12 +19,15 @@ export default function useOnboard() {
       dispatch(next());
     },
     importWallet: () => {
-      router.push("/importWallet");
+      router.push("/importImage");
     },
   };
 
   const step2 = {
-    Continue: () => {
+    Continue: async () => {
+      await createWalletWithImage(true);
+    },
+    skip: () => {
       dispatch(next());
     },
   };

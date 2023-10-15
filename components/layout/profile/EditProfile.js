@@ -65,7 +65,7 @@ export default function EditProfile() {
               <Typography
                 variant="h2"
                 color="black"
-                className={myFont.className}
+                className={myFont.className + " text-center"}
               >
                 Edit Profile
               </Typography>

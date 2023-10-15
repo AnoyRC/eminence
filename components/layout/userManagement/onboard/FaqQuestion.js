@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 import {
   Accordion,
   AccordionHeader,
   AccordionBody,
-} from '@material-tailwind/react';
+} from "@material-tailwind/react";
 
 function Icon({ id, open }) {
   return (
@@ -16,7 +16,7 @@ function Icon({ id, open }) {
       strokeWidth={2}
       stroke="currentColor"
       className={`${
-        id === open ? 'rotate-180' : ''
+        id === open ? "rotate-180" : ""
       } h-5 w-5 transition-transform`}
     >
       <path
@@ -48,10 +48,9 @@ const FaqQuestion = () => {
         </AccordionHeader>
 
         <AccordionBody className="text-primary-black/80 px-2">
-          We&apos;re not always in the position that we want to be at.
-          We&apos;re constantly growing. We&apos;re constantly making mistakes.
-          We&apos;re constantly trying to express ourselves and actualize our
-          dreams.
+          Worry not, if you lose your security phrase, you can use your security
+          image to recover your wallet. if you lose both, sadly we can&apos;t
+          help you recover your wallet.
         </AccordionBody>
       </Accordion>
 
@@ -68,10 +67,8 @@ const FaqQuestion = () => {
         </AccordionHeader>
 
         <AccordionBody className="text-primary-black/80 px-2">
-          We&apos;re not always in the position that we want to be at.
-          We&apos;re constantly growing. We&apos;re constantly making mistakes.
-          We&apos;re constantly trying to express ourselves and actualize our
-          dreams.
+          We will never ask you about your security phrase or password. If
+          someone asks you about it, they are trying to scam you.
         </AccordionBody>
       </Accordion>
     </section>

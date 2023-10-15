@@ -6,6 +6,8 @@ import Button from "@/components/ui/Button";
 import useToast from "@/hooks/useToast";
 import usePostServer from "@/hooks/usePostServer";
 import useCreateWallet from "@/hooks/useCreateWallet";
+import { useDispatch } from "react-redux";
+import { next } from "@/redux/defaultSlice";
 
 const GetStartedBtn = () => {
   const { step1 } = useOnboard();
@@ -33,9 +35,10 @@ const GetStartedBtn = () => {
 
 const SecurityPhaseBtn = () => {
   const { step2 } = useOnboard();
+  const dispatch = useDispatch();
 
   return (
-    <div className="space-y-4 w-full max-w-xs">
+    <div className="space-y-2 w-full max-w-xs">
       <Button
         label="Continue"
         fullWidth
@@ -43,6 +46,18 @@ const SecurityPhaseBtn = () => {
         style="font-bold text-base rounded-lg py-3"
         onClick={step2.Continue}
       />
+      <p className="text-primary-black text-sm font-medium text-center">
+        Don&apos;t want to upload image?{" "}
+        <button
+          className="underline underline-offset-4 font-bold transition-transform hover:scale-105"
+          onClick={async (e) => {
+            e.preventDefault();
+            dispatch(next());
+          }}
+        >
+          Generate random
+        </button>
+      </p>
     </div>
   );
 };

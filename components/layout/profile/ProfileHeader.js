@@ -32,7 +32,12 @@ export default function ProfileHandler() {
                 myFont.className
               }
             >
-              <ShareIcon className="h-[20px] w-[20px] absolute top-0 right-0 m-[20px] text-white opacity-60 hover:cursor-pointer mx-[16px]" />
+              <ShareIcon
+                className="h-[20px] w-[20px] absolute top-0 right-0 m-[20px] text-white opacity-60 hover:cursor-pointer mx-[16px]"
+                onClick={() => {
+                  window.open(`/profile/${user.pubkey}`);
+                }}
+              />
               <h1 className="text-2xl font-bold text-center mt-[70px] text-transparent bg-gradient-to-r from-[#4aff93] to-[#26ffff] bg-clip-text">
                 {user.firstName} {user.lastName}
               </h1>

@@ -43,8 +43,7 @@ export default function PaymentPopup() {
   const handlePayClick = () => {
     if (user === null) return;
     if (!amount || amount === "" || Number(amount) === 0) {
-      Error("Please enter a valid amount");
-      return;
+      return Error("Please enter a valid amount");
     }
 
     if (currencyType === "SOL") {

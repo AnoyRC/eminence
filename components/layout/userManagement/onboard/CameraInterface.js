@@ -7,15 +7,17 @@ import {
 } from "@heroicons/react/24/solid";
 import Webcam from "react-webcam";
 import { useSelector, useDispatch } from "react-redux";
-import { useRef, useCallback } from "react";
+import { useRef, useCallback, useState } from "react";
 import { setFile, setImage } from "@/redux/fileSlice";
 import Image from "next/image";
+import useToast from "@/hooks/useToast";
 
 export default function CameraInterface() {
   const webcamRef = useRef(null);
   const dispatch = useDispatch();
   const image = useSelector((state) => state.file.image);
   const file = useSelector((state) => state.file.file);
+  const { Info } = useToast();
 
   function download(e, file) {
     e.preventDefault();
@@ -32,16 +34,21 @@ export default function CameraInterface() {
     window.URL.revokeObjectURL(url);
   }
 
-  const capture = useCallback(
-    (e) => {
-      e.preventDefault();
-      const imageSrc = webcamRef.current.getScreenshot();
-      dispatch(setImage(imageSrc));
-      const file = new File([imageSrc], "image.jpg", { type: "image/jpeg" });
-      dispatch(setFile(file));
-    },
-    [webcamRef]
-  );
+  const capture = async (e) => {
+    e.preventDefault();
+    const imageSrc = webcamRef.current.getScreenshot();
+    dispatch(setImage(imageSrc));
+    await fetch(imageSrc)
+      .then((res) => res.blob())
+      .then((blob) => {
+        const imageFile = new File([blob], "image.png", {
+          type: "image/png",
+        });
+        dispatch(setFile(imageFile));
+        console.log(imageFile);
+      });
+    Info("Make sure to download the image.");
+  };
 
   const retake = (e) => {
     e.preventDefault();
@@ -50,12 +57,12 @@ export default function CameraInterface() {
   };
 
   return !image ? (
-    <div className="flex w-[400px] h-[300px] flex-col items-center justify-center gap-5 relative">
+    <div className="flex w-[400px] h-[300px] flex-col items-center justify-center relative">
       <Webcam
         audio={false}
-        height={500}
-        width={500}
-        screenshotFormat="image/jpeg"
+        height={300}
+        width={400}
+        screenshotFormat="image/png"
         videoConstraints={{
           facingMode: "user",
         }}
@@ -69,10 +76,33 @@ export default function CameraInterface() {
           <CameraIcon className="h-10 w-10 opacity-60 group-hover:opacity-100" />
         </button>
       </div>
+      <div className="relative w-[80%] group hover:cursor-pointer flex items-center justify-center text-bold">
+        <h1 className="absolute group-hover:underline">
+          Import your own image
+        </h1>
+        <input
+          type="file"
+          className="w-full"
+          style={{
+            opacity: 0,
+          }}
+          required={true}
+          onChange={(e) => {
+            dispatch(setFile(e.target.files[0]));
+            dispatch(setImage(URL.createObjectURL(e.target.files[0])));
+          }}
+        ></input>
+      </div>
     </div>
   ) : (
     <div className="flex w-[400px] h-[300px] flex-col items-center justify-center gap-5 relative">
-      <Image src={image} alt="Picture of the author" width={500} height={500} />
+      <Image
+        src={image}
+        alt="Picture of the author"
+        width={500}
+        height={500}
+        className=" w-auto max-w-full object-cover"
+      />
       <div className="absolute bottom-2 right-2 flex flex-col gap-2 ">
         <button
           className="bg-black/40 text-white rounded-full h-[50px] w-[50px] hover:bg-black/50 flex items-center justify-center group"

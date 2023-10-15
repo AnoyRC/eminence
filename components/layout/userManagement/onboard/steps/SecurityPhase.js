@@ -7,9 +7,9 @@ import CameraInterface from "../CameraInterface";
 const SecurityPhase = () => {
   return (
     <Form
-      heading={"Save Security Phase"}
+      heading={"Image Based Wallet"}
       paragraph={
-        "Security phrase are automatically generated as you start your journey. Simply save it securely. It's your key to protecting your assets."
+        "Generate wallet from any image or capture and simply save it securely. It's your key to protecting your assets. "
       }
     >
       <div className="mb-8 w-full">

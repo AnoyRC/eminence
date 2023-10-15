@@ -1,38 +1,38 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
+import Image from "next/image";
 import {
   ArrowPathRoundedSquareIcon,
   DocumentDuplicateIcon,
-} from '@heroicons/react/24/solid';
-import QRCodeGenerator from '../CardQrCode';
-import ProfileAvatar from '@/components/ui/ProfileAvatar';
-import useToast from '@/hooks/useToast';
+} from "@heroicons/react/24/solid";
+import QRCodeGenerator from "../CardQrCode";
+import ProfileAvatar from "@/components/ui/ProfileAvatar";
+import useToast from "@/hooks/useToast";
 
 export default function CardFront({ toggleCard, user, design }) {
   const { Info } = useToast();
 
   const backgroundColor =
-    design === 'white' ? 'bg-primary-white' : 'bg-primary-black';
+    design === "white" ? "bg-primary-white" : "bg-primary-black";
   const textColor =
-    design === 'white' ? 'text-primary-black' : 'text-primary-white';
+    design === "white" ? "text-primary-black" : "text-primary-white";
   const accountNoColor =
-    design === 'white' ? 'text-[#1c1d22cc]' : 'text-[#CCC]';
+    design === "white" ? "text-[#1c1d22cc]" : "text-[#CCC]";
   const eminenceColor =
-    design === 'white' ? 'text-[#1c1d22cc]' : 'text-[#ffffffcc]';
+    design === "white" ? "text-[#1c1d22cc]" : "text-[#ffffffcc]";
 
   return (
     <div
       className={`${backgroundColor} relative overflow-hidden w-[320px] h-[436px] shadow-md shadow-white/40 rounded-2xl prevent-select`}
     >
-      <div className="absolute w-[600px] h-[600px] -top-[62px] -left-[18px] ">
+      <div className="absolute w-[600px] h-[600px] -top-[62px] -left-[18px]">
         <Image
           src="/images/logo.png"
           width={377}
           height={377}
           alt=""
-          className="w-full h-full"
-          style={{ opacity: 0.5 }}
+          className="w-full h-full z-0 relative"
+          style={{ opacity: 0.3 }}
         />
       </div>
 
@@ -40,7 +40,7 @@ export default function CardFront({ toggleCard, user, design }) {
         <div
           className={`${eminenceColor} font-bold text-lg rotate-180 pr-3`}
           style={{
-            writingMode: 'vertical-rl',
+            writingMode: "vertical-rl",
           }}
         >
           Eminence Wallet
@@ -57,12 +57,17 @@ export default function CardFront({ toggleCard, user, design }) {
           </button>
 
           {user ? (
-            <QRCodeGenerator
-              remainingRoute={`${process.env.NEXT_PUBLIC_BASE_URL}/profile/${user.pubkey}`}
-              height={176}
-              width={176}
-              bgColor={'#1c1d222d'}
-            />
+            <div className="z-10 relative">
+              <QRCodeGenerator
+                remainingRoute={`${process.env.NEXT_PUBLIC_BASE_URL}/profile/${user.pubkey}`}
+                height={176}
+                width={176}
+                bgColor={
+                  user.cardColor === "black" ? "#1c1d222d" : "transparent"
+                }
+                color={user.cardColor !== "black" ? "#1ecbb9" : "#6CCBB9"}
+              />
+            </div>
           ) : (
             <div className="w-44 h-44 rounded-sm bg-black/40 skeleton"></div>
           )}
@@ -71,35 +76,35 @@ export default function CardFront({ toggleCard, user, design }) {
             {user ? (
               <>
                 <ProfileAvatar
-                  style={{ width: '3.5rem', height: '3.5rem' }}
+                  style={{ width: "3.5rem", height: "3.5rem" }}
                   id={user?.avatarId}
                 />
 
                 <div className="flex flex-col justify-center">
                   <h3
                     className={`${textColor} text-[18px] font-bold max-w-[130px] whitespace-nowrap overflow-hidden`}
-                    style={{ textOverflow: 'ellipsis', overflow: 'hidden' }}
+                    style={{ textOverflow: "ellipsis", overflow: "hidden" }}
                   >
-                    {user.firstName + ' ' + user.lastName}
+                    {user.firstName + " " + user.lastName}
                   </h3>
 
                   <button
                     className={`flex flex-start items-center text-[12px] hover:cursor-pointer ${accountNoColor}`}
                     onClick={() => {
                       navigator.clipboard.writeText(
-                        user ? user.pubkey : '00000000'
+                        user ? user.pubkey : "00000000"
                       );
-                      Info('Copied to clipboard');
+                      Info("Copied to clipboard");
                     }}
                   >
                     {user
                       ? user.pubkey.substring(0, 4) +
-                        '...' +
+                        "..." +
                         user.pubkey.substring(
                           user.pubkey.length - 4,
                           user.pubkey.length
                         )
-                      : '00000000'}
+                      : "00000000"}
                     <DocumentDuplicateIcon className="w-[13px] h-[13px] ml-[4px]" />
                   </button>
                 </div>

@@ -62,7 +62,9 @@ export default function CardSelect() {
         <CardBody className=" flex w-full justify-between">
           <div
             className="flex flex-col gap-[30px] justify-center items-center w-[50%] hover:cursor-pointer"
-            onClick={() => updateCardColor("white")}
+            onClick={() => {
+              if (user.cardColor !== "white") updateCardColor("white");
+            }}
           >
             <CardContainer color="bg-primary-black" design={"white"} />
             <div
@@ -88,7 +90,9 @@ export default function CardSelect() {
           </div>
           <div
             className="flex flex-col gap-[30px] justify-center items-center w-[50%] hover:cursor-pointer"
-            onClick={() => updateCardColor("black")}
+            onClick={() => {
+              if (user.cardColor !== "black") updateCardColor("black");
+            }}
           >
             <CardContainer color="bg-primary-black" />
             <div

@@ -1,29 +1,35 @@
-'use client';
-import React, { useRef, useEffect } from 'react';
+"use client";
+import React, { useRef, useEffect } from "react";
 
-const QRCodeGenerator = ({ remainingRoute, width, height, bgColor }) => {
+const QRCodeGenerator = ({
+  remainingRoute,
+  width,
+  height,
+  bgColor,
+  color = "#6CCBB9",
+}) => {
   const ref = useRef(null);
 
   useEffect(() => {
     // Check if we are in the browser environment before using the QRCodeStyling library
-    if (typeof window !== 'undefined') {
-      import('qr-code-styling').then(({ default: QRCodeStyling }) => {
+    if (typeof window !== "undefined") {
+      import("qr-code-styling").then(({ default: QRCodeStyling }) => {
         const fullRoute = `${remainingRoute}`;
         const qrCode = new QRCodeStyling({
           width: width,
           height: height,
-          type: 'svg',
-          image: '/images/logo.png',
-          shape: 'rounded',
+          type: "svg",
+          image: "/images/logo.png",
+          shape: "rounded",
           dotsOptions: {
-            color: '#6CCBB9',
-            type: 'rounded',
+            color: color,
+            type: "rounded",
           },
           backgroundOptions: {
-            color: bgColor ? bgColor : 'transparent',
+            color: bgColor ? bgColor : "transparent",
           },
           cornersSquareOptions: {
-            type: 'extra-rounded',
+            type: "extra-rounded",
           },
         });
 
