@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { useRef, useState } from "react";
-import { EminentBtn } from "./FormBtn";
-import Input from "@/components/ui/Input";
-import { NewPasswordBtn } from "./FormBtn";
+import { useRef, useState } from 'react';
+import { EminentBtn } from './FormBtn';
+import Input from '@/components/ui/Input';
+import { NewPasswordBtn } from './FormBtn';
 
 const EminentInput = ({ avatar }) => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
 
   return (
     <div className="max-w-xs space-y-3 mb-8">
@@ -46,7 +46,7 @@ const NewPasswordInput = () => {
   const confirmPassword = useRef();
 
   return (
-    <div className="max-w-xs w-80  mb-8">
+    <div className="max-w-xs w-80">
       <input
         type="password"
         ref={password}

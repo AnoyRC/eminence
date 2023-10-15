@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import useOnboard from "@/hooks/useOnboard";
+import useOnboard from '@/hooks/useOnboard';
 
-import Button from "@/components/ui/Button";
-import useToast from "@/hooks/useToast";
-import usePostServer from "@/hooks/usePostServer";
-import useCreateWallet from "@/hooks/useCreateWallet";
-import { useDispatch } from "react-redux";
-import { next } from "@/redux/defaultSlice";
+import Button from '@/components/ui/Button';
+import useToast from '@/hooks/useToast';
+import usePostServer from '@/hooks/usePostServer';
+import useCreateWallet from '@/hooks/useCreateWallet';
+import { useDispatch } from 'react-redux';
+import { next } from '@/redux/defaultSlice';
 
 const GetStartedBtn = () => {
   const { step1 } = useOnboard();
@@ -46,8 +46,9 @@ const SecurityPhaseBtn = () => {
         style="font-bold text-base rounded-lg py-3"
         onClick={step2.Continue}
       />
+
       <p className="text-primary-black text-sm font-medium text-center">
-        Don&apos;t want to upload image?{" "}
+        Don&apos;t want to upload image?{' '}
         <button
           className="underline underline-offset-4 font-bold transition-transform hover:scale-105"
           onClick={async (e) => {
@@ -70,13 +71,13 @@ const ConfirmSecurityBtn = ({ inputMnemonic }) => {
     e.preventDefault();
 
     for (let i = 0; i < inputMnemonic.length; i++) {
-      if (inputMnemonic[i] === "") {
-        Error("Please fill all the fields");
+      if (inputMnemonic[i] === '') {
+        Error('Please fill all the fields');
         return;
       }
     }
 
-    step3.ConfirmPhrase(inputMnemonic.join(" "));
+    step3.ConfirmPhrase(inputMnemonic.join(' '));
   };
 
   return (
@@ -90,7 +91,7 @@ const ConfirmSecurityBtn = ({ inputMnemonic }) => {
       />
 
       <p className="text-primary-black text-sm font-medium text-center">
-        Forgot Security Phase?{" "}
+        Forgot Security Phase?{' '}
         <button
           className="underline underline-offset-4 font-bold transition-transform hover:scale-105"
           type="button"
@@ -116,7 +117,7 @@ const ConfirmPasswordBtn = ({ password, confirmPassword }) => {
       password.current.value.length === 0 ||
       confirmPassword.current.value.length === 0
     ) {
-      Error("Please fill all the fields");
+      Error('Please fill all the fields');
       return;
     }
 
@@ -130,10 +131,10 @@ const ConfirmPasswordBtn = ({ password, confirmPassword }) => {
 
         return;
       } catch (err) {
-        Error("Something went wrong");
+        Error('Something went wrong');
       }
     }
-    Error("Password do not match");
+    Error('Password do not match');
   };
 
   return (

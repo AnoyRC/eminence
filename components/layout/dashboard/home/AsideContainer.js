@@ -26,14 +26,14 @@ const AsideContainer = () => {
   ];
 
   return (
-    <aside className="py-[28px] w-[300px] h-full bg-black/40 flex flex-col">
+    <aside className="pt-5 pb-2 w-[300px] h-full bg-black/40 flex flex-col">
       <Tabs
         id="custom-animation"
         value={activeTab}
-        className="h-full flex flex-col"
+        className="h-full flex flex-col overflow-auto"
       >
         <TabsHeader
-          className="rounded-full bg-[#1C1D22] text-white mx-[28px]"
+          className="rounded-full bg-[#1C1D22] text-white mx-[28px] mb-7"
           indicatorProps={{
             className:
               'rounded-full bg-gradient-to-r from-[#4AFF93] to-[#26FFFF]',
@@ -46,8 +46,8 @@ const AsideContainer = () => {
               onClick={() => setActiveTab(value)}
               className={
                 activeTab === value
-                  ? 'text-black transition-colors duration-300'
-                  : 'text-white transition-colors duration-300'
+                  ? 'text-black transition-colors duration-300 font-medium'
+                  : 'text-white transition-colors duration-300 font-medium'
               }
             >
               {label}
@@ -56,7 +56,11 @@ const AsideContainer = () => {
         </TabsHeader>
         <TabsBody className="flex-grow">
           {data.map(({ value, component }) => (
-            <TabPanel key={value} value={value} className="p-0 h-full">
+            <TabPanel
+              key={value}
+              value={value}
+              className="p-0 h-full overflow-auto hide-scroll"
+            >
               {component}
             </TabPanel>
           ))}
