@@ -7,16 +7,14 @@ import {
 } from "@heroicons/react/24/solid";
 import { bs58 } from "@project-serum/anchor/dist/cjs/utils/bytes";
 import { Keypair } from "@solana/web3.js";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import * as bip39 from "bip39";
 import { useState } from "react";
-import { togglePopup } from "@/redux/checkLoginSlice";
 
 export default function MnemonicShow() {
   const mnemonics = useSelector((state) => state.wallet.mnemonics);
   const [toggleMnemonic, setToggleMnemonic] = useState(false);
   const [togglePrivateKey, setTogglePrivateKey] = useState(false);
-  const dispatch = useDispatch();
 
   return (
     <div className="w-full h-fit flex justify-center rounded-[8px] p-[0.5px] bg-red-900">
@@ -45,7 +43,6 @@ export default function MnemonicShow() {
         <button
           className=" h-[50px] rounded-[10px] bg-[#FF5C5C] px-5 text-white text-lg font-bold flex items-center justify-center gap-3"
           onClick={() => {
-            dispatch(togglePopup(true));
             setToggleMnemonic(true);
             setTogglePrivateKey(false);
             setTimeout(() => {
@@ -69,7 +66,6 @@ export default function MnemonicShow() {
         <button
           className=" h-[50px] rounded-[10px] bg-[#FF5C5C] px-5 text-white text-lg font-bold flex items-center justify-center gap-3"
           onClick={() => {
-            dispatch(togglePopup(true));
             setToggleMnemonic(false);
             setTogglePrivateKey(true);
             setTimeout(() => {
