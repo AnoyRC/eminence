@@ -1,15 +1,15 @@
-"use client";
-import axios from "axios";
-import useToast from "./useToast";
-import { useDispatch, useSelector } from "react-redux";
-import { Keypair } from "@solana/web3.js";
-import { setUser, setVouchers } from "@/redux/profileSlice";
-import { useRouter } from "next/navigation";
-import * as bip39 from "bip39";
-import useCreateWallet from "./useCreateWallet";
-import usePostServer from "./usePostServer";
-import { setUserContacts } from "@/redux/profileSlice";
-import { setMessages } from "@/redux/contactSlice";
+'use client';
+import axios from 'axios';
+import useToast from './useToast';
+import { useDispatch, useSelector } from 'react-redux';
+import { Keypair } from '@solana/web3.js';
+import { setUser, setVouchers } from '@/redux/profileSlice';
+import { useRouter } from 'next/navigation';
+import * as bip39 from 'bip39';
+import useCreateWallet from './useCreateWallet';
+import usePostServer from './usePostServer';
+import { setUserContacts } from '@/redux/profileSlice';
+import { setMessages } from '@/redux/contactSlice';
 
 export default function useGetServer() {
   const { Error } = useToast();
@@ -23,7 +23,7 @@ export default function useGetServer() {
     try {
       const res = await axios.get(
         `${process.env.NEXT_PUBLIC_NEXT_URL}/api/user/info/${pubkey}`,
-        { headers: "Content-Type: application/json" }
+        { headers: 'Content-Type: application/json' }
       );
 
       return res.data;
@@ -40,18 +40,18 @@ export default function useGetServer() {
 
     await generateToken(signature);
 
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token');
 
     if (!token) {
-      Error("Please Login");
-      router.push("/welcome");
+      Error('Please Login');
+      router.push('/welcome');
       return;
     }
 
     const headers = {
-      "Content-Type": "application/json",
-      "x-auth-token": token,
-      "x-auth-pubkey": keypair.publicKey.toString(),
+      'Content-Type': 'application/json',
+      'x-auth-token': token,
+      'x-auth-pubkey': keypair.publicKey.toString(),
     };
 
     try {
@@ -62,7 +62,7 @@ export default function useGetServer() {
 
       return res.data;
     } catch (err) {
-      Error("User Not Found");
+      Error('User Not Found');
     }
   };
 
@@ -74,17 +74,17 @@ export default function useGetServer() {
 
     await generateToken(signature);
 
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token');
 
     if (!token) {
-      Error("Please Login");
-      router.push("/welcome");
+      Error('Please Login');
+      router.push('/welcome');
       return;
     }
 
     const headers = {
-      "x-auth-token": token,
-      "x-auth-pubkey": keypair.publicKey.toString(),
+      'x-auth-token': token,
+      'x-auth-pubkey': keypair.publicKey.toString(),
     };
 
     try {
@@ -95,8 +95,8 @@ export default function useGetServer() {
 
       dispatch(setUser(res.data));
     } catch (err) {
-      router.push("/publicProfile");
-      Error("User Not Found");
+      router.push('/publicProfile');
+      Error('User Not Found');
     }
   };
 
@@ -104,17 +104,17 @@ export default function useGetServer() {
     const seed = bip39.mnemonicToSeedSync(mnemonics);
     const keypair = Keypair.fromSeed(seed.slice(0, 32));
 
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token');
 
     if (!token) {
-      Error("Please Login");
-      router.push("/welcome");
+      Error('Please Login');
+      router.push('/welcome');
       return;
     }
 
     const headers = {
-      "x-auth-token": token,
-      "x-auth-pubkey": keypair.publicKey.toString(),
+      'x-auth-token': token,
+      'x-auth-pubkey': keypair.publicKey.toString(),
     };
 
     try {
@@ -126,7 +126,7 @@ export default function useGetServer() {
       dispatch(setUserContacts(res.data));
       return res.data;
     } catch (err) {
-      Error("Something Went Wrong");
+      Error('Something Went Wrong');
     }
   };
 
@@ -134,17 +134,17 @@ export default function useGetServer() {
     const seed = bip39.mnemonicToSeedSync(mnemonics);
     const keypair = Keypair.fromSeed(seed.slice(0, 32));
 
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token');
 
     if (!token) {
-      Error("Please Login");
-      router.push("/welcome");
+      Error('Please Login');
+      router.push('/welcome');
       return;
     }
 
     const headers = {
-      "x-auth-token": token,
-      "x-auth-pubkey": keypair.publicKey.toString(),
+      'x-auth-token': token,
+      'x-auth-pubkey': keypair.publicKey.toString(),
     };
 
     try {
@@ -155,7 +155,7 @@ export default function useGetServer() {
 
       dispatch(setMessages(res.data));
     } catch (err) {
-      Error("Something Went Wrong");
+      Error('Something Went Wrong');
     }
   };
 
@@ -163,29 +163,32 @@ export default function useGetServer() {
     const seed = bip39.mnemonicToSeedSync(mnemonics);
     const keypair = Keypair.fromSeed(seed.slice(0, 32));
 
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token');
 
     if (!token) {
-      Error("Please Login");
-      router.push("/welcome");
+      Error('Please Login');
+      router.push('/welcome');
       return;
     }
 
     try {
-      const res = await fetch("http://localhost:8080/api/voucher/get", {
-        method: "GET",
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_NEXT_URL}/api/voucher/get`,
+        {
+          method: 'GET',
 
-        headers: {
-          "Content-Type": "application/json",
-          "x-auth-token": token,
-          "x-auth-pubkey": keypair.publicKey.toString(),
-        },
-      });
+          headers: {
+            'Content-Type': 'application/json',
+            'x-auth-token': token,
+            'x-auth-pubkey': keypair.publicKey.toString(),
+          },
+        }
+      );
 
       const data = await res.json();
 
       if (data.error) {
-        Error("Something went wrong");
+        Error('Something went wrong');
         return false;
       }
 
@@ -193,7 +196,20 @@ export default function useGetServer() {
       return true;
     } catch (err) {
       console.log(err);
-      Error("Something went wrong");
+      Error('Something went wrong');
+      return false;
+    }
+  };
+
+  const getVoucherById = async (voucherId) => {
+    try {
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_NEXT_URL}/api/voucher/get/${voucherId}`,
+        { headers: 'Content-Type: application/json' }
+      );
+
+      return res.data;
+    } catch (err) {
       return false;
     }
   };
@@ -202,7 +218,7 @@ export default function useGetServer() {
     try {
       const res = await axios.get(
         `${process.env.NEXT_PUBLIC_NEXT_URL}/api/transaction/get/${signature}`,
-        { headers: "Content-Type: application/json" }
+        { headers: 'Content-Type: application/json' }
       );
 
       return res.data;
@@ -219,5 +235,6 @@ export default function useGetServer() {
     getUserByName,
     fetchVouchers,
     getTransactionById,
+    getVoucherById,
   };
 }
