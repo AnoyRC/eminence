@@ -11,6 +11,8 @@ import LoadingAnimation from "@/components/LoadingAnimation";
 import useToast from "@/hooks/useToast";
 import useTransfer from "@/hooks/useTransfer";
 import useGetServer from "@/hooks/useGetServer";
+import { useDispatch } from "react-redux";
+import { togglePayPopup } from "@/redux/contactsSlice";
 
 const myFont = localFont({
   src: "../../../../public/fonts/Satoshi-Variable.woff2",
@@ -25,6 +27,7 @@ const ProfilePay = ({ user }) => {
   const { Error } = useToast();
   const { transfer, transferToken } = useTransfer();
   const { getUserSelf } = useGetServer();
+  const dispatch = useDispatch();
 
   const handleClick = () => {
     if (!checkLogin()) return;
@@ -40,6 +43,8 @@ const ProfilePay = ({ user }) => {
     if (currencyType === "USDC") {
       transferToken(amount, user.pubkey);
     }
+
+    dispatch(togglePayPopup(false));
   };
 
   const handleChange = (e) => {
