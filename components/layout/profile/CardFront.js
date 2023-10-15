@@ -1,10 +1,16 @@
 "use client";
-import Image from "next/image";
-import { ArrowPathRoundedSquareIcon } from "@heroicons/react/24/solid";
-import Avatar, { genConfig } from "react-nice-avatar";
-import QRCodeGenerator from "./CardQrCode";
 
-export default function CardFront({ toggleCard, design }) {
+import Image from "next/image";
+import {
+  ArrowPathRoundedSquareIcon,
+  DocumentDuplicateIcon,
+} from "@heroicons/react/24/solid";
+import QRCodeGenerator from "./CardQrCode";
+import ProfileAvatar from "@/components/ui/ProfileAvatar";
+import useToast from "@/hooks/useToast";
+
+export default function CardFront({ toggleCard, user, design }) {
+  const { Info } = useToast();
   const backgroundColor =
     design === "white" ? "bg-primary-white" : "bg-primary-black";
   const textColor =
@@ -15,21 +21,21 @@ export default function CardFront({ toggleCard, design }) {
     design === "white" ? "text-[#1c1d22cc]" : "text-[#ffffffcc]";
   return (
     <div
-      className={`${backgroundColor} relative overflow-hidden  w-[220px] h-[316px] shadow-md shadow-[#ffffff40] rounded-lg`}
+      className={`${backgroundColor} relative overflow-hidden  w-[220px] h-[316px] shadow-md shadow-white/40 rounded-lg prevent-select`}
     >
       <div className="absolute w-[450px] h-[450px] -top-[62px] -left-[40px] ">
         <Image
           src="/images/logo.png"
           width={377}
           height={377}
-          className="w-full h-full"
+          className="w-full h-full z-0 relative"
           style={{ opacity: 0.5 }}
         />
       </div>
 
-      <div className=" w-full h-full flex flex-row items-center gap-2">
+      <div className=" w-full h-full flex flex-row items-center gap-3">
         <div
-          className={` ${eminenceColor}  font-bold text-[12px] rotate-180 `}
+          className={` ${eminenceColor}  font-bold text-[12px] rotate-180 pr-2`}
           style={{
             writingMode: "vertical-rl",
           }}
@@ -47,35 +53,68 @@ export default function CardFront({ toggleCard, design }) {
             />
           </button>
 
-          {/* <Image
-            src="/images/myVouchers/sampleQr.png"
-            width={120}
-            height={120}
-            alt="QR"
-          /> */}
-          <QRCodeGenerator
-            remainingRoute={`http://localhost:3000`}
-            height={120}
-            width={120}
-          />
-
-          <div className="flex gap-[12px] items-center">
-            <Avatar
-              style={{ width: "2rem", height: "2rem" }}
-              {...genConfig("sourabh")}
-              className=""
-            />
-
-            <div className="flex flex-col justify-center">
-              <h1 className={`${textColor} text-[14px] font-medium`}>
-                Sourabh Singh
-              </h1>
-              <p
-                className={`${accountNoColor} flex flex-start items-center text-[10px]`}
-              >
-                8421....0792
-              </p>
+          {user ? (
+            <div className="z-10 relative">
+              <QRCodeGenerator
+                remainingRoute={`${process.env.NEXT_PUBLIC_BASE_URL}/profile/${user.pubkey}`}
+                height={140}
+                width={140}
+                bgColor={"transparent"}
+                color={user.cardColor !== "black" ? "#1ecbb9" : "#6CCBB9"}
+              />
             </div>
+          ) : (
+            <div className="w-44 h-44 rounded-sm bg-black/40 skeleton"></div>
+          )}
+
+          <div className="relative flex gap-[12px] items-center z-10">
+            {user ? (
+              <>
+                <ProfileAvatar
+                  style={{ width: "2rem", height: "2rem" }}
+                  id={user?.avatarId}
+                />
+
+                <div className="flex flex-col justify-center">
+                  <h3
+                    className={`${textColor} text-[14px] font-medium max-w-[110px] whitespace-nowrap overflow-hidden`}
+                    style={{ textOverflow: "ellipsis", overflow: "hidden" }}
+                  >
+                    {user.firstName + " " + user.lastName}
+                  </h3>
+
+                  <button
+                    className={`flex flex-start items-center text-[12px] hover:cursor-pointer ${accountNoColor}`}
+                    onClick={() => {
+                      navigator.clipboard.writeText(
+                        user ? user.pubkey : "00000000"
+                      );
+                      Info("Copied to clipboard");
+                    }}
+                  >
+                    {user
+                      ? user.pubkey.substring(0, 4) +
+                        "..." +
+                        user.pubkey.substring(
+                          user.pubkey.length - 4,
+                          user.pubkey.length
+                        )
+                      : "00000000"}
+                    <DocumentDuplicateIcon className="w-[13px] h-[13px] ml-[4px]" />
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="w-14 h-14 rounded-full bg-black/40 skeleton"></div>
+
+                <div className="flex flex-col justify-center">
+                  <h3 className="h-5 w-32 bg-black/40 skeleton mb-1"></h3>
+
+                  <p className="bg-black/40 h-4 w-10 skeleton"></p>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

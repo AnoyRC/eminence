@@ -62,9 +62,7 @@ export default function CardFront({ toggleCard, user, design }) {
                 remainingRoute={`${process.env.NEXT_PUBLIC_BASE_URL}/profile/${user.pubkey}`}
                 height={176}
                 width={176}
-                bgColor={
-                  user.cardColor === "black" ? "#1c1d222d" : "transparent"
-                }
+                bgColor={"transparent"}
                 color={user.cardColor !== "black" ? "#1ecbb9" : "#6CCBB9"}
               />
             </div>

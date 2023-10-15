@@ -66,7 +66,11 @@ export default function CardSelect() {
               if (user.cardColor !== "white") updateCardColor("white");
             }}
           >
-            <CardContainer color="bg-primary-black" design={"white"} />
+            <CardContainer
+              color="bg-primary-black"
+              design={"white"}
+              user={user}
+            />
             <div
               className="w-[60px] h-[30px] rounded-[4px] p-[0.5px] relative"
               style={{
@@ -94,7 +98,7 @@ export default function CardSelect() {
               if (user.cardColor !== "black") updateCardColor("black");
             }}
           >
-            <CardContainer color="bg-primary-black" />
+            <CardContainer color="bg-primary-black" user={user} />
             <div
               className="w-[60px] h-[30px] rounded-[4px] p-[0.5px] relative"
               style={{
