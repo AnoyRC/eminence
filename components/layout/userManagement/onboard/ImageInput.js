@@ -1,22 +1,33 @@
-"use client";
-import { ArrowPathIcon, PhotoIcon } from "@heroicons/react/24/solid";
-import { useDispatch, useSelector } from "react-redux";
-import { setFile } from "@/redux/fileSlice";
-import { setImage } from "@/redux/fileSlice";
-import Image from "next/image";
-import Button from "@/components/ui/Button";
-import { useRouter } from "next/navigation";
-import useCreateWallet from "@/hooks/useCreateWallet";
+'use client';
+
+import { ArrowPathIcon, PhotoIcon } from '@heroicons/react/24/solid';
+import { useDispatch, useSelector } from 'react-redux';
+import { setFile } from '@/redux/fileSlice';
+import { setImage } from '@/redux/fileSlice';
+import Image from 'next/image';
+import Button from '@/components/ui/Button';
+import { useRouter } from 'next/navigation';
+import useCreateWallet from '@/hooks/useCreateWallet';
 
 export default function ImageInput() {
   const dispatch = useDispatch();
   const image = useSelector((state) => state.file.image);
   const router = useRouter();
   const { createWalletWithImage } = useCreateWallet();
+  const file = useSelector((state) => state.file.file);
+
   const onFileChange = (e) => {
     const file = e.target.files[0];
-    dispatch(setFile(file));
-    dispatch(setImage(URL.createObjectURL(file)));
+
+    if (
+      file.type === 'image/png' ||
+      file.type === 'image/jpg' ||
+      file.type === 'image/jpeg' ||
+      file.type === 'image/webp'
+    ) {
+      dispatch(setFile(file));
+      dispatch(setImage(URL.createObjectURL(file)));
+    }
   };
 
   const revert = (e) => {
@@ -55,6 +66,7 @@ export default function ImageInput() {
             </button>
           </div>
         )}
+
         <Button
           label="Import Image"
           fullWidth
@@ -63,14 +75,16 @@ export default function ImageInput() {
           onClick={async (e) => {
             e.preventDefault();
             await createWalletWithImage();
-            router.push("/newPassword");
+            if (!file) return;
+            router.push('/newPassword');
           }}
         />
+
         <button
           className="text-primary-black text-md w-full underline font-medium text-center mt-2"
           onClick={(e) => {
             e.preventDefault();
-            router.push("/importWallet");
+            router.push('/importWallet');
           }}
         >
           Import Mnemonic Phrase instead

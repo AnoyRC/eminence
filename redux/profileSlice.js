@@ -1,8 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   user: null,
-  connection: "https://solana-mainnet.rpc.extrnode.com",
+  connection:
+    'https://rpc.helius.xyz/?api-key=07172e08-2375-4358-9ad1-522bd8871a8e',
   balance: 0,
   balanceUSDC: 0,
   balanceListerners: [],
@@ -14,17 +15,18 @@ const initialState = {
 };
 
 export const profileSlice = createSlice({
-  name: "profile",
+  name: 'profile',
   initialState,
   reducers: {
     setUser: (state, action) => {
       state.user = action.payload;
     },
     setDevnet: (state) => {
-      state.connection = "https://api.devnet.solana.com";
+      state.connection = 'https://api.devnet.solana.com';
     },
     setMainnet: (state) => {
-      state.connection = "https://solana-mainnet.rpc.extrnode.com";
+      state.connection =
+        'https://rpc.helius.xyz/?api-key=07172e08-2375-4358-9ad1-522bd8871a8e';
     },
     setBalance: (state, action) => {
       state.balance = action.payload;
