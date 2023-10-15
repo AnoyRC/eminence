@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { ChevronRightIcon } from '@heroicons/react/24/solid';
 
 import ProfileAvatar from '@/components/ui/ProfileAvatar';
 
@@ -21,7 +22,7 @@ const ContactList = ({ pubKey }) => {
   }, []);
 
   return (
-    <div className="bg-primary-black px-3 py-2 w-full rounded-lg flex justify-between items-center">
+    <div className="bg-primary-black px-3 py-2 w-full rounded-lg flex justify-between items-center hover:scale-105 hover:opacity-80 active:scale-100 transition-[transform,opacity] prevent-select">
       {user ? (
         <>
           <div className="relative flex items-center">
@@ -36,11 +37,12 @@ const ContactList = ({ pubKey }) => {
             </p>
           </div>
 
-          <div
+          {/* <div
             className={` w-[10px] h-[10px] rounded-full ${
               status === 'online' ? 'bg-gradient-primary' : 'bg-[#DF0000]'
             }`}
-          ></div>
+          ></div> */}
+          <ChevronRightIcon className="text-primary-white w-5 h-5" />
         </>
       ) : (
         <div className="relative flex items-center">

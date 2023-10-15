@@ -30,7 +30,9 @@ export default function AddContactPopUp() {
   const isPopup = useSelector((state) => state.contacts.isPopup);
   const { getUserByPubkey, getUserByName } = useGetServer();
 
-  const handleSearchClick = () => {
+  const handleSearchClick = (e) => {
+    e.preventDefault();
+
     const fetchUser = async () => {
       if (queryType === 'address') {
         const data = await getUserByPubkey(query);
@@ -58,7 +60,7 @@ export default function AddContactPopUp() {
 
   return (
     isPopup && (
-      <div className="absolute top-0 left-0 h-full w-full backdrop-filter backdrop-blur-lg z-20">
+      <div className="absolute top-0 left-0 h-full w-full backdrop-filter backdrop-blur-lg z-50">
         <div className=" flex justify-center h-full items-center ">
           <div className="w-[668px] h-full px-[16px] py-[20px] flex items-center justify-center">
             <div
@@ -104,57 +106,60 @@ export default function AddContactPopUp() {
                     </div>
                   </CardHeader>
 
-                  <CardBody className="p-4 flex flex-col w-full gap-[15px]">
-                    <div className="flex gap-[8px]">
-                      <div className="w-[65%]">
-                        <Input
-                          variant="outlined"
-                          label="Search"
-                          color="white"
-                          value={query}
-                          onChange={(e) => setQuery(e.target.value)}
-                          icon={
-                            <MagnifyingGlassIcon
-                              className={'text-white ' + myFont.className}
-                            />
-                          }
-                        />
+                  <CardBody className="p-4 flex flex-col w-full gap-4">
+                    <form className="flex flex-col gap-4">
+                      <div className="flex gap-[8px]">
+                        <div className="w-[65%]">
+                          <Input
+                            variant="outlined"
+                            label="Search"
+                            color="white"
+                            value={query}
+                            onChange={(e) => setQuery(e.target.value)}
+                            icon={
+                              <MagnifyingGlassIcon
+                                className={'text-white ' + myFont.className}
+                              />
+                            }
+                          />
+                        </div>
+
+                        <div className="w-[30%]">
+                          <Select
+                            label="Select Type"
+                            className={
+                              'border-b-white border-x-white text-white ' +
+                              myFont.className
+                            }
+                            labelProps={{
+                              className:
+                                'before:border-white after:border-white text-white',
+                            }}
+                            value={queryType}
+                            onChange={(e) => setQueryType(e)}
+                          >
+                            <Option value="name">User Name</Option>
+                            <Option value="address">Address</Option>
+                          </Select>
+                        </div>
                       </div>
 
-                      <div className="w-[30%]">
-                        <Select
-                          label="Select Type"
-                          className={
-                            'border-b-white border-x-white text-white ' +
-                            myFont.className
-                          }
-                          labelProps={{
-                            className:
-                              'before:border-white after:border-white text-white',
-                          }}
-                          value={queryType}
-                          onChange={(e) => setQueryType(e)}
-                        >
-                          <Option value="name">User Name</Option>
-                          <Option value="address">Address</Option>
-                        </Select>
-                      </div>
-                    </div>
-
-                    <Button
-                      className={
-                        ' bg-gradient-to-r from-[#26FFFF] to-[#4AFF93]  w-full flex flex-row  text-black items-center justify-center text-[14px] font-bold rounded-[8px]'
-                      }
-                      style={{
-                        textTransform: 'none',
-                      }}
-                      onClick={handleSearchClick}
-                    >
-                      Search User
-                      <span>
-                        <MagnifyingGlassIcon className="h-4 w-4 ml-2 text-black" />
-                      </span>
-                    </Button>
+                      <Button
+                        type="submit"
+                        className={
+                          ' bg-gradient-to-r from-[#26FFFF] to-[#4AFF93]  w-full flex flex-row  text-black items-center justify-center text-[14px] font-bold rounded-[8px]'
+                        }
+                        style={{
+                          textTransform: 'none',
+                        }}
+                        onClick={handleSearchClick}
+                      >
+                        Search User
+                        <span>
+                          <MagnifyingGlassIcon className="h-4 w-4 ml-2 text-black" />
+                        </span>
+                      </Button>
+                    </form>
 
                     <Typography
                       variant="h2"
@@ -165,15 +170,18 @@ export default function AddContactPopUp() {
                     </Typography>
 
                     {users ? (
-                      users.length > 0 &&
-                      users.map((user) => (
-                        <ContactTabSearch
-                          key={user.pubkey}
-                          name={user.firstName + ' ' + user.lastName}
-                          pubkey={user.pubkey}
-                          avatarId={user.avatarId}
-                        />
-                      ))
+                      users.length > 0 ? (
+                        users.map((user) => (
+                          <ContactTabSearch
+                            key={user.pubkey}
+                            name={user.firstName + ' ' + user.lastName}
+                            pubkey={user.pubkey}
+                            avatarId={user.avatarId}
+                          />
+                        ))
+                      ) : (
+                        <p>No user found</p>
+                      )
                     ) : (
                       <p>No user found</p>
                     )}

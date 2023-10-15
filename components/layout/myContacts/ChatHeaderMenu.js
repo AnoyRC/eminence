@@ -6,6 +6,7 @@ import {
   MenuList,
   MenuItem,
 } from '@material-tailwind/react';
+import localFont from 'next/font/local';
 import { EllipsisHorizontalIcon } from '@heroicons/react/24/solid';
 import { useState, useEffect } from 'react';
 import usePostServer from '@/hooks/usePostServer';
@@ -14,6 +15,10 @@ import { useRouter } from 'next/navigation';
 import { clearSelectedContact } from '@/redux/contactSlice';
 import useToast from '@/hooks/useToast';
 import { togglePayPopup } from '@/redux/contactsSlice';
+
+const myFont = localFont({
+  src: '../../../public/fonts/Satoshi-Variable.woff2',
+});
 
 const ChatHeaderMenu = () => {
   const dispatch = useDispatch();
@@ -69,21 +74,21 @@ const ChatHeaderMenu = () => {
 
       <MenuList className="bg-primary-black">
         <MenuItem
-          className="text-primary-white hover:bg-black/40 hover:text-primary-white"
+          className={`text-primary-white hover:bg-black/40 hover:text-primary-white font-medium ${myFont.className}`}
           onClick={handlePayPopup}
         >
           Pay User
         </MenuItem>
 
         <MenuItem
-          className="text-primary-white hover:bg-black/40 hover:text-primary-white"
+          className={`text-primary-white hover:bg-black/40 hover:text-primary-white font-medium ${myFont.className}`}
           onClick={handleCardClick}
         >
           View Card
         </MenuItem>
 
         <MenuItem
-          className="text-primary-white hover:bg-black/40 hover:text-primary-white"
+          className={`text-primary-white hover:bg-black/40 hover:text-primary-white font-medium ${myFont.className}`}
           onClick={
             toggleAddRemoveContact
               ? handleRemoveContactClick
