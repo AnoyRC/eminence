@@ -169,20 +169,23 @@ export default function usePostServer() {
     }
 
     try {
-      const response = await fetch(`http://localhost:8080/api/voucher/create`, {
-        method: "POST",
-        body: JSON.stringify({
-          amount,
-          message,
-          voucherId,
-          cardColor: "Black",
-        }),
-        headers: {
-          "Content-Type": "application/json",
-          "x-auth-token": token,
-          "x-auth-pubkey": keypair.publicKey.toString(),
-        },
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_NEXT_URL}/api/voucher/create`,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            amount,
+            message,
+            voucherId,
+            cardColor: "Black",
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            "x-auth-token": token,
+            "x-auth-pubkey": keypair.publicKey.toString(),
+          },
+        }
+      );
 
       const data = await response.json();
 
