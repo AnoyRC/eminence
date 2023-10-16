@@ -11,11 +11,11 @@ export default function CurrencyRatio() {
   const data = [
     {
       name: "SOL",
-      value: balance === balanceUSDC && balance === 0 ? 50 : balance,
+      value: balance === balanceUSDC && balance === 0 ? 75 : balance,
     },
     {
       name: "USDC",
-      value: balance === balanceUSDC && balance === 0 ? 50 : balanceUSDC,
+      value: balance === balanceUSDC && balance === 0 ? 25 : balanceUSDC,
     },
   ];
 
