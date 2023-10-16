@@ -1,11 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   currentStep: 1,
 };
 
 export const defaultSlice = createSlice({
-  name: 'default',
+  name: "default",
   initialState,
   reducers: {
     next: (state) => {
@@ -14,7 +14,10 @@ export const defaultSlice = createSlice({
     previous: (state) => {
       state.currentStep -= 1;
     },
+    reset: (state) => {
+      state.currentStep = 1;
+    },
   },
 });
 
-export const { next, previous } = defaultSlice.actions;
+export const { next, previous, reset } = defaultSlice.actions;

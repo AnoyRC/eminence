@@ -8,7 +8,7 @@ const Experience = () => {
 
   const check = () => {
     const secretPair = localStorage.getItem("secretPair");
-    if (secretPair) router.push("/login");
+    if (secretPair) router.push("/welcome");
     else router.push("/onboard");
   };
 

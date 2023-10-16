@@ -40,18 +40,28 @@ export default function PaymentPopup() {
   const [currencyType, setCurrencyType] = useState("SOL");
   const { transfer, transferToken } = useTransfer();
 
-  const handlePayClick = () => {
+  const handlePayClick = async () => {
     if (user === null) return;
     if (!amount || amount === "" || Number(amount) === 0) {
       return Error("Please enter a valid amount");
     }
 
     if (currencyType === "SOL") {
-      transfer(amount, user.pubkey);
+      const res = await transfer(amount, user.pubkey);
+      if (res) {
+        setAmount("");
+        dispatch(togglePayPopup(false));
+        setUser(null);
+      }
     }
 
     if (currencyType === "USDC") {
-      transferToken(amount, user.pubkey);
+      const res = await transferToken(amount, user.pubkey);
+      if (res) {
+        setAmount("");
+        dispatch(togglePayPopup(false));
+        setUser(null);
+      }
     }
   };
 

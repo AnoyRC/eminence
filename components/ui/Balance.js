@@ -42,7 +42,9 @@ export default function Balance({
       {!editable && (
         <p className="font-bold text-black text-[48px]">
           {Math.trunc(amount)}
-          {amount % Math.trunc(amount) !== 0 && "."}
+          {amount % Math.trunc(amount) !== 0 &&
+            amount.toString().split(".")[1] &&
+            "."}
           <span className="text-[24px]">
             {amount % Math.trunc(amount) !== 0 &&
               amount.toString().split(".")[1] &&
@@ -67,7 +69,10 @@ export default function Balance({
           <h1>Balance</h1>
           <h1>
             {Math.trunc(balance)}
-            {balance !== 0 && balance % Math.trunc(balance) !== 1 && "."}
+            {balance !== 0 &&
+              balance % Math.trunc(balance) !== 1 &&
+              balance.toString().split(".")[1] &&
+              "."}
             <span className="text-[10px]">
               {balance % Math.trunc(balance) !== 0 &&
                 balance.toString().split(".")[1] &&

@@ -1,4 +1,5 @@
 "use client";
+import { reset } from "@/redux/defaultSlice";
 import { setMnemonics, setPubKey } from "@/redux/walletSlice";
 import { TrashIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/navigation";
@@ -15,6 +16,7 @@ export default function FlushWalletButton() {
         dispatch(setPubKey(""));
         localStorage.removeItem("token");
         localStorage.removeItem("secret");
+        dispatch(reset());
         router.push("/onboard");
       }}
     >
