@@ -38,8 +38,8 @@ export default function CurrencyRatio() {
     const cos = Math.cos(-RADIAN * midAngle);
     const sx = cx + (outerRadius + 10) * cos;
     const sy = cy + (outerRadius + 10) * sin;
-    const mx = cx + (outerRadius + 10) * cos;
-    const my = cy + (outerRadius + 10) * sin;
+    const mx = cx + (outerRadius + 30) * cos;
+    const my = cy + (outerRadius + 30) * sin;
     const ex = mx + (cos >= 0 ? 1 : -1) * 10;
     const ey = my;
     const textAnchor = cos >= 0 ? "start" : "end";
@@ -113,33 +113,26 @@ export default function CurrencyRatio() {
   };
 
   return (
-    <div
-      className="w-[310px] h-[230px] rounded-[8px] p-[1px]"
-      style={{
-        background: "linear-gradient(90deg, #4AFF93 0%, #26FFFF 100%)",
-      }}
-    >
-      <div className="bg-black h-full w-full rounded-[8px]">
-        <ResponsiveContainer width="100%" height="100%">
-          <PieChart width={100} height={100}>
-            <Pie
-              activeIndex={activeIndex}
-              activeShape={renderActiveShape}
-              data={data}
-              cx="50%"
-              cy="50%"
-              innerRadius={50}
-              outerRadius={60}
-              fill={activeIndex === 0 ? "#4AFF93" : "#26FFFF"}
-              dataKey="value"
-              onMouseEnter={(e, index) => {
-                setActiveIndex(index);
-              }}
-              className="text-white"
-            />
-          </PieChart>
-        </ResponsiveContainer>
-      </div>
+    <div className="w-[310px] h-[230px] ">
+      <ResponsiveContainer width="100%" height="100%">
+        <PieChart width={100} height={100}>
+          <Pie
+            activeIndex={activeIndex}
+            activeShape={renderActiveShape}
+            data={data}
+            cx="50%"
+            cy="50%"
+            innerRadius={50}
+            outerRadius={60}
+            fill={activeIndex === 0 ? "#4AFF93" : "#26FFFF"}
+            dataKey="value"
+            onMouseEnter={(e, index) => {
+              setActiveIndex(index);
+            }}
+            className="text-white"
+          />
+        </PieChart>
+      </ResponsiveContainer>
     </div>
   );
 }

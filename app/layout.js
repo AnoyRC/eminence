@@ -9,14 +9,14 @@ const myFont = localFont({ src: "../public/fonts/Satoshi-Variable.woff2" });
 export const metadata = {
   title: "Eminence Wallet",
   description: "Image Based Social Wallet for Solana",
+  icons: {
+    shortcut: [{ url: "/favicon.ico", sizes: "16x16", type: "image/ico" }],
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head>
-        <link rel="icon" href="/logo.ico" sizes="any" />
-      </head>
       <body className={myFont.className}>
         <ReduxProvider>
           {children}

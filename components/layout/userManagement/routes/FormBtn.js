@@ -11,6 +11,7 @@ import useToast from "@/hooks/useToast";
 import { useDispatch, useSelector } from "react-redux";
 import { setMnemonics } from "@/redux/walletSlice";
 import usePostServer from "@/hooks/usePostServer";
+import { togglePopup } from "@/redux/checkLoginSlice";
 
 const PublicProfileBtn = () => {
   const router = useRouter();
@@ -161,6 +162,8 @@ const WelcomeBtn = ({ password }) => {
 const CheckLoginBtn = ({ password }) => {
   const { retrieveFromLocalStorage } = useCreateWallet();
   const { Error } = useToast();
+  const router = useRouter();
+  const dispatch = useDispatch();
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -186,12 +189,15 @@ const CheckLoginBtn = ({ password }) => {
 
       <p className="text-primary-black text-sm font-medium text-center">
         Forgot Password?{" "}
-        <Link
+        <button
           className="underline underline-offset-4 font-bold transition-transform hover:scale-105"
-          href={"/forgotPassword"}
+          onClick={() => {
+            router.push("/forgotPassword");
+            dispatch(togglePopup(false));
+          }}
         >
           Generate New
-        </Link>
+        </button>
       </p>
     </>
   );
