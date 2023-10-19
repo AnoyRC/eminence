@@ -1,5 +1,10 @@
-import AddContactPopUp from '@/components/layout/myContacts/AddContactPopUp';
-import AsideContainer from '@/components/layout/myContacts/AsideContainer';
+import AddContactPopUp from "@/components/layout/myContacts/AddContactPopUp";
+import AsideContainer from "@/components/layout/myContacts/AsideContainer";
+
+export const metadata = {
+  title: "Eminence | Profile",
+  description: "Your Profile",
+};
 
 export default function ProfileLayout({ children }) {
   return (
@@ -9,7 +14,7 @@ export default function ProfileLayout({ children }) {
       <main
         className="flex justify-between w-full"
         style={{
-          height: 'calc(100% - 72px)',
+          height: "calc(100% - 72px)",
         }}
       >
         <div className="flex justify-center flex-grow relative overflow-auto">
