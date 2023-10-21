@@ -14,6 +14,8 @@ Eminence Wallet: Empower Your Financial Eminence is a cutting-edge, non-custodia
 
 Why wait? Embark on your crypto journey with Eminence Wallet, our groundbreaking software. Take the first step toward securing your digital assets and explore new opportunities in the world of cryptocurrency.
 
+<br>
+
 ## Table of Contents
 
 <ol>
@@ -26,6 +28,8 @@ Why wait? Embark on your crypto journey with Eminence Wallet, our groundbreaking
   <li><a href="#licence">Licence</a></li>
 </ol>
 
+<br>
+
 <h2 id='why-us'>🌟 Reasons why you should try it out</h2>
 
 - Full Control, Maximum Security: You own and control your private keys for maximum security.
@@ -36,19 +40,21 @@ Why wait? Embark on your crypto journey with Eminence Wallet, our groundbreaking
 - One-Stop Solana Shop: Buy Solana directly within the wallet, offering a seamless experience for all users.
 - Cutting-Edge Tech Stack: Built with advanced technologies to combine innovation and security.
 
+<br>
+
 <h2 id='key-features'>🌟 Key Features</h2>
 
-  <h3>Non Custodial Security:</h3>
+<h3>Non Custodial Security:</h3>
 
 - **Description:** Eminence Wallet prioritizes your security by allowing you to own and control your private keys. This approach ensures that your digital assets remain secure without relying on intermediaries.
 - **Benefit:** Your assets are fully protected, reducing the risk of unauthorized access or loss.
 
-  <h3>Social Integration:</h3>
+<h3>Social Integration:</h3>
 
 - **Description:** Beyond just facilitating transactions, Eminence Wallet offers a social dimension by allowing you to connect with friends and family in the crypto space. It turns transactions into engaging conversations.
 - **Benefit:** You can share and discuss crypto-related activities with your social circle, enhancing the overall experience.
 
-  <h3>Smart Contact Management:</h3>
+<h3>Smart Contact Management:</h3>
 
 - **Description:** Eminence Wallet simplifies the process of managing your crypto network. You can save contacts and send Solana with ease, making transactions quick, convenient, and hassle-free.
 - **Benefit:** Managing your crypto connections and making payments becomes effortless and efficient.
@@ -58,15 +64,17 @@ Why wait? Embark on your crypto journey with Eminence Wallet, our groundbreaking
 - **Description:** With Eminence Wallet, you can receive payments through a unique link. This feature simplifies the process for others to send you Solana securely, regardless of their location.
 - **Benefit:** Your friends, family, or clients can send you payments easily, enhancing your financial interactions.
 
-  <h3>One-Stop Solana Shop:</h3>
+<h3>One-Stop Solana Shop:</h3>
 
 - **Description:** Eminence Wallet offers the convenience of buying Solana directly within the wallet. Through a seamless integration with Moonpay, both beginners and experienced users can acquire Solana without leaving the platform.
 - **Benefit:** You have access to a straightforward and integrated process for purchasing Solana, streamlining your crypto experience.
 
-  <h3>Cutting-Edge Tech Stack:</h3>
+<h3>Cutting-Edge Tech Stack:</h3>
 
 - **Description:** Eminence Wallet is built on a robust tech stack, including Elusive SDK, Onranp SDK, Axios, Gsap, Next.js, React.js, Redux, Tailwind, Solana, Express, JWT, Mongoose, Node, MongoDB, and bs58.
 - **Benefit:** This advanced technology foundation ensures that the wallet is not only secure but also equipped with modern features and capabilities.
+
+<br>
 
 <h2 id='security'>🌟 Security</h2>
 
@@ -85,29 +93,24 @@ Why wait? Embark on your crypto journey with Eminence Wallet, our groundbreaking
 - **Description:** Eminence Wallet uses JSON Web Tokens (JWT) for an extra layer of security. Importantly, JWTs are not treated as bearer tokens but are securely stored in cookies.
 - **Benefit:** Storing JWTs in cookies enhances security by preventing unauthorized access and ensuring that user tokens are well-protected.
 
+<br>
+
 <h2 id='roadmap'>🌟 Roadmap</h2>
 
-### Website Revamp
-
+<h3>Website Revamp: </h3>
 Enhance website with a sleek and responsive design for a seamless user experience.
-
-### NFT Integration
-
+<h3>NFT Integration: </h3>
 Dive into the world of NFTs, enabling users to buy and sell digital assets with ease.
-
-### Community Building
-
+<h3>Community Building: </h3>
 Enhance community building and leverage data analysis for deeper insights to create a more engaging and personalized user experience.
-
-### Mobile Magic
-
+<h3>Mobile Magic: </h3>
 Optimize for mobile and cross-platform accessibility, making our services available anytime, anywhere.
-
-### Wallet Extension
-
+<h3>Wallet Extension: </h3>
 Expand our wallet capabilities with innovative extensions for added functionality.
 
 **For more details you can visit out [Pitch Deck](https://docsend.com/view/um7xny3wm63ktffa)**
+
+<br>
 
 <h2 id='getting-started'>🌟 Getting Started</h2>
 
@@ -137,6 +140,8 @@ To get started with Eminence Wallet locally, please follow the instructions belo
 
 **For More details, please refer to [Developer's Guide](DEVELOPER.md)**
 
+<br>
+
 <h2 id='contribute'>😇 Contributing to Eminence Wallet</h2>
 
 We love your help! We want to make contributing to this project as easy and transparent as possible. Feel free to Contribute.
@@ -161,6 +166,8 @@ We use GitHub issues to track public bugs. Report a bug by [opening a new issue]
 
 **For more details refer [Contribution Guide](CONTRIBUTING.md) & [Developer's Guide](DEVELOPER.md)**
 
+<br>
+
 <h2 id='code-of-conduct'>✍ Code of Conduct</h2>
 
 Before you begin coding and collaborating, please read our [Code of Conduct](CODE_OF_CONDUCT.md) thoroughly to understand the standards (that you are required to adhere to) for community engagement. As part of our open-source community, we hold ourselves and other contributors to a high standard of communication. As a participant and contributor to this project, you are agreeing to abide by our [Code of Conduct](CODE_OF_CONDUCT.md).
@@ -169,9 +176,13 @@ Before you begin coding and collaborating, please read our [Code of Conduct](COD
 
 We are more than happy to help you. If you are getting any errors or facing problems while working on this project, Email [Gautam](mailto:ashragautam25@gmail.com) or [Anoy](mailto:anoyroyc3545@gmail.com) and ask for help. We are open to discussing anything related to the project.
 
+<br>
+
 <h2 id='stale-prs'>📍 Stale Pull Requests</h2>
 
 After a pull request has been open for over 30 days with no activity or response from the author, it'll be automatically marked as stale. We might fork your changes and merge the changes ourselves. Since GitHub tracks contributions by commits, you will be credited.
+
+<br>
 
 <h2 id='licence'>© License</h2>
 
