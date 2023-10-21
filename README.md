@@ -3,10 +3,8 @@
 ![Made-With-React](https://img.shields.io/badge/MADE%20WITH-NEXT-000000.svg?colorA=222222&style=for-the-badge&logoWidth=14&logo=nextdotjs)
 ![Made-With-React](https://img.shields.io/badge/MADE%20WITH-REACT-00caef.svg?colorA=222222&style=for-the-badge&logoWidth=14&logo=react)
 ![Made-With-NodeJS](https://img.shields.io/badge/MADE%20WITH-NODE-339933.svg?colorA=222222&style=for-the-badge&logoWidth=14&logo=Node.js)
-![Made-With-Tesseract](https://img.shields.io/badge/MADE%20WITH-TESSERACT-4285F4.svg?colorA=222222&style=for-the-badge&logoWidth=14&logo=Google)
 ![Made-With-Mongo](https://img.shields.io/badge/MADE%20WITH-MONGO-47A248.svg?colorA=222222&style=for-the-badge&logoWidth=14&logo=MongoDB)
 ![Made-With-Express](https://img.shields.io/badge/MADE%20WITH-EXPRESS-000000.svg?colorA=222222&style=for-the-badge&logoWidth=14&logo=Express)
-![Made-With-Nodemon](https://img.shields.io/badge/MADE%20WITH-NODEMON-76D04B.svg?colorA=222222&style=for-the-badge&logoWidth=14&logo=Nodemon)
 ![Made-With-Tailwind](https://img.shields.io/badge/MADE%20WITH-TAILWIND-06B6D4.svg?colorA=222222&style=for-the-badge&logoWidth=14&logo=tailwindcss)
 ![Made-With-Redux](https://img.shields.io/badge/MADE%20WITH-REDUX-764ABC.svg?colorA=222222&style=for-the-badge&logoWidth=14&logo=Redux)
 
@@ -86,6 +84,30 @@ Why wait? Embark on your crypto journey with Eminence Wallet, our groundbreaking
 
 - **Description:** Eminence Wallet uses JSON Web Tokens (JWT) for an extra layer of security. Importantly, JWTs are not treated as bearer tokens but are securely stored in cookies.
 - **Benefit:** Storing JWTs in cookies enhances security by preventing unauthorized access and ensuring that user tokens are well-protected.
+
+<h2 id='roadmap'>🌟 Roadmap</h2>
+
+### Website Revamp
+
+Enhance website with a sleek and responsive design for a seamless user experience.
+
+### NFT Integration
+
+Dive into the world of NFTs, enabling users to buy and sell digital assets with ease.
+
+### Community Building
+
+Enhance community building and leverage data analysis for deeper insights to create a more engaging and personalized user experience.
+
+### Mobile Magic
+
+Optimize for mobile and cross-platform accessibility, making our services available anytime, anywhere.
+
+### Wallet Extension
+
+Expand our wallet capabilities with innovative extensions for added functionality.
+
+**For more details you can visit out [Pitch Deck](https://docsend.com/view/um7xny3wm63ktffa)**
 
 <h2 id='getting-started'>🌟 Getting Started</h2>
 
