@@ -37,6 +37,7 @@ const MyWallet = () => {
               ((weekStat[6].ticker - weekStat[0].ticker) / weekStat[0].ticker) *
                 100
             ) +
+            "." +
             (
               ((weekStat[6].ticker - weekStat[0].ticker) / weekStat[0].ticker) *
               100
@@ -44,7 +45,8 @@ const MyWallet = () => {
               .toString()
               .split(".")[1]
               .substring(0, 2)
-          : Math.trunc(
+          : "-" +
+            Math.trunc(
               ((weekStat[6].ticker - weekStat[0].ticker) / weekStat[0].ticker) *
                 100
             ) +

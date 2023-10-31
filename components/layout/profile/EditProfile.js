@@ -6,7 +6,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import localFont from "next/font/local";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AvatarList from "../userManagement/routes/eminent/AvatarList";
 import { EminentInput } from "../userManagement/routes/FormInput";
 import EminentAvatar from "../userManagement/routes/eminent/EminentAvatar";
@@ -14,18 +14,20 @@ import { Button } from "@material-tailwind/react";
 import Input from "@/components/ui/Input";
 import useToast from "@/hooks/useToast";
 import usePostServer from "@/hooks/usePostServer";
+import { useSelector } from "react-redux";
 
 const myFont = localFont({
   src: "../../../public/fonts/Satoshi-Variable.woff2",
 });
 
 export default function EditProfile() {
-  const [avatar, setAvatar] = useState("abcdef");
+  const [avatar, setAvatar] = useState("");
   const [client, setClient] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const { Error } = useToast();
   const { updateUser } = usePostServer();
+  const user = useSelector((state) => state.profile.user);
 
   const handleAvatarClick = (selectedAvatar) => {
     setAvatar(selectedAvatar);
@@ -39,14 +41,23 @@ export default function EditProfile() {
 
     const res = await updateUser(firstName, lastName, avatar);
     if (res) {
-      setFirstName("");
-      setLastName("");
+      setFirstName(firstName);
+      setLastName(lastName);
+      setAvatar(avatar);
     }
   };
 
-  useState(() => {
+  useEffect(() => {
     setClient(true);
   }, []);
+
+  useEffect(() => {
+    if (!user) return;
+    setFirstName(user.firstName);
+    setLastName(user.lastName);
+    setAvatar(user.avatarId);
+  }, [user]);
+
   return (
     <div
       className="w-full rounded-[8px] p-[0.5px]"

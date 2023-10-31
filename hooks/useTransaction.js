@@ -15,7 +15,7 @@ export default function useTransaction() {
   const { addTransaction } = usePostServer();
   const dispatch = useDispatch();
 
-  const getAllTransactions = async (limit = 20) => {
+  const getAllTransactions = async (limit = 10) => {
     const connection = new Connection(cluster);
 
     const seed = bip39.mnemonicToSeedSync(mnemonics);
@@ -57,7 +57,8 @@ export default function useTransaction() {
       txId: signature,
       date: transaction.blockTime * 1000,
       amount:
-        transaction.meta.postTokenBalances.length > 0
+        transaction.meta.postTokenBalances.length > 0 &&
+        transaction.meta.preTokenBalances.length > 0
           ? transaction.meta.preTokenBalances[0].uiTokenAmount.uiAmount -
             transaction.meta.postTokenBalances[0].uiTokenAmount.uiAmount
           : (transaction.meta.preBalances[0] -
