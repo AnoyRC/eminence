@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useRouter } from 'next/navigation';
-import Image from 'next/image';
+import { useRouter } from "next/navigation";
+import Image from "next/image";
 import {
   DocumentDuplicateIcon,
   ChevronRightIcon,
-} from '@heroicons/react/24/solid';
-import useToast from '@/hooks/useToast';
+} from "@heroicons/react/24/solid";
+import useToast from "@/hooks/useToast";
 
 export default function VoucherTab({ voucherId, amount }) {
   const { Success } = useToast();
@@ -23,7 +23,7 @@ export default function VoucherTab({ voucherId, amount }) {
       `http://localhost:3000/vouchers/${voucherId}`
     );
 
-    Success('Copied to clipboard');
+    Success("Copied to clipboard");
   };
 
   return (
@@ -36,7 +36,7 @@ export default function VoucherTab({ voucherId, amount }) {
           <div
             className="flex justify-center items-center p-2 rounded-full w-[39px]"
             style={{
-              background: 'linear-gradient(90deg, #4AFF93 0%, #26FFFF 100%)',
+              background: "linear-gradient(90deg, #4AFF93 0%, #26FFFF 100%)",
             }}
           >
             <Image
@@ -56,9 +56,9 @@ export default function VoucherTab({ voucherId, amount }) {
         </div>
 
         <div className="flex gap items-center">
-          <button onClick={handleCopy}>
+          <div onClick={handleCopy}>
             <DocumentDuplicateIcon className="w-5 h-5 text-primary-white opacity-60 mr-2" />
-          </button>
+          </div>
 
           <ChevronRightIcon className="w-3 h-3 text-primary-white/60" />
         </div>
