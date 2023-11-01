@@ -54,9 +54,7 @@ export default function IntialChecks({ children }) {
 
   useEffect(() => {
     if (user) {
-      const ably = new Realtime(
-        "aXms3A.mzjzIg:b5yLcYtgXksvF97EV9RbTFfC9JdL5C-hpOFxCW6g2HI"
-      );
+      const ably = new Realtime(`${process.env.NEXT_PUBLIC_ABLY_AUTH}`);
 
       const channel1m = ably.channels.get("1m", {
         params: { rewind: "1m" },
