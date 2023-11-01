@@ -16,13 +16,14 @@ import {
 import useLiveGraph from "@/hooks/useLiveGraph";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import { setValue } from "@/redux/graphSlice";
 
 const myFont = localFont({
   src: "../../../../public/fonts/Satoshi-Variable.woff2",
 });
 
 const Graph = () => {
-  const [value, setValue] = useState("1m");
+  const value = useSelector((state) => state.graph.value);
   const history = useSelector((state) => state.graph.history);
   const dispatch = useDispatch();
 
