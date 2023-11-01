@@ -8,7 +8,7 @@ import useTransaction from "@/hooks/useTransaction";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { configureAbly } from "@ably-labs/react-hooks";
+import { Realtime, configureAbly } from "@ably-labs/react-hooks";
 import { setHistory } from "@/redux/graphSlice";
 
 export default function IntialChecks({ children }) {
@@ -54,9 +54,9 @@ export default function IntialChecks({ children }) {
 
   useEffect(() => {
     if (user) {
-      const ably = configureAbly({
-        authUrl: `${process.env.NEXT_PUBLIC_NEXT_URL}/api/ably/auth?id=${user._id}`,
-      });
+      const ably = new Realtime(
+        "aXms3A.mzjzIg:b5yLcYtgXksvF97EV9RbTFfC9JdL5C-hpOFxCW6g2HI"
+      );
 
       const channel1m = ably.channels.get("1m", {
         params: { rewind: "1m" },
@@ -109,11 +109,7 @@ export default function IntialChecks({ children }) {
   }, [user]);
 
   useEffect(() => {
-    if (user) {
-      if (channel) {
-        channel.unsubscribe();
-      }
-
+    if (user && channels) {
       setChannel(channels.get(value));
 
       channels.get(value).history(function (err, data) {
