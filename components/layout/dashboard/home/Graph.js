@@ -15,19 +15,17 @@ import {
 } from "recharts";
 import useLiveGraph from "@/hooks/useLiveGraph";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { setValue } from "@/redux/graphSlice";
 
 const myFont = localFont({
   src: "../../../../public/fonts/Satoshi-Variable.woff2",
 });
 
 const Graph = () => {
-  const [value, setValue] = useState("1m");
+  const value = useSelector((state) => state.graph.value);
   const history = useSelector((state) => state.graph.history);
-  const { FetchHistory } = useLiveGraph();
-
-  useEffect(() => {
-    FetchHistory(value);
-  }, [value]);
+  const dispatch = useDispatch();
 
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
@@ -183,7 +181,7 @@ const Graph = () => {
                 className: "min-w-[50px]",
               }}
               onChange={(e) => {
-                setValue(e);
+                dispatch(setValue(e));
               }}
               value={value}
             >
